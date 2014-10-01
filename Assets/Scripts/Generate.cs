@@ -16,6 +16,10 @@ public class Generate : MonoBehaviour {
 	}
 
 	void CreateCoin(){
-		Instantiate (peso, new Vector3(2,0,0), Quaternion.identity);
+		Instantiate (peso, new Vector2(-1,-3), Quaternion.identity);
+		Instantiate (peso, new Vector2(1,-4), Quaternion.identity);
+		Instantiate (peso, new Vector2(3,-3), Quaternion.identity);
+		Instantiate (peso, new Vector2(5,-4), Quaternion.identity);
+		Instantiate (peso, new Vector2(5,1), Quaternion.identity);
 	}
 }

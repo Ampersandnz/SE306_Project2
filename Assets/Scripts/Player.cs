@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	// public Vector2 upForce = new Vector2 (0,400); For some reason this doesn't work.
-	public Vector2 leftForce = new Vector2(-200,0);
-	public Vector2 rightForce = new Vector2(200,0);
+	 public Vector2 upForce = new Vector2 (0,500); //For some reason this doesn't work.
+	public Vector2 leftForce = new Vector2(-500,0);
+	public Vector2 rightForce = new Vector2(500,0);
 	int collisions = 0;
 	bool isGrounded = true;
 
@@ -35,11 +35,11 @@ public class Player : MonoBehaviour {
 		}
 
 		// Move vertically
-		if (Input.GetKeyDown("up") && rigidbody2D.velocity.y==0)
+		if (Input.GetKeyDown("up") && isGrounded == true)
 		{
-			//rigidbody2D.velocity = Vector2.zero;
-			//rigidbody2D.AddForce(upForce);
-			rigidbody2D.AddForce (new Vector2(0,400));
+			rigidbody2D.velocity = Vector2.zero;
+			rigidbody2D.AddForce(upForce);
+			//rigidbody2D.AddForce (new Vector2(0,400));
 			isGrounded = false;
 		}
 	}
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour {
 	// Collide with anything.
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.transform.gameObject.tag == "coin") {
+		if (other.transform.gameObject.name == "peso" || other.transform.gameObject.name == "peso(Clone)") {
 			collisions++;
 		}
 
