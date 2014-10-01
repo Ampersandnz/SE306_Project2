@@ -10,8 +10,7 @@ public class Player : MonoBehaviour {
 	bool isGrounded = true;
 
 	// Display number of collisions.
-	void OnGUI () 
-	{
+	void OnGUI () {
 		GUI.color = Color.black;
 		GUILayout.Label(" COINS: " + coins.ToString());
 	}
@@ -26,8 +25,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKey("right"))
-		{
+		if (Input.GetKey("right")) {
 			if (isGrounded) {
 				rigidbody2D.velocity = Vector2.zero;
 				rigidbody2D.AddForce(rightForce);
@@ -35,18 +33,14 @@ public class Player : MonoBehaviour {
 		}
 
 		// Move vertically
-		if (Input.GetKeyDown("up") && rigidbody2D.velocity.y==0)
-		{
-			//rigidbody2D.velocity = Vector2.zero;
+		if (Input.GetKeyDown("up") && rigidbody2D.velocity.y==0) {
 			rigidbody2D.AddForce(upForce);
-			//rigidbody2D.AddForce (new Vector2(0,400));
 			isGrounded = false;
 		}
 	}
 
 	// Collide with anything.
-	void OnCollisionEnter2D(Collision2D other)
-	{
+	void OnCollisionEnter2D(Collision2D other) {
 		if (other.transform.gameObject.tag == "Coin") {
 			coins++;
 		}

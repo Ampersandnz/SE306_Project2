@@ -14,8 +14,7 @@ public class Coin : MonoBehaviour {
 	}
 
 	// Collide with Swiper
-	void OnCollisionEnter2D(Collision2D other)
-	{
+	void OnCollisionEnter2D(Collision2D other) {
 		if (other.transform.gameObject.name == "Swiper") {
 			Destroy (gameObject);
 		}
