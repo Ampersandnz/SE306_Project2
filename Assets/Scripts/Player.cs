@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	public Vector2 leftForce = new Vector2(-200,0);
 	public Vector2 rightForce = new Vector2(200,0);
 	int collisions = 0;
+	bool isGrounded = true;
 
 	// Display number of collisions.
 	void OnGUI () 
@@ -18,16 +19,19 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Move horizontally
-		if (Input.GetKey("left"))
-		{
-			rigidbody2D.velocity = Vector2.zero;
-			rigidbody2D.AddForce(leftForce);
+		if (Input.GetKey ("left")) {
+			if (isGrounded) {
+						rigidbody2D.velocity = Vector2.zero;
+						rigidbody2D.AddForce (leftForce);
+				}
 		}
 
 		if (Input.GetKey("right"))
 		{
-			rigidbody2D.velocity = Vector2.zero;
-			rigidbody2D.AddForce(rightForce);
+			if (isGrounded) {
+				rigidbody2D.velocity = Vector2.zero;
+				rigidbody2D.AddForce(rightForce);
+			}
 		}
 
 		// Move vertically
@@ -36,14 +40,19 @@ public class Player : MonoBehaviour {
 			//rigidbody2D.velocity = Vector2.zero;
 			//rigidbody2D.AddForce(upForce);
 			rigidbody2D.AddForce (new Vector2(0,400));
+			isGrounded = false;
 		}
 	}
 
 	// Collide with anything.
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.transform.gameObject.name == "peso" || other.transform.gameObject.name=="peso(Clone)") {
-						collisions++;
+		if (other.transform.gameObject.tag == "coin") {
+			collisions++;
+		}
+
+		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
+			isGrounded = true;
 		}
 	}
 }
