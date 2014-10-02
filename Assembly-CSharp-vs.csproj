@@ -47,9 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Coin.cs" />
+     <Compile Include="Assets\Scripts\EndlessMode.cs" />
      <Compile Include="Assets\Scripts\GUIStory.cs" />
      <Compile Include="Assets\Scripts\GenerateCoinsStoryLevel1.cs" />
+     <Compile Include="Assets\Scripts\Highscores.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Options.cs" />
      <Compile Include="Assets\Scripts\PlayerStory.cs" />
      <Compile Include="Assets\Scripts\StoryLevelSelect.cs" />
   </ItemGroup>
