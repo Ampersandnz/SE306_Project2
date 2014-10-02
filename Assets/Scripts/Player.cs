@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
 				rigidbody2D.AddForce (leftForce);
 			}
 		}
-		if (Input.GetKeyUp("left"){
+		if (Input.GetKeyUp("left")){
 			rigidbody2D.velocity = Vector2.zero;
 		}
 
@@ -35,6 +35,9 @@ public class Player : MonoBehaviour {
 				rigidbody2D.velocity = Vector2.zero;
 				rigidbody2D.AddForce(rightForce);
 			}
+		}
+		if (Input.GetKeyUp("right")){
+			rigidbody2D.velocity = Vector2.zero;
 		}
 
 		// Move vertically
