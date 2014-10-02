@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class PlayerStory : MonoBehaviour {
 
 	// Vectors for movement.
 	public Vector2 upForce = new Vector2 (0,500); 
 	public Vector2 leftForce = new Vector2(-500,0);
 	public Vector2 rightForce = new Vector2(500,0);
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
-
+	
 	int coins = 0; // Integer to store number of coins collected.
+	int health = 3; // Integer to store remaining health.
 	bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 
 	// Display number of collisions.
 	void OnGUI () {
 		GUI.color = Color.black;
-		GUILayout.Label(" COINS: " + coins.ToString());
+		GUILayout.Label("Coins: " + coins.ToString());
+		GUILayout.Label("Health: " + health.ToString());
 	}
 	
 	// Update is called once per frame
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour {
 	// Detects collision with anything.
 	void OnCollisionEnter2D(Collision2D other) {
 		// If collision is with object "peso" or one of its clones, increase the count.
-		if (other.transform.gameObject.name == "peso" || other.transform.gameObject.name == "peso(Clone)") {
+		if (other.transform.gameObject.tag == "Coin") {
 			coins++;
 			rigidbody2D.velocity = previousVelocity;
 		}
