@@ -4,21 +4,14 @@ using System.Collections;
 public class PlayerStory : MonoBehaviour {
 
 	// Vectors for movement.
-	public Vector2 upForce = new Vector2 (0,500); 
-	public Vector2 leftForce = new Vector2(-500,0);
-	public Vector2 rightForce = new Vector2(500,0);
+	public Vector2 jumpForce = new Vector2(0, 0); 
+	public Vector2 leftForce = new Vector2(0, 0);
+	public Vector2 rightForce = new Vector2(0, 0);
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
-	int coins = 0; // Integer to store number of coins collected.
-	int health = 3; // Integer to store remaining health.
-	bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
-
-	// Display number of collisions.
-	void OnGUI () {
-		GUI.color = Color.black;
-		GUILayout.Label("Coins: " + coins.ToString());
-		GUILayout.Label("Health: " + health.ToString());
-	}
+	public int coins = 0; // Integer to store number of coins collected.
+	public int health = 3; // Integer to store remaining health.
+	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,7 +40,7 @@ public class PlayerStory : MonoBehaviour {
 
 		// When up arrow key is pressed AND the character is grounded, apply force going up.
 		if (Input.GetKeyDown("up") && isGrounded == true) {
-			rigidbody2D.AddForce(upForce);
+			rigidbody2D.AddForce(jumpForce);
 			isGrounded = false;
 		}
 
