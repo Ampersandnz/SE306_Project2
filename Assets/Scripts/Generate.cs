@@ -14,7 +14,7 @@ public class Generate : MonoBehaviour {
 	void Update () {
 	
 	}
-
+	
 	void CreateCoin(){
 		Instantiate (peso, new Vector2(-1,-3), Quaternion.identity);
 		Instantiate (peso, new Vector2(1,-4), Quaternion.identity);

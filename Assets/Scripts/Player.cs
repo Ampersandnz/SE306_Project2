@@ -25,6 +25,9 @@ public class Player : MonoBehaviour {
 				rigidbody2D.AddForce (leftForce);
 			}
 		}
+		if (Input.GetKeyUp("left"){
+			rigidbody2D.velocity = Vector2.zero;
+		}
 
 		if (Input.GetKey("right"))
 		{
@@ -39,7 +42,6 @@ public class Player : MonoBehaviour {
 		{
 			rigidbody2D.velocity = Vector2.zero;
 			rigidbody2D.AddForce(upForce);
-			//rigidbody2D.AddForce (new Vector2(0,400));
 			isGrounded = false;
 		}
 	}
