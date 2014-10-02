@@ -14,7 +14,8 @@ public class Generate : MonoBehaviour {
 	void Update () {
 	
 	}
-	
+
+	// Method to create clones of peso in custom locations. The Vector2 objects are absolute x and y.
 	void CreateCoin(){
 		Instantiate (peso, new Vector2(-1,-3), Quaternion.identity);
 		Instantiate (peso, new Vector2(1,-4), Quaternion.identity);
