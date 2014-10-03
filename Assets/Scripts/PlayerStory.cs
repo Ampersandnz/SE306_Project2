@@ -44,6 +44,9 @@ public class PlayerStory : MonoBehaviour {
 			isGrounded = false;
 		}
 
+		// Read accelerometer input in the x direction
+		transform.Translate (Input.acceleration.x, 0, 0);
+
 		previousVelocity = rigidbody2D.velocity;
 	}
 
