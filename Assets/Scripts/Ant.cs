@@ -3,44 +3,36 @@ using System.Collections;
 
 public class Ant : MonoBehaviour {
 
-	public float leftBoundary;
-	public float rightBoundary;
-
-	public float speed = 1;
-	private bool move = true;
-
-	private float pos;
+	private float left = 0.1f;
+	private float right = 3.9f;
+	private float range = 4.0f;
 
 	// Use this for initialization
 	void Start () {
-		pos = Random.Range (-4, 4);
+	//	pos = Random.Range (-4, 4);
+		//origX = transform.position.x;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		new Vector3(Mathf.PingPong (Time.time, 4), Vector3.up, transform.position.z));
-		pos -= Time.deltaTime;
-		transform.LookAt (Vector3.Slerp (Vector3.left, Vector3.right, Mathf.PingPong (pos, 10.0f)));
-//			
+
+
+
+
+		
+		if (transform.position.x > right) {
+			transform.localScale = new Vector3 (0.35f, 0.35f, 1);
+		} else if (transform.position.x < left) {
+			transform.localScale = new Vector3 (-0.35f, 0.35f, 1);
+
+		}
+
+		transform.position = new Vector3(Mathf.PingPong (Time.time, range), transform.position.y, transform.position.z);
+
 	}
 
 	void FixedUpdate(){
-//		transform.Translate (transform.right * speed * Time.deltaTime);
-//		rigidbody.transform.Translate (transform.forward * speed * Time.deltaTime);
 
-		Vector3 pos = new Vector3 (-4f, 0f, 0f);
-
-//		transform.position = pos;
-
-//		transform.Translate (pos * Time.deltaTime);
-
-
-
-
-//		rigidbody.AddForce (pos * Time.deltaTime);
-
-
-//		transform.Translate (Vector3.zero);
 
 	}
 
