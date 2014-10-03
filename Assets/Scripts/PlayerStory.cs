@@ -55,6 +55,10 @@ public class PlayerStory : MonoBehaviour {
 			rigidbody2D.velocity = previousVelocity;
 		}
 
+		if (other.transform.gameObject.tag == "Enemy") {
+			return;
+		}
+
 		// If collision is with the ground or platform, mark player as "grounded".
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
 			isGrounded = true;
