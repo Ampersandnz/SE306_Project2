@@ -10,7 +10,8 @@ public class PlayerStory : MonoBehaviour {
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
 	public int coins = 0; // Integer to store number of coins collected.
-	public int health = 3; // Integer to store remaining health.
+	public int health = 5; // Integer to store remaining health.
+	public int max_health = 5;
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 	
 	// Update is called once per frame
@@ -49,12 +50,20 @@ public class PlayerStory : MonoBehaviour {
 
 	// Detects collision with anything.
 	void OnCollisionEnter2D(Collision2D other) {
-		// If collision is with object "peso" or one of its clones, increase the count.
+		// If collision is with a coin object, increase the relevant count.
 		if (other.transform.gameObject.tag == "Coin") {
 			coins++;
 			rigidbody2D.velocity = previousVelocity;
 		}
 
+		// If collision is with a life object, increase the relevant count.
+		if (other.transform.gameObject.tag == "Life") {
+			if(health<max_health){
+				health++;
+			}
+			rigidbody2D.velocity = previousVelocity;
+		}
+		
 		// If collision is with the ground or platform, mark player as "grounded".
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
 			isGrounded = true;
