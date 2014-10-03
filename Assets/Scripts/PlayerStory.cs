@@ -39,12 +39,14 @@ public class PlayerStory : MonoBehaviour {
 		}
 
 		// When up arrow key is pressed AND the character is grounded, apply force going up.
-		if (Input.GetKeyDown("up") && isGrounded == true) {
+		if (Input.GetMouseButtonDown(0) && isGrounded == true) {
 			rigidbody2D.AddForce(jumpForce);
 			isGrounded = false;
 		}
 
-		// Read accelerometer input in the x direction
+		
+
+		//Read accelerometer input in the x direction
 		transform.Translate (Input.acceleration.x, 0, 0);
 
 		previousVelocity = rigidbody2D.velocity;
