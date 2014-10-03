@@ -44,10 +44,23 @@ public class PlayerStory : MonoBehaviour {
 			isGrounded = false;
 		}
 
-		
+		var x_accel = Input.acceleration.x;
+		x_accel = (float)0.4 * x_accel;
+
+		// Upper limits
+		if (x_accel > (float)0.15) {
+			x_accel = (float)0.15;
+		} else if (x_accel < (float)-0.15) {
+			x_accel = (float)-0.15;
+		}
+
+		// Lower limits
+		if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
+			x_accel = 0;
+		}
 
 		//Read accelerometer input in the x direction
-		transform.Translate (Input.acceleration.x, 0, 0);
+		transform.Translate (x_accel, 0, 0);
 
 		previousVelocity = rigidbody2D.velocity;
 	}
