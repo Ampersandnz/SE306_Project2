@@ -4,15 +4,20 @@ using System.Collections;
 public class PlayerStory : MonoBehaviour {
 
 	// Vectors for movement.
-	public Vector2 jumpForce = new Vector2(0, 0); 
-	public Vector2 leftForce = new Vector2(0, 0);
-	public Vector2 rightForce = new Vector2(0, 0);
+	public Vector2 jumpForce; 
+	public Vector2 leftForce;
+	public Vector2 rightForce;
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
-	public int coins = 0; // Integer to store number of coins collected.
-	public int health = 3; // Integer to store remaining health.
-	public int max_health = 5;
+	public int coins; // Integer to store number of coins collected.
+	public int health; // Integer to store remaining health.
+	public int max_health;
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
+
+	private Life[] lives;
+
+	void Start() {
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,8 +63,17 @@ public class PlayerStory : MonoBehaviour {
 
 		// If collision is with a life object, increase the relevant count.
 		if (other.transform.gameObject.tag == "Life") {
-			if(health<max_health){
+			if(health < max_health) {
 				health++;
+				Destroy(other.gameObject);
+				if(health == max_health) {
+					// Get reference to list of all Life objects.
+					Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+					// Make all Life objects transparent.
+					foreach (Life life in lives) {
+						life.MakeTransparent();
+					}
+				}
 			}
 			rigidbody2D.velocity = previousVelocity;
 		}

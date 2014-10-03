@@ -4,24 +4,22 @@ using System.Collections;
 public class Life : MonoBehaviour {
 
 	private PlayerStory player;
+	private SpriteRenderer spriteRenderer;
+	public Sprite transparent;
+	public Sprite opaque;
 
-	void Start(){	
-		player = (PlayerStory)FindObjectOfType (typeof(PlayerStory));
+	void Start() {
+		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
-
-	// If the player is at maximum health, make the health pack disappear.
-	void Update(){
-		if(player.health>=player.max_health){
-			Destroy (gameObject);
-		}
+	
+	public void MakeTransparent() {
+		spriteRenderer.sprite = transparent;
+		collider2D.enabled = false;
 	}
-
-	// Detect all collisions
-	void OnCollisionEnter2D(Collision2D other) {
-		if (other.transform.gameObject.name == "Swiper") {
-			if( player.health < player.max_health){
-				Destroy (gameObject); // If collision is with Swiper, destroy the life immediately.
-			}
-		}
+	
+	public void MakeOpaque() {
+		spriteRenderer.sprite = opaque;
+		collider2D.enabled = true;
 	}
 }

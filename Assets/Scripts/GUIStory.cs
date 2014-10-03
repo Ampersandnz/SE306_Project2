@@ -13,7 +13,7 @@ public class GUIStory : MonoBehaviour {
 	private PlayerStory player;
 
 	void Start() {
-		player = (PlayerStory)FindObjectOfType(typeof(PlayerStory));
+		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
 	}
 
 	void OnGUI () {
