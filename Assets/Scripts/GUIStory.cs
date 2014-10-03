@@ -23,7 +23,7 @@ public class GUIStory : MonoBehaviour {
 			coins = "0" + coins;
 		}
 
-		coins = "X " + coins;
+		coins = "× " + coins;
 
 		for (int i = 0; i < player.health; i++) {
 			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), heartTexture);
