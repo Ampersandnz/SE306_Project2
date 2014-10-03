@@ -10,7 +10,7 @@ public class PlayerStory : MonoBehaviour {
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
 	public int coins = 0; // Integer to store number of coins collected.
-	public int health = 5; // Integer to store remaining health.
+	public int health = 3; // Integer to store remaining health.
 	public int max_health = 5;
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 	
