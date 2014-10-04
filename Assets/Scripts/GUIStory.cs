@@ -14,6 +14,10 @@ public class GUIStory : MonoBehaviour {
 
 	void Start() {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
+
+		SoundPlayer soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
+		soundPlayer.PlayStoryMusic ();
+		DontDestroyOnLoad (soundPlayer);
 	}
 
 	void OnGUI () {
