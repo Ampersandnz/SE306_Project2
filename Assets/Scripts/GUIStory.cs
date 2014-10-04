@@ -50,7 +50,7 @@ public class GUIStory : MonoBehaviour {
 
 		if (player.playerDead == true) {
 			GUI.Label (new Rect(Screen.width/2 - graphicWidth/2, Screen.height/2 - graphicHeight/2, graphicWidth, graphicHeight), wastedTexture);
-			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+graphicHeight/2+20,200,80), "Restart", textStyle)) {
+			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/2+graphicHeight/2+20,200,80), "Restart")) {
 				Application.LoadLevel("StoryLevel1");
 			}
 		}

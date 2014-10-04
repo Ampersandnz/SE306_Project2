@@ -2,15 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
-	
+
 	private SoundPlayer soundPlayer;
 
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
-		soundPlayer.PlayMenuMusic ();
+		//soundPlayer.PlayMenuMusic ();
 		DontDestroyOnLoad (soundPlayer);
 	}
-	
+
 	void OnGUI () {
 		GUI.Box(new Rect(10,10,120,120), "Menu");
 
