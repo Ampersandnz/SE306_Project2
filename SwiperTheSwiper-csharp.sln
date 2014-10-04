@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{F8C679E7-EB83-CADC-F691-3673A9BB47FD}") = "SwiperTheSwiper", "Assembly-CSharp-vs.csproj", "{C7F3EAAF-6121-997C-2FF9-A35E44CE9BDD}"
 EndProject
+Project("{F8C679E7-EB83-CADC-F691-3673A9BB47FD}") = "SwiperTheSwiper", "Assembly-CSharp-Editor-vs.csproj", "{2FC1633F-4925-D836-37DD-F026ABDB8D1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,15 @@ Global
 		{C7F3EAAF-6121-997C-2FF9-A35E44CE9BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7F3EAAF-6121-997C-2FF9-A35E44CE9BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7F3EAAF-6121-997C-2FF9-A35E44CE9BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC1633F-4925-D836-37DD-F026ABDB8D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC1633F-4925-D836-37DD-F026ABDB8D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC1633F-4925-D836-37DD-F026ABDB8D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC1633F-4925-D836-37DD-F026ABDB8D1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																				GlobalSection(MonoDevelopProperties) = preSolution
+																						GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

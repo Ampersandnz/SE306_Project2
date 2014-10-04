@@ -17,10 +17,12 @@ public class GUIStory : MonoBehaviour {
 	private int graphicWidth = 736;
 	private int graphicHeight = 172;
 
+	SoundPlayer soundPlayer;
+
 	void Start() {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
 
-		SoundPlayer soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
+		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		soundPlayer.PlayStoryMusic ();
 		DontDestroyOnLoad (soundPlayer);
 	}
@@ -46,12 +48,18 @@ public class GUIStory : MonoBehaviour {
 		}
 		
 		GUI.Label (new Rect (Screen.width - (10 + iconWidth + textWidth), 10, iconWidth, iconHeight), coinTexture);
-		GUI.Label (new Rect (Screen.width - (10 + textWidth), 10, iconWidth, iconHeight), coins, textStyle);
+		GUI.Label (new Rect (Screen.width - (10 + textWidth), 20, iconWidth, iconHeight), coins, textStyle);
 
 		if (player.playerDead == true) {
 			GUI.Label (new Rect(Screen.width/2 - graphicWidth/2, Screen.height/2 - graphicHeight/2, graphicWidth, graphicHeight), wastedTexture);
-			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/2+graphicHeight/2+20,200,80), "Restart")) {
+
+			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/2+graphicHeight/2+20,60,20), "Restart")) {
 				Application.LoadLevel("StoryLevel1");
+			}
+
+			if(GUI.Button(new Rect(Screen.width/2+50,Screen.height/2+graphicHeight/2+20,60,20), "Quit")) {
+				soundPlayer.PlayMenuMusic ();
+				Application.LoadLevel("MainMenu");
 			}
 		}
 	}
