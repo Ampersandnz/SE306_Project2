@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Options.cs" />
      <Compile Include="Assets\Scripts\PlayerStory.cs" />
+     <Compile Include="Assets\Scripts\Spiders.cs" />
      <Compile Include="Assets\Scripts\StoryLevelSelect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

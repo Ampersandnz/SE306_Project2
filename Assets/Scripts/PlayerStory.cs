@@ -15,6 +15,7 @@ public class PlayerStory : MonoBehaviour {
 
 	public GameObject Swiper;
 	public GameObject BlackAnt;
+	public GameObject Spiders;
 
 	// Update is called once per frame
 	void Update () {
@@ -71,6 +72,16 @@ public class PlayerStory : MonoBehaviour {
 
 		}
 
+		if (other.transform.gameObject.tag == "Spider") {
+
+			var SwiperY = Swiper.transform.position.y - 0.6f;
+			var SpiderY = Spiders.transform.position.y + 0.36f;
+
+			if(SwiperY < SpiderY){
+				Application.LoadLevel(Application.loadedLevel);
+			}
+
+		}
 
 		// If collision is with the ground or platform, mark player as "grounded".
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
