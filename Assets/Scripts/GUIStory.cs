@@ -38,11 +38,11 @@ public class GUIStory : MonoBehaviour {
 		int i = 0;
 
 		while(i<player.health){
-			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), opaqueHeartTexture);
+			GUI.Label (new Rect (10 + (i * (iconWidth + 10)), 10, iconWidth, iconHeight), opaqueHeartTexture);
 			i++;
 		}
 		while (i<player.max_health) {
-			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), transparentHeartTexture);
+			GUI.Label (new Rect (10 + (i * (iconWidth + 10)), 10, iconWidth, iconHeight), transparentHeartTexture);
 			i++;
 		}
 
