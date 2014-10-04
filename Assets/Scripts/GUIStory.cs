@@ -8,9 +8,14 @@ public class GUIStory : MonoBehaviour {
 	private int textWidth = 150;
 
 	public GUIStyle textStyle;
-	public Texture2D heartTexture;
+	public Texture2D opaqueHeartTexture;
+	public Texture2D transparentHeartTexture;
 	public Texture2D coinTexture;
 	private PlayerStory player;
+
+	public Texture2D wastedTexture;
+	private int graphicWidth = 736;
+	private int graphicHeight = 172;
 
 	void Start() {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
@@ -29,11 +34,25 @@ public class GUIStory : MonoBehaviour {
 
 		coins = "× " + coins;
 
-		for (int i = 0; i < player.health; i++) {
-			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), heartTexture);
+		int i = 0;
+
+		while(i<player.health){
+			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), opaqueHeartTexture);
+			i++;
+		}
+		while (i<player.max_health) {
+			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), transparentHeartTexture);
+			i++;
 		}
 		
 		GUI.Label (new Rect (Screen.width - (10 + iconWidth + textWidth), 10, iconWidth, iconHeight), coinTexture);
 		GUI.Label (new Rect (Screen.width - (10 + textWidth), 10, iconWidth, iconHeight), coins, textStyle);
+
+		if (player.playerDead == true) {
+			GUI.Label (new Rect(Screen.width/2 - graphicWidth/2, Screen.height/2 - graphicHeight/2, graphicWidth, graphicHeight), wastedTexture);
+			if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/2+graphicHeight/2+20,200,80), "Restart", textStyle)) {
+				Application.LoadLevel("StoryLevel1");
+			}
+		}
 	}
 }
