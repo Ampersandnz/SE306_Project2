@@ -58,6 +58,7 @@ public class PlayerStory : MonoBehaviour {
 		// If collision is with a coin object, increase the relevant count.
 		if (other.transform.gameObject.tag == "Coin") {
 			coins++;
+			Destroy (other.gameObject);
 			rigidbody2D.velocity = previousVelocity;
 		}
 
@@ -74,6 +75,24 @@ public class PlayerStory : MonoBehaviour {
 						life.MakeTransparent();
 					}
 				}
+			}
+			rigidbody2D.velocity = previousVelocity;
+		}
+
+		// If collision is with an enemy object, decrease the relevant count.
+		// Don't forget to change this for bouncing behaviour.
+		if (other.transform.gameObject.tag == "Enemy") {
+			health--;
+
+			if(health < max_health) {
+				// Get reference to list of all Life objects.
+				Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+				// Make all Life objects transparent.
+				foreach (Life life in lives) {
+					life.MakeOpaque();
+				}
+			}else if (health==0){
+				// die.
 			}
 			rigidbody2D.velocity = previousVelocity;
 		}
