@@ -6,10 +6,11 @@ public class Ant : MonoBehaviour {
 	private float left = 0.1f;
 	private float right = 3.9f;
 	private float range = 4.0f;
-	
+
 	//private SpriteRenderer spriteRenderer;
 	//private Transform upCheck;
-	
+
+	public GameObject Swiper;
 	Animator anim;
 	//public bool dead;
 	//public bool hitUp;
@@ -51,9 +52,21 @@ public class Ant : MonoBehaviour {
 			
 			//anim.Play ("AntDead");
 			//spriteRenderer.sprite = deadAnt;
-			anim.SetBool("dead", true);
+			//var SwiperY = Swiper.transform.position.y;
+			//var AntY = transform.position.y;
 
-			Destroy (gameObject, 0.5f);
+			var SwiperY = Swiper.transform.position.y - 0.6f;
+			var AntY = transform.position.y + 0.36f;
+
+			if(SwiperY >= AntY){
+
+				anim.SetBool("dead", true);
+
+				Destroy (gameObject, 0.5f);
+			}
+
+			//print("Swiper" + SwiperY);
+			//print("Ant" + AntY);
 
 			//Ray ray =  new Ray(transform.position, Vector3.up);
 			//bool hitUp = Physics.Raycast(ray);
