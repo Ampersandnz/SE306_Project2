@@ -1,13 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerStory.cs">
     <Files>
-      <File FileName="Assets\Scripts\SoundPlayer.cs" Line="42" Column="12" />
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="24" Column="4" />
-      <File FileName="Assets\Scripts\PlayerStory.cs" Line="119" Column="3" />
-      <File FileName="Assets\Scripts\StartGame.cs" Line="13" Column="32" />
-      <File FileName="Assets\Scripts\Life.cs" Line="13" Column="51" />
-      <File FileName="Assets\Scripts\GUIStory.cs" Line="39" Column="13" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="10" Column="28" />
+      <File FileName="Assets\Scripts\PlayerStory.cs" Line="17" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

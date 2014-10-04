@@ -18,6 +18,10 @@ public class GUIStory : MonoBehaviour {
 	private int graphicHeight = 172;
 
 	SoundPlayer soundPlayer;
+	public GUIStyle textStyleButton;
+	public GUISkin skin;
+	public string musicSymbol;
+	public string pauseSymbol;
 
 	void Start() {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
@@ -28,13 +32,8 @@ public class GUIStory : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		string coins = player.coins.ToString ();
-
-		if (coins.Length == 1) {
-			coins = "0" + coins;
-		}
-
-		coins = "× " + coins;
+		
+		// Health display
 
 		int i = 0;
 
@@ -46,20 +45,35 @@ public class GUIStory : MonoBehaviour {
 			GUI.Label (new Rect (10 + (i * (iconWidth + 15)), 10, iconWidth, iconHeight), transparentHeartTexture);
 			i++;
 		}
+
+		// Coin display
+		string coins = player.coins.ToString ();
 		
-		GUI.Label (new Rect (Screen.width - (10 + iconWidth + textWidth), 10, iconWidth, iconHeight), coinTexture);
+		if (coins.Length == 1) {
+			coins = "0" + coins;
+		}
+		
+		coins = "×" + coins;
+		GUI.Label (new Rect (Screen.width - (iconWidth + textWidth), 10, iconWidth, iconHeight), coinTexture);
 		GUI.Label (new Rect (Screen.width - (10 + textWidth), 20, iconWidth, iconHeight), coins, textStyle);
 
+		// Pause function
+		if(GUI.Button (new Rect(Screen.width/5*3, 0, 90, 90), pauseSymbol, textStyleButton)){
+		}
+
+		// Death screen
 		if (player.playerDead == true) {
 			GUI.Label (new Rect(Screen.width/2 - graphicWidth/2, Screen.height/2 - graphicHeight/2, graphicWidth, graphicHeight), wastedTexture);
 
-			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/2+graphicHeight/2+20,60,20), "Restart")) {
+			if(GUI.Button(new Rect(Screen.width/2-310,Screen.height/2+graphicHeight/2+20,300,90), "Restart", textStyleButton)) {
 				Application.LoadLevel("StoryLevel1");
+				soundPlayer.PlaySoundEffect ("menu");
 			}
 
-			if(GUI.Button(new Rect(Screen.width/2+50,Screen.height/2+graphicHeight/2+20,60,20), "Quit")) {
+			if(GUI.Button(new Rect(Screen.width/2+10,Screen.height/2+graphicHeight/2+20,300,90), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				Application.LoadLevel("MainMenu");
+				soundPlayer.PlaySoundEffect ("menu");
 			}
 		}
 	}

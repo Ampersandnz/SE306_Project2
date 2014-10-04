@@ -30,8 +30,7 @@ public class MainMenu : MonoBehaviour {
 		}
 
 		if(GUI.Button(new Rect(Screen.width/2-150, 450 , 300,90), "Credits", textStyle)) {
-			// Go to credits page.\
-			//Application.LoadLevel("EndlessRunnerMode");
+			Application.LoadLevel("Credits");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
