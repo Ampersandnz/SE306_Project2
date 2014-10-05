@@ -12,9 +12,15 @@ public class PlayerStory : MonoBehaviour {
 	public int coins = 0; // Integer to store number of coins collected.
 	public int health = 3; // Integer to store remaining health.
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
-	
+
+	Animator anim;
+
+	void Start(){
+		anim = GetComponent<Animator> ();
+	}
+
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		// When left arrow key is held down, apply force going left.
 		if (Input.GetKey ("left")) {
 			if (isGrounded) {
@@ -39,10 +45,30 @@ public class PlayerStory : MonoBehaviour {
 		}
 
 		// When up arrow key is pressed AND the character is grounded, apply force going up.
-		if (Input.GetKeyDown("up") && isGrounded == true) {
+		if (Input.GetMouseButtonDown(0) && isGrounded == true) {
 			rigidbody2D.AddForce(jumpForce);
 			isGrounded = false;
 		}
+
+		var x_accel = (float)Input.acceleration.x;
+		x_accel = (float)0.4 * x_accel;
+
+		// Upper limits
+		if (x_accel > (float)0.15) {
+			x_accel = (float)0.15;
+		} else if (x_accel < (float)-0.15) {
+			x_accel = (float)-0.15;
+		}
+
+		// Lower limits
+		if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
+			x_accel = 0;
+		}
+
+		anim.SetFloat ("Speed", Mathf.Abs (x_accel));
+
+		//Read accelerometer input in the x direction
+		transform.Translate (x_accel, 0, 0);
 
 		previousVelocity = rigidbody2D.velocity;
 	}
