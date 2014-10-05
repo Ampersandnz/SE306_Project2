@@ -12,7 +12,11 @@ public class PlayerStory : MonoBehaviour {
 	public int coins = 0; // Integer to store number of coins collected.
 	public int health = 3; // Integer to store remaining health.
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
-	
+
+	public GameObject Swiper;
+	public GameObject BlackAnt;
+	public GameObject Spiders;
+
 	// Update is called once per frame
 	void Update () {
 		// When left arrow key is held down, apply force going left.
@@ -53,6 +57,30 @@ public class PlayerStory : MonoBehaviour {
 		if (other.transform.gameObject.tag == "Coin") {
 			coins++;
 			rigidbody2D.velocity = previousVelocity;
+		}
+
+		if (other.transform.gameObject.tag == "Ant") {
+
+			var SwiperY = Swiper.transform.position.y - 0.6f;
+			var AntY = BlackAnt.transform.position.y + 0.36f;
+
+			//print("Swiper<<<" + SwiperY);
+			//print("Ant<<<" + AntY);
+			if(SwiperY < AntY){
+				Application.LoadLevel(Application.loadedLevel);
+			}
+
+		}
+
+		if (other.transform.gameObject.tag == "Spider") {
+
+			var SwiperY = Swiper.transform.position.y - 0.6f;
+			var SpiderY = Spiders.transform.position.y + 0.36f;
+
+			if(SwiperY < SpiderY){
+				Application.LoadLevel(Application.loadedLevel);
+			}
+
 		}
 
 		// If collision is with the ground or platform, mark player as "grounded".
