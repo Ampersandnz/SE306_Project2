@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Ant.cs" />
+     <Compile Include="Assets\Scripts\Boots.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\EndlessMode.cs" />
      <Compile Include="Assets\Scripts\GUIStory.cs" />
@@ -55,6 +56,7 @@
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Options.cs" />
      <Compile Include="Assets\Scripts\PlayerStory.cs" />
+     <Compile Include="Assets\Scripts\Spiders.cs" />
      <Compile Include="Assets\Scripts\StoryLevelSelect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
