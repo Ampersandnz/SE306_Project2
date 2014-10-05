@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Class to display the credits.
 public class Credits : MonoBehaviour {
 	private SoundPlayer soundPlayer;
 	public GUIStyle textStyleTitle;
@@ -11,7 +12,8 @@ public class Credits : MonoBehaviour {
 
 	private string credits;
 	private Vector2 scrollPosition;
-	
+
+	// Loading sound player and initialising credits text.
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
@@ -22,29 +24,35 @@ public class Credits : MonoBehaviour {
 		credits += "\n\nCC BY-3";
 		scrollPosition = Vector2.zero;
 	}
-	
+
+	// Displaying everything.
 	void OnGUI () {
 		GUI.skin = skin;
-		
+
+		// Title
 		GUI.Label (new Rect (Screen.width / 2 - 150, 50, 300, 90), "Credits", textStyleTitle);
 
+		// Scrollable credits area
 		GUILayout.BeginArea (new Rect(Screen.width/2-255, 130, 500, 300));
 			scrollPosition = GUILayout.BeginScrollView (scrollPosition, GUILayout.MaxWidth (500), GUILayout.ExpandWidth (false));
 			GUILayout.Label (credits, textStyleBody, GUILayout.ExpandWidth (true));
 			GUILayout.EndScrollView ();
 		GUILayout.EndArea ();
-		
+
+		// Back button
 		if(GUI.Button(new Rect(Screen.width/2-150, 430 , 300,90), "Back", textStyleButton)) {
 			Application.LoadLevel("MainMenu");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
-		
+
+		// Music toggle
 		if(GUI.Button(new Rect(Screen.width-250,20,100,90), musicSymbol, textStyleButton)) {
 			// Toggle mute/unmute of music
 			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleMusic();
+			soundPlayer.ToggleMusic("menu");
 		}
-		
+
+		// Sound toggle
 		if(GUI.Button(new Rect(Screen.width-140,20,110,90), "sfx", textStyleButton)) {
 			// Toggle mute/unmute of game sounds
 			soundPlayer.PlaySoundEffect ("menu");

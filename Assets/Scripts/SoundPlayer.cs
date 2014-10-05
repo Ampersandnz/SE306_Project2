@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Class to load and play sound. NEVER destroy this across scenes!
 public class SoundPlayer : MonoBehaviour {
 	// Booleans to toggle music and sound.
 	public bool music;
@@ -38,7 +39,7 @@ public class SoundPlayer : MonoBehaviour {
 	GameObject wasted;
 	AudioSource wastedSound;
 
-	// Use this for initialization
+	// Loading everything.
 	void Awake () {
 		music = true;
 		sound = true;
@@ -48,19 +49,25 @@ public class SoundPlayer : MonoBehaviour {
 	}
 
 
-	// Toggle the music on or off.
-	public void ToggleMusic (){
+	// Function to toggle music. INPUTS:
+	// 	- sceneType: string. Represents the type of scene the player is currently in. Values include "menu" or "story".
+	public void ToggleMusic (string sceneType){
 		if (music == true) {
 			music = false;
 			storyMusicSound.Stop ();
 			menuMusicSound.Stop ();
 		} else {
 			music = true;
-			PlayMenuMusic ();
+
+			if(sceneType=="menu"){
+				PlayMenuMusic ();
+			}else if(sceneType=="story"){
+				PlayStoryMusic ();
+			}
 		}
 	}
 
-	// Toggle the sound effects on or off.
+	// Function to toggle the sound effects on or off.
 	public void ToggleSound (){
 		if (sound == true) {
 			sound = false;
@@ -134,7 +141,16 @@ public class SoundPlayer : MonoBehaviour {
 		}
 	}
 
-	// Play a sound effect if sound is enabled.
+	// Play a sound effect if sound is enabled. INPUTS:
+	//	- sound_clip: string. The sound to play. Can choose from:
+	//		"applause"
+	//		"bounce"
+	//		"cash register"
+	//		"health"
+	//		"hit"
+	//		"menu"
+	//		"oh man"
+	//		"wasted"
 	public void PlaySoundEffect(string sound_clip){
 		if (sound == true) {
 			if (sound_clip == "applause") {
