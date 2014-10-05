@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Class for the player object
 public class PlayerStory : MonoBehaviour {
 
 	// Vectors for movement.
@@ -23,10 +24,13 @@ public class PlayerStory : MonoBehaviour {
 	private SoundPlayer soundPlayer;
 	
 	public bool playerDead;
-	
+	private PauseMenu pauseMenu;
 
+	// Initialise sound player and pause menu.
 	void Start(){
 		anim = GetComponent<Animator> ();
+		pauseMenu = FindObjectOfType(typeof(PauseMenu)) as PauseMenu;
+
 		playerDead = false;
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
@@ -88,10 +92,58 @@ public class PlayerStory : MonoBehaviour {
 		transform.Translate (x_accel, 0, 0);
 
 		previousVelocity = rigidbody2D.velocity;
+
+		// If the game is not paused, then:
+		if (pauseMenu.isPaused == false) {
+						// If Swiper is below the screen, kill him.
+						Vector2 screenPosition = Camera.main.WorldToScreenPoint (transform.position);
+						if (screenPosition.y < 0) {
+								health = 0;
+								Die ();
+						}
+
+						// If Swiper's health is zero, run the death routine.
+						if (health < 1) {
+								Die ();
+						}
+
+						// When left arrow key is held down, apply force going left.
+						if (Input.GetKey ("left")) {
+								if (isGrounded) {
+										rigidbody2D.velocity = Vector2.zero;
+										rigidbody2D.AddForce (leftForce);
+								}
+						}
+
+						// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
+						if (Input.GetKeyUp ("left") || Input.GetKeyUp ("right")) {
+								if (isGrounded) {
+										rigidbody2D.velocity = Vector2.zero;
+								}
+						}
+
+						// When right arrow key is held down, apply force going right.
+						if (Input.GetKey ("right")) {
+								if (isGrounded) {
+										rigidbody2D.velocity = Vector2.zero;
+										rigidbody2D.AddForce (rightForce);
+								}
+						}
+
+						// When up arrow key is pressed AND the character is grounded, apply force going up.
+						if (Input.GetKeyDown ("up") && isGrounded == true) {
+								soundPlayer.PlaySoundEffect ("bounce");
+								rigidbody2D.AddForce (jumpForce);
+								isGrounded = false;
+						}
+
+						previousVelocity = rigidbody2D.velocity;
+				}
 	}
 
 	// Detects collision with anything.
 	void OnCollisionEnter2D(Collision2D other) {
+
 		// If collision is with a coin object, increase the relevant count.
 		if (other.transform.gameObject.tag == "Coin") {
 			coins++;
@@ -156,10 +208,6 @@ public class PlayerStory : MonoBehaviour {
 					life.MakeOpaque();
 				}
 			}
-
-			if (health==0){
-				Die ();
-			}
 			rigidbody2D.velocity = previousVelocity;
 		}
 
@@ -169,10 +217,13 @@ public class PlayerStory : MonoBehaviour {
 		}
 	}
 
+	// Function to kill swiper. Plays death sounds and animation.
 	void Die(){
-		collider2D.enabled = false;
-		rigidbody2D.AddForce(deathForce);
-		soundPlayer.Death ();
-		playerDead = true;
+		if (playerDead == false) {
+			collider2D.enabled = false;
+			rigidbody2D.AddForce (deathForce);
+			soundPlayer.Death ();
+			playerDead = true;
+		}
 	}
 }

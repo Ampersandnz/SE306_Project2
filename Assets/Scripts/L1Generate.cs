@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Class to generate items for level 1
 public class L1Generate : MonoBehaviour {
 
 	public GameObject coin;
@@ -17,14 +18,13 @@ public class L1Generate : MonoBehaviour {
 	};
 
 	public int random_location;
-
-	// Use this for initialization
+	
 	void Start() {
 		random_location = (int)(Random.value*positions.Length); // Select one random position to change into a life pack.
 		CreateCollectibles ();
 	}
 
-	// Method to create clones of collectibles in custom locations.
+	// Method to create clones of collectibles in all of our chosen locations.
 	void CreateCollectibles() {
 		for (int i=0; i<positions.Length; i++) {
 			if(random_location.CompareTo (i)==0){
