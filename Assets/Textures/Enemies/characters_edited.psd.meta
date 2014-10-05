@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3cdc05a081d79bb4b8c322c2166bdfd6
+guid: b6fbd7953dc2af442a85ea062075ec09
 TextureImporter:
   fileIDToRecycleName:
     21300000: characters_edited_0
@@ -117,8 +117,8 @@ TextureImporter:
         y: 1572
         width: 486
         height: 775
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
