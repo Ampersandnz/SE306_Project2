@@ -185,7 +185,8 @@ public class PlayerStory : MonoBehaviour {
 
 		if (other.transform.gameObject.tag == "endFlag") {
 			levelFinished = true;
-				}
+			soundPlayer.PlaySoundEffect("applause");
+		}
 	}
 
 	// Function to kill swiper. Plays death sounds and animation.
