@@ -26,7 +26,7 @@ public class RedFlash : MonoBehaviour {
 			red.color = color;
 			yield return new WaitForSeconds(((flash_time / 5) / 1000 ) / 2);
 		}
-
+		
 		red.enabled = false;
 	}
 }
