@@ -117,9 +117,9 @@ public class PlayerStory : MonoBehaviour {
 						transform.Translate (x_accel, 0, 0);
 
 						// Flip sprite horizontally depending on acceleration.
-						if(x_accel<0){
+						if(x_accel < 0) {
 							transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
-						}else if(x_accel>0){
+						} else if(x_accel > 0) {
 							transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
 						}
 
@@ -162,9 +162,11 @@ public class PlayerStory : MonoBehaviour {
 			if(transform.position.y-0.6f >= other.transform.position.y+0.36){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
-			}else{ // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
+			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
 				soundPlayer.PlaySoundEffect ("hit");
 				health--;
+				RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+				StartCoroutine(flash.FlashOnHit());
 
 				if(health < max_health) {
 					// Get reference to list of all Life objects.
