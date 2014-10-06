@@ -27,14 +27,14 @@ public class PlayerStory : MonoBehaviour {
 	private float xDimension = 0.5166001f;
 	private float yDimension = 0.5165996f;
 
-	// Un-comment animator when we have a better running animation.
-	//Animator anim;
+	// Animator when for Hero running animation.
+	Animator anim;
 
 	// Initialise sound player and pause menu.
 	void Start(){
 
-		// Un-comment animator when we have a better running animation.
-		//anim = GetComponent<Animator> ();
+		// Animator when we have for Hero running animation.
+		anim = GetComponent<Animator> ();
 
 		pauseMenu = FindObjectOfType(typeof(PauseMenu)) as PauseMenu;
 
@@ -111,7 +111,7 @@ public class PlayerStory : MonoBehaviour {
 						}
 						
 						// Un-comment animator when we have a better running animation.
-						//anim.SetFloat ("Speed", Mathf.Abs (x_accel));
+						anim.SetFloat ("Speed", Mathf.Abs (x_accel));
 						
 						//Read accelerometer input in the x direction
 						transform.Translate (x_accel, 0, 0);
