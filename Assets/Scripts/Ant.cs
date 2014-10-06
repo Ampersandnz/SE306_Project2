@@ -52,7 +52,7 @@ public class Ant : MonoBehaviour {
 
 		// If collision is with Swiper, check if it is dead.
 		if (other.transform.gameObject.name == "Swiper") {
-			if (player.transform.position.y - 0.6f >= transform.position.y + 0.15) {
+			if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
 				alive = false;
 				soundPlayer.PlaySoundEffect("crunch");
 			}
