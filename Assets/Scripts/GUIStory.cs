@@ -17,8 +17,9 @@ public class GUIStory : MonoBehaviour {
 	public Texture2D transparentHeartTexture;
 	public Texture2D coinTexture;
 
-	// Initialising the "wasted" texture.
-	public Texture2D wastedTexture;
+	// Initialising the death and end-of-level textures.
+	public Texture2D deathTexture;
+	public Texture2D levelFinishedTexture;
 	private int graphicWidth = 736;
 	private int graphicHeight = 172;
 
@@ -69,6 +70,7 @@ public class GUIStory : MonoBehaviour {
 		// Pause function
 		if(GUI.Button (new Rect(Screen.width/5*3, 0, 50, 90), pauseSymbol, textStyleButton)){
 			if(player.playerDead==false){
+				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = true;
 			}
 		}
@@ -76,19 +78,37 @@ public class GUIStory : MonoBehaviour {
 		// Death screen
 		if (player.playerDead == true) {
 
-			// Displaying the "wasted" texture.
-			GUI.Label (new Rect(Screen.width/2 - graphicWidth/2, Screen.height/2 - graphicHeight/2, graphicWidth, graphicHeight), wastedTexture);
+			// Displaying the "game over" texture.
+			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
 
 			// Button to restart the level.
-			if(GUI.Button(new Rect(Screen.width/2-310,Screen.height/2+graphicHeight/2+20,300,90), "Restart", textStyleButton)) {
-				Application.LoadLevel("StoryLevel1");
+			if (GUI.Button (new Rect (Screen.width / 2 - 310, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Restart", textStyleButton)) {
+				Application.LoadLevel ("StoryLevel1");
 				soundPlayer.PlaySoundEffect ("menu");
 			}
 
 			// Button to quit back to menu.
-			if(GUI.Button(new Rect(Screen.width/2+10,Screen.height/2+graphicHeight/2+20,300,90), "Quit", textStyleButton)) {
+			if (GUI.Button (new Rect (Screen.width / 2 + 10, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
-				Application.LoadLevel("MainMenu");
+				Application.LoadLevel ("Start");
+				soundPlayer.PlaySoundEffect ("menu");
+			}
+		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
+			Time.timeScale = 0.0f; // Stop time
+
+			// Displaying the "level finished" texture.
+			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), levelFinishedTexture);
+			
+			// Button to restart the level.
+			if (GUI.Button (new Rect (Screen.width / 2 - 310, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Restart", textStyleButton)) {
+				Application.LoadLevel ("StoryLevel1");
+				soundPlayer.PlaySoundEffect ("menu");
+			}
+			
+			// Button to quit back to menu.
+			if (GUI.Button (new Rect (Screen.width / 2 + 10, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Quit", textStyleButton)) {
+				soundPlayer.PlayMenuMusic ();
+				Application.LoadLevel ("Start");
 				soundPlayer.PlaySoundEffect ("menu");
 			}
 		}

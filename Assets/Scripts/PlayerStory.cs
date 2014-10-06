@@ -16,82 +16,36 @@ public class PlayerStory : MonoBehaviour {
 	public int max_health;
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 
-	Animator anim;
-	public GameObject Swiper;
-	public GameObject BlackAnt;
-	public GameObject Spiders;
 	private Life[] lives;
 	private SoundPlayer soundPlayer;
-	
+
 	public bool playerDead;
+	public bool levelFinished;
 	private PauseMenu pauseMenu;
+
+	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
+	private float xDimension = 0.5166001f;
+	private float yDimension = 0.5165996f;
+
+	// Un-comment animator when we have a better running animation.
+	//Animator anim;
 
 	// Initialise sound player and pause menu.
 	void Start(){
-		anim = GetComponent<Animator> ();
+
+		// Un-comment animator when we have a better running animation.
+		//anim = GetComponent<Animator> ();
+
 		pauseMenu = FindObjectOfType(typeof(PauseMenu)) as PauseMenu;
 
 		playerDead = false;
+		levelFinished = false;
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
-		// When left arrow key is held down, apply force going left.
-		if (Input.GetKey ("left")) {
-			if (isGrounded) {
-				rigidbody2D.velocity = Vector2.zero;
-				rigidbody2D.AddForce (leftForce);
-			}
-		}
-
-		// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
-		if (Input.GetKeyUp("left") || Input.GetKeyUp("right")) {
-			if (isGrounded) {
-				rigidbody2D.velocity = Vector2.zero;
-			}
-		}
-
-		// When right arrow key is held down, apply force going right.
-		if (Input.GetKey("right")) {
-			if (isGrounded) {
-				rigidbody2D.velocity = Vector2.zero;
-				rigidbody2D.AddForce(rightForce);
-			}
-		}
-
-		// When up arrow key is pressed AND the character is grounded, apply force going up.
-
-		if (Input.GetMouseButtonDown(0) && isGrounded == true) {
-			soundPlayer.PlaySoundEffect ("bounce");
-
-			rigidbody2D.AddForce(jumpForce);
-			isGrounded = false;
-		}
-
-		var x_accel = (float)Input.acceleration.x;
-		x_accel = (float)0.4 * x_accel;
-
-		// Upper limits
-		if (x_accel > (float)0.15) {
-			x_accel = (float)0.15;
-		} else if (x_accel < (float)-0.15) {
-			x_accel = (float)-0.15;
-		}
-
-		// Lower limits
-		if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
-			x_accel = 0;
-		}
-
-		anim.SetFloat ("Speed", Mathf.Abs (x_accel));
-
-		//Read accelerometer input in the x direction
-		transform.Translate (x_accel, 0, 0);
-
-		previousVelocity = rigidbody2D.velocity;
 
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
@@ -110,9 +64,10 @@ public class PlayerStory : MonoBehaviour {
 						// When left arrow key is held down, apply force going left.
 						if (Input.GetKey ("left")) {
 								if (isGrounded) {
-										rigidbody2D.velocity = Vector2.zero;
-										rigidbody2D.AddForce (leftForce);
-								}
+								rigidbody2D.velocity = Vector2.zero;
+								rigidbody2D.AddForce (leftForce);
+								transform.localScale = new Vector2(-xDimension , yDimension); // Flip sprite horizontally
+							}
 						}
 
 						// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
@@ -124,17 +79,48 @@ public class PlayerStory : MonoBehaviour {
 
 						// When right arrow key is held down, apply force going right.
 						if (Input.GetKey ("right")) {
-								if (isGrounded) {
-										rigidbody2D.velocity = Vector2.zero;
-										rigidbody2D.AddForce (rightForce);
-								}
+							if (isGrounded) {
+								rigidbody2D.velocity = Vector2.zero;
+								rigidbody2D.AddForce (rightForce);
+								transform.localScale = new Vector2(xDimension , yDimension); // Flip sprite horizontally
+							}
 						}
 
 						// When up arrow key is pressed AND the character is grounded, apply force going up.
-						if (Input.GetKeyDown ("up") && isGrounded == true) {
+						if (Input.GetMouseButtonDown(0) && isGrounded == true) {
 								soundPlayer.PlaySoundEffect ("bounce");
 								rigidbody2D.AddForce (jumpForce);
 								isGrounded = false;
+						}
+
+						previousVelocity = rigidbody2D.velocity;
+
+						var x_accel = (float)Input.acceleration.x;
+						x_accel = (float)0.4 * x_accel;
+						
+						// Upper limits
+						if (x_accel > (float)0.15) {
+							x_accel = (float)0.15;
+						} else if (x_accel < (float)-0.15) {
+							x_accel = (float)-0.15;
+						}
+						
+						// Lower limits
+						if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
+							x_accel = 0;
+						}
+						
+						// Un-comment animator when we have a better running animation.
+						//anim.SetFloat ("Speed", Mathf.Abs (x_accel));
+						
+						//Read accelerometer input in the x direction
+						transform.Translate (x_accel, 0, 0);
+
+						// Flip sprite horizontally depending on acceleration.
+						if(x_accel<0){
+							transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
+						}else if(x_accel>0){
+							transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
 						}
 
 						previousVelocity = rigidbody2D.velocity;
@@ -169,52 +155,37 @@ public class PlayerStory : MonoBehaviour {
 			}
 			rigidbody2D.velocity = previousVelocity;
 		}
-		
-		if (other.transform.gameObject.tag == "Ant") {
 
-			var SwiperY = Swiper.transform.position.y - 0.6f;
-			var AntY = BlackAnt.transform.position.y + 0.36f;
-
-			//print("Swiper<<<" + SwiperY);
-			//print("Ant<<<" + AntY);
-			if(SwiperY < AntY){
-				Application.LoadLevel(Application.loadedLevel);
-			}
-
-		}
-
-		if (other.transform.gameObject.tag == "Spider") {
-
-			var SwiperY = Swiper.transform.position.y - 0.6f;
-			var SpiderY = Spiders.transform.position.y + 0.36f;
-
-			if(SwiperY < SpiderY){
-				Application.LoadLevel(Application.loadedLevel);
-			}
-
-		}
-
-		// If collision is with an enemy object, decrease the relevant count.
-		// Don't forget to change this for bouncing behaviour.
+		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
-			soundPlayer.PlaySoundEffect ("hit");
-			health--;
 
-			if(health < max_health) {
-				// Get reference to list of all Life objects.
-				Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-				// Make all Life objects transparent.
-				foreach (Life life in lives) {
-					life.MakeOpaque();
+			if(transform.position.y-0.6f >= other.transform.position.y+0.36){ // If the player has bounced on the top of the enemy, then:
+				// Do nothing? Play a sound?
+
+			}else{ // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
+				soundPlayer.PlaySoundEffect ("hit");
+				health--;
+
+				if(health < max_health) {
+					// Get reference to list of all Life objects.
+					Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+					// Make all Life objects transparent.
+					foreach (Life life in lives) {
+						life.MakeOpaque();
+					}
 				}
 			}
 			rigidbody2D.velocity = previousVelocity;
 		}
-
+		
 		// If collision is with the ground or platform, mark player as "grounded".
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
 			isGrounded = true;
 		}
+
+		if (other.transform.gameObject.tag == "endFlag") {
+			levelFinished = true;
+				}
 	}
 
 	// Function to kill swiper. Plays death sounds and animation.

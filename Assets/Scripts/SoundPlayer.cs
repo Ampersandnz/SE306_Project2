@@ -23,6 +23,9 @@ public class SoundPlayer : MonoBehaviour {
 	
 	GameObject cashRegister;
 	AudioSource cashRegisterSound;
+
+	GameObject crunch;
+	AudioSource crunchSound;
 	
 	GameObject health;
 	AudioSource healthSound;
@@ -35,9 +38,6 @@ public class SoundPlayer : MonoBehaviour {
 	
 	GameObject ohMan;
 	AudioSource ohManSound;
-	
-	GameObject wasted;
-	AudioSource wastedSound;
 
 	// Loading everything.
 	void Awake () {
@@ -103,6 +103,10 @@ public class SoundPlayer : MonoBehaviour {
 		cashRegisterSound = cashRegister.GetComponent<AudioSource> ();
 		DontDestroyOnLoad (cashRegister);
 		
+		crunch = GameObject.Find ("Crunch sound");
+		crunchSound = crunch.GetComponent<AudioSource> ();
+		DontDestroyOnLoad (crunch);
+
 		health = GameObject.Find ("Health sound");
 		healthSound = health.GetComponent<AudioSource> ();
 		DontDestroyOnLoad (health);
@@ -118,10 +122,6 @@ public class SoundPlayer : MonoBehaviour {
 		ohMan = GameObject.Find ("Oh man sound");
 		ohManSound = ohMan.GetComponent<AudioSource> ();
 		DontDestroyOnLoad (ohMan);
-		
-		wasted = GameObject.Find ("Wasted sound");
-		wastedSound = wasted.GetComponent<AudioSource> ();
-		DontDestroyOnLoad (wasted);
 	}
 
 
@@ -146,6 +146,7 @@ public class SoundPlayer : MonoBehaviour {
 	//		"applause"
 	//		"bounce"
 	//		"cash register"
+	//		"crunch"
 	//		"health"
 	//		"hit"
 	//		"menu"
@@ -159,6 +160,8 @@ public class SoundPlayer : MonoBehaviour {
 				bounceSound.Play ();
 			}else if(sound_clip=="cash register"){
 				cashRegisterSound.Play ();
+			}else if(sound_clip=="crunch"){
+				crunchSound.Play ();
 			}else if(sound_clip=="health"){
 				healthSound.Play ();
 			}else if(sound_clip=="hit"){
@@ -167,8 +170,6 @@ public class SoundPlayer : MonoBehaviour {
 				menuSelectSound.Play ();
 			}else if (sound_clip=="oh man"){
 				ohManSound.Play ();
-			}else if(sound_clip=="wasted"){
-				wastedSound.Play ();
 			}
 		}
 	}
@@ -176,7 +177,6 @@ public class SoundPlayer : MonoBehaviour {
 	// Sounds to play when Swiper dies.
 	public void Death(){
 		storyMusicSound.Stop ();
-		PlaySoundEffect ("wasted");
 		PlaySoundEffect ("oh man");
 	}
 }

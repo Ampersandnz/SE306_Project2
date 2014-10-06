@@ -19,7 +19,7 @@ public class Credits : MonoBehaviour {
 		DontDestroyOnLoad (soundPlayer);
 		credits = "Programmed by:\n\n- Taz Hussain\n- Nikita Kabra\n- Richa Patel\n- Brian Cham\n- Shivarni Bhavan\n Rione Naidoo\n- Luman Wang\n- Michael Lo\n- Sufiyaan Mitha";
 		credits += "\n\nMusic used:\n\n- Menu song - Swiper no Swiping by Krazy Obilla\n- Background song - Dora the Explorer theme";
-		credits += "\n\nSound effects:\n\n- Applause by Joe Deshon\n- Bounce by Denis Chapon\n- Cash register by Kidd Park\n- Health by Iwan Gabovitch\n- Hit by _jack\n- Menu select by Nemad Simic\n- 'Oh man' from Dora the Explorer\n- Wasted by Rock Star Studios";
+		credits += "\n\nSound effects:\n\n- Applause by Joe Deshon\n- Bounce by Denis Chapon\n- Cash register by Kidd Park\n- Crunch by Ram Stush\n- Health by Iwan Gabovitch\n- Hit by _jack\n- Menu select by Nemad Simic\n- 'Oh man' from Dora the Explorer";
 		credits += "\n\nWe are not affiliated with Nickelodeon. This is purely a fanmade project. We do not claim ownership of any intellectual property associated with Dora the Explorer.";
 		credits += "\n\nCC BY-3";
 		scrollPosition = Vector2.zero;

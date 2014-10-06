@@ -1,82 +1,61 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Class for the ant enemy.
 public class Ant : MonoBehaviour {
-	
-	private float left = 0.1f;
-	private float right = 3.9f;
-	private float range = 4.0f;
 
-	//private SpriteRenderer spriteRenderer;
-	//private Transform upCheck;
+	private PlayerStory player;
+	public float leftLimit;
+	public float rightLimit;
+	public int direction; // Direction of movement. 1 is left and -1 is right.
 
-	public GameObject Swiper;
+	public bool alive;
+	private SoundPlayer soundPlayer;
 	Animator anim;
-	//public bool dead;
-	//public bool hitUp;
-	//public bool showRays = false;
-	
-	
-	// Use this for initialization
-	void Start (){ 
+
+	void Start () {
+		alive = true;
 		anim = GetComponent<Animator> ();
+
+		// Getting reference to player object.
+		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
+
+		// Setting default values for the left and right limits.
+		direction = 1;
+
+		// Setting up sound player.
+		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
+		DontDestroyOnLoad (soundPlayer);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		
-		if (transform.position.x > right) {
-			transform.localScale = new Vector3 (0.35f, 0.35f, 1);
-		} else if (transform.position.x < left) {
-			transform.localScale = new Vector3 (-0.35f, 0.35f, 1);
-			
-		}
-		
-		transform.position = new Vector3(Mathf.PingPong (Time.time, range), transform.position.y, transform.position.z);
-		
-	}
-	
-	
-	
-	//void OnTriggerEnter(Collider other) 
-	//{
-	//	if (other.gameObject.tag == "test") 
-	//	{
-	//		rigidbody.velocity = Vector3.zero;
-			
-	//	}
-	//}
-	
-	void OnCollisionEnter2D(Collision2D other) {
-		if (other.transform.gameObject.name == "Swiper") {
-			
-			//anim.Play ("AntDead");
-			//spriteRenderer.sprite = deadAnt;
-			//var SwiperY = Swiper.transform.position.y;
-			//var AntY = transform.position.y;
+		// If ant is dead, then:
+		if (alive == false) {
+			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
+			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
+		} else {
 
-			var SwiperY = Swiper.transform.position.y - 0.6f;
-			var AntY = transform.position.y + 0.36f;
-
-			if(SwiperY >= AntY){
-
-				anim.SetBool("dead", true);
-
-				Destroy (gameObject, 0.5f);
+			// Moving left and right
+			if (transform.position.x > rightLimit) {
+				direction = 1;
+				transform.localScale = new Vector2(0.3f , 0.3f); // Flip sprite horizontally
+			} else if (transform.position.x < leftLimit) {
+				direction = -1;
+				transform.localScale = new Vector2(-0.3f , 0.3f); // Flip sprite horizontally
 			}
+			transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
 
-			//print("Swiper" + SwiperY);
-			//print("Ant" + AntY);
-
-			//Ray ray =  new Ray(transform.position, Vector3.up);
-			//bool hitUp = Physics.Raycast(ray);
-			//if(hitUp){
-			//	anim.SetBool("dead", true);
-			//	Destroy (gameObject); // If collision is with Swiper, destroy the coin immediately.
-			//}
 		}
 	}
-	
-	
-}
 
+	void OnCollisionEnter2D(Collision2D other) {
+
+		// If collision is with Swiper, check if it is dead.
+		if (other.transform.gameObject.name == "Swiper") {
+			if (player.transform.position.y - 0.6f >= transform.position.y + 0.15) {
+				alive = false;
+				soundPlayer.PlaySoundEffect("crunch");
+			}
+		}
+	}
+}

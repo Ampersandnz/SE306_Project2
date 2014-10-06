@@ -3,27 +3,23 @@ using System.Collections;
 
 // Class for life packs
 public class Life : MonoBehaviour {
-
-	private PlayerStory player;
-	private SpriteRenderer spriteRenderer;
-	public Sprite transparent;
-	public Sprite opaque;
+	Animator anim;
 
 	// Getting reference to player object.
 	void Start() {
-		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
-		spriteRenderer = GetComponent<SpriteRenderer>();
+		// Initialising things for texture change.
+		anim = GetComponent<Animator> ();
 	}
 
 	// Turns heart translucent and non-interactible.
 	public void MakeTransparent() {
-		spriteRenderer.sprite = transparent;
+		anim.SetBool ("isOpaque", false);
 		collider2D.enabled = false;
 	}
 
 	// Turns heart opaque and interactible.
 	public void MakeOpaque() {
-		spriteRenderer.sprite = opaque;
+		anim.SetBool ("isOpaque", true);
 		collider2D.enabled = true;
 	}
 }
