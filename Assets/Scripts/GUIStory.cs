@@ -77,6 +77,7 @@ public class GUIStory : MonoBehaviour {
 
 		// Death screen
 		if (player.playerDead == true) {
+			Time.timeScale = 0.0f; // Stop time
 
 			// Displaying the "game over" texture.
 			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
@@ -84,15 +85,22 @@ public class GUIStory : MonoBehaviour {
 			// Button to restart the level.
 			if (GUI.Button (new Rect (Screen.width / 2 - 310, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Restart", textStyleButton)) {
 				Application.LoadLevel ("StoryLevel1");
+				player.playerDead = false;
+				pauseMenu.isPaused = false;
 				soundPlayer.PlaySoundEffect ("menu");
+				Time.timeScale = 1.0f;
 			}
 
 			// Button to quit back to menu.
 			if (GUI.Button (new Rect (Screen.width / 2 + 10, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				Application.LoadLevel ("Start");
+				player.playerDead = false;
+				pauseMenu.isPaused = false;
 				soundPlayer.PlaySoundEffect ("menu");
+				Time.timeScale = 1.0f;
 			}
+
 		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
 			Time.timeScale = 0.0f; // Stop time
 
@@ -101,15 +109,21 @@ public class GUIStory : MonoBehaviour {
 			
 			// Button to restart the level.
 			if (GUI.Button (new Rect (Screen.width / 2 - 310, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Restart", textStyleButton)) {
-				Application.LoadLevel ("StoryLevel1");
 				soundPlayer.PlaySoundEffect ("menu");
+				pauseMenu.isPaused = false;
+				player.levelFinished = false;
+				Application.LoadLevel ("StoryLevel1");
+				Time.timeScale = 1.0f;
 			}
 			
 			// Button to quit back to menu.
 			if (GUI.Button (new Rect (Screen.width / 2 + 10, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
+				pauseMenu.isPaused = false;
+				player.levelFinished = false;
 				Application.LoadLevel ("Start");
 				soundPlayer.PlaySoundEffect ("menu");
+				Time.timeScale = 1.0f;
 			}
 		}
 	}
