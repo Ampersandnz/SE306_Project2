@@ -15,9 +15,11 @@ To play, use the left and right arrow keys to move horizontally, and left click 
 HOW TO PLAY (ANDROID)
 =====================
 
-Load the Unity project, then go "Build & Run" with Android selected as the target platform.
-The Android settings are already chosen.
-If an Android phone is connected and has debugging enabled, the game should automatically play.
-If not, Unity will create an APK file that needs to be manually transferred and installed on the phone.
+Pull the APK file from this repository. Transfer to phone and install.
 
-To play, tilt the phone left and right to move horizontally, and tap the screen to jump.
+To play, face the phone's screen towards you and tilt left and right (like a steering wheel) to move horizontally, and tap the screen to jump.
+
+DOCUMENTATION
+=============
+
+Everything is in the Google Drive. The mapping between group member names and Github usernames is located in the Google Doc /The Jellybeans/00a Admin/00 Members and Roles.
