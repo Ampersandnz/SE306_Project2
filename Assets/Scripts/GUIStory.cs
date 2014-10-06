@@ -39,6 +39,8 @@ public class GUIStory : MonoBehaviour {
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		soundPlayer.PlayStoryMusic ();
 		DontDestroyOnLoad (soundPlayer);
+
+		textStyleButton.fontSize = Screen.height / 50 * 3;
 	}
 
 	// Displaying everything.
@@ -68,8 +70,8 @@ public class GUIStory : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width - (10 + textWidth), 20, iconWidth, iconHeight), coins, textStyle);
 
 		// Pause function
-		if(GUI.Button (new Rect(Screen.width/5*3, 0, 50, 90), pauseSymbol, textStyleButton)){
-			if(player.playerDead==false){
+		if(GUI.Button (new Rect(Screen.width/5*3, 0, Screen.height/20*2, Screen.height/20*4), pauseSymbol, textStyleButton)){
+			if(player.playerDead==false && player.levelFinished==false){
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = true;
 			}
@@ -83,7 +85,7 @@ public class GUIStory : MonoBehaviour {
 			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
 
 			// Button to restart the level.
-			if (GUI.Button (new Rect (Screen.width / 2 - 310, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Restart", textStyleButton)) {
+			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
 				Application.LoadLevel ("StoryLevel1");
 				player.playerDead = false;
 				pauseMenu.isPaused = false;
@@ -92,7 +94,7 @@ public class GUIStory : MonoBehaviour {
 			}
 
 			// Button to quit back to menu.
-			if (GUI.Button (new Rect (Screen.width / 2 + 10, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Quit", textStyleButton)) {
+			if (GUI.Button (new Rect (Screen.width / 2 + Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				Application.LoadLevel ("Start");
 				player.playerDead = false;
@@ -108,7 +110,7 @@ public class GUIStory : MonoBehaviour {
 			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), levelFinishedTexture);
 			
 			// Button to restart the level.
-			if (GUI.Button (new Rect (Screen.width / 2 - 310, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Restart", textStyleButton)) {
+			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
@@ -117,7 +119,7 @@ public class GUIStory : MonoBehaviour {
 			}
 			
 			// Button to quit back to menu.
-			if (GUI.Button (new Rect (Screen.width / 2 + 10, Screen.height / 2 + graphicHeight / 2 + 20, 300, 90), "Quit", textStyleButton)) {
+			if (GUI.Button (new Rect (Screen.width / 2 + Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;

@@ -1,10 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerStory.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Credits.cs">
     <Files>
-      <File FileName="Assets\Scripts\GUIStory.cs" Line="99" Column="32" />
-      <File FileName="Assets\Scripts\PauseMenu.cs" Line="76" Column="23" />
-      <File FileName="Assets\Scripts\PlayerStory.cs" Line="188" Column="44" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="59" Column="110" />
+      <File FileName="Assets\Scripts\EndlessMode.cs" Line="54" Column="115" />
+      <File FileName="Assets\Scripts\Highscores.cs" Line="25" Column="111" />
+      <File FileName="Assets\Scripts\GUIStory.cs" Line="79" Column="1" />
+      <File FileName="Assets\Scripts\PauseMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\StoryLevelSelect.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DemoMessage.cs" Line="29" Column="35" />
+      <File FileName="Assets\Scripts\Credits.cs" Line="43" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

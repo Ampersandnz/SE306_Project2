@@ -48,83 +48,84 @@ public class PlayerStory : MonoBehaviour {
 	void FixedUpdate () {
 
 		// If the game is not paused, then:
+
 		if (pauseMenu.isPaused == false) {
-						// If Swiper is below the screen, kill him.
-						Vector2 screenPosition = Camera.main.WorldToScreenPoint (transform.position);
-						if (screenPosition.y < 0) {
-								health = 0;
-								Die ();
-						}
+			// If Swiper is below the screen, kill him.
+			Vector2 screenPosition = Camera.main.WorldToScreenPoint (transform.position);
+			if (screenPosition.y < 0) {
+				health = 0;
+				Die ();
+			}
 
-						// If Swiper's health is zero, run the death routine.
-						if (health < 1) {
-								Die ();
-						}
+			// If Swiper's health is zero, run the death routine.
+			if (health < 1) {
+					Die ();
+			}
 
-						// When left arrow key is held down, apply force going left.
-						if (Input.GetKey ("left")) {
-								if (isGrounded) {
-								rigidbody2D.velocity = Vector2.zero;
-								rigidbody2D.AddForce (leftForce);
-								transform.localScale = new Vector2(-xDimension , yDimension); // Flip sprite horizontally
-							}
-						}
-
-						// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
-						if (Input.GetKeyUp ("left") || Input.GetKeyUp ("right")) {
-								if (isGrounded) {
-										rigidbody2D.velocity = Vector2.zero;
-								}
-						}
-
-						// When right arrow key is held down, apply force going right.
-						if (Input.GetKey ("right")) {
-							if (isGrounded) {
-								rigidbody2D.velocity = Vector2.zero;
-								rigidbody2D.AddForce (rightForce);
-								transform.localScale = new Vector2(xDimension , yDimension); // Flip sprite horizontally
-							}
-						}
-
-						// When up arrow key is pressed AND the character is grounded, apply force going up.
-						if (Input.GetMouseButtonDown(0) && isGrounded == true) {
-								soundPlayer.PlaySoundEffect ("bounce");
-								rigidbody2D.AddForce (jumpForce);
-								isGrounded = false;
-						}
-
-						previousVelocity = rigidbody2D.velocity;
-
-						var x_accel = (float)Input.acceleration.x;
-						x_accel = (float)0.4 * x_accel;
-						
-						// Upper limits
-						if (x_accel > (float)0.15) {
-							x_accel = (float)0.15;
-						} else if (x_accel < (float)-0.15) {
-							x_accel = (float)-0.15;
-						}
-						
-						// Lower limits
-						if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
-							x_accel = 0;
-						}
-						
-						// Un-comment animator when we have a better running animation.
-						anim.SetFloat ("Speed", Mathf.Abs (x_accel));
-						
-						//Read accelerometer input in the x direction
-						transform.Translate (x_accel, 0, 0);
-
-						// Flip sprite horizontally depending on acceleration.
-						if(x_accel<0){
-							transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
-						}else if(x_accel>0){
-							transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
-						}
-
-						previousVelocity = rigidbody2D.velocity;
+			// When left arrow key is held down, apply force going left.
+			if (Input.GetKey ("left")) {
+					if (isGrounded) {
+					rigidbody2D.velocity = Vector2.zero;
+					rigidbody2D.AddForce (leftForce);
+					transform.localScale = new Vector2(-xDimension , yDimension); // Flip sprite horizontally
 				}
+			}
+
+			// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
+			if (Input.GetKeyUp ("left") || Input.GetKeyUp ("right")) {
+				if (isGrounded) {
+					rigidbody2D.velocity = Vector2.zero;
+				}
+			}
+
+			// When right arrow key is held down, apply force going right.
+			if (Input.GetKey ("right")) {
+				if (isGrounded) {
+					rigidbody2D.velocity = Vector2.zero;
+					rigidbody2D.AddForce (rightForce);
+					transform.localScale = new Vector2(xDimension , yDimension); // Flip sprite horizontally
+				}
+			}
+
+			// When up arrow key is pressed AND the character is grounded, apply force going up.
+			if ((Input.GetMouseButtonDown(0) || Input.GetKey ("up")) && isGrounded == true) {
+					soundPlayer.PlaySoundEffect ("bounce");
+					rigidbody2D.AddForce (jumpForce);
+					isGrounded = false;
+			}
+
+			previousVelocity = rigidbody2D.velocity;
+
+			var x_accel = (float)Input.acceleration.x;
+			x_accel = (float)0.4 * x_accel;
+						
+			// Upper limits
+			if (x_accel > (float)0.15) {
+				x_accel = (float)0.15;
+			} else if (x_accel < (float)-0.15) {
+				x_accel = (float)-0.15;
+			}
+						
+			// Lower limits
+			if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
+				x_accel = 0;
+			}
+						
+			// Un-comment animator when we have a better running animation.
+			anim.SetFloat ("Speed", Mathf.Abs (x_accel));
+						
+			//Read accelerometer input in the x direction
+			transform.Translate (x_accel, 0, 0);
+
+			// Flip sprite horizontally depending on acceleration.
+			if(x_accel<0){
+				transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
+			}else if(x_accel>0){
+				transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
+			}
+
+			previousVelocity = rigidbody2D.velocity;
+		}
 	}
 
 	// Detects collision with anything.
@@ -183,6 +184,7 @@ public class PlayerStory : MonoBehaviour {
 			isGrounded = true;
 		}
 
+		// If Swiper has reached the end flag, mark the level as completed.
 		if (other.transform.gameObject.tag == "endFlag") {
 			levelFinished = true;
 			soundPlayer.PlaySoundEffect("applause");

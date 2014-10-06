@@ -21,6 +21,9 @@ public class PauseMenu : MonoBehaviour {
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		soundPlayer.PlayStoryMusic ();
 		DontDestroyOnLoad (soundPlayer);
+		
+		textStyleTitle.fontSize = Screen.height / 50 * 4;
+		textStyleButton.fontSize = Screen.height / 50 * 3;
 	}
 
 	// Displaying everything
@@ -31,47 +34,45 @@ public class PauseMenu : MonoBehaviour {
 				Time.timeScale = 0.0f; // Stop time
 
 				// Display title
-				GUI.Label (new Rect (Screen.width / 2 - 150, 50, 300, 90), "Paused", textStyleTitle);
+				GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/6, Screen.width/3, Screen.height/20*3), "Paused", textStyleTitle);
 
 				// Button to resume game
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 90, 300, 90), "Resume", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4, Screen.width/4, Screen.height/20*3), "Resume", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
-					// Ask for confirmation
-
 					isPaused = false;
 					Time.timeScale = 1.0f;
 				}
 
 				// Button to restart level
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 150, 300, 90), "Restart", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					confirmRestart = true;
 				}
 
 				// Button to quit game
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 210, 300, 90), "Quit", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*2, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					confirmQuit = true;
 				}
 
 				// Button to toggle music
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 270, 300, 90), "Toggle music", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*3, Screen.width/4, Screen.height/20*3), "Toggle music", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					soundPlayer.ToggleMusic ("story");
 				}
 
 				// Button to toggle sounds
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 330, 300, 90), "Toggle sfx", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*4, Screen.width/4, Screen.height/20*3), "Toggle sfx", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					soundPlayer.ToggleSound ();
 				}
 
 			}else if(confirmRestart==true){ // Asking user for confirmation that they want to restart the level
 
-				GUI.Label (new Rect (Screen.width / 2 - 150, 100, 300, 90), "Are you sure you want to restart?", textStyleTitle);
+				GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/5, Screen.width/3, Screen.height/20*3), "Are you sure you want to restart?", textStyleTitle);
 
 				// Button to restart level
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 150, 300, 90), "Yes", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4, Screen.width/4, Screen.height/20*3), "Yes", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					isPaused = false;
 					confirmRestart = false;
@@ -80,17 +81,17 @@ public class PauseMenu : MonoBehaviour {
 				}
 				
 				// Button to go back to pause menu
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 210, 300, 90), "No", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10, Screen.width/4, Screen.height/20*3), "No", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					confirmRestart = false;
 				}
 
 			}else if(confirmQuit==true){ // Asking user for confirmation that they want to quit the game
 
-				GUI.Label (new Rect (Screen.width / 2 - 150, 100, 300, 90), "Are you sure you want to quit the game?", textStyleTitle);
+				GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/5, Screen.width/3, Screen.height/20*3), "Are you sure you want to quit the game?", textStyleTitle);
 				
 				// Button to restart level
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 150, 300, 90), "Yes", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4, Screen.width/4, Screen.height/20*3), "Yes", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					isPaused = false;
 					confirmQuit = false;
@@ -99,7 +100,7 @@ public class PauseMenu : MonoBehaviour {
 				}
 				
 				// Button to go back to pause menu
-				if (GUI.Button (new Rect (Screen.width / 2 - 150, 210, 300, 90), "No", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10, Screen.width/4, Screen.height/20*3), "No", textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
 					confirmQuit = false;
 				}

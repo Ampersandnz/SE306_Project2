@@ -23,6 +23,10 @@ public class Credits : MonoBehaviour {
 		credits += "\n\nWe are not affiliated with Nickelodeon. This is purely a fanmade project. We do not claim ownership of any intellectual property associated with Dora the Explorer.";
 		credits += "\n\nCC BY-3";
 		scrollPosition = Vector2.zero;
+		
+		textStyleTitle.fontSize = Screen.height / 50 * 4;
+		textStyleButton.fontSize = Screen.height / 50 * 3;
+		textStyleBody.fontSize = Screen.height / 50 * 2;
 	}
 
 	// Displaying everything.
@@ -30,30 +34,30 @@ public class Credits : MonoBehaviour {
 		GUI.skin = skin;
 
 		// Title
-		GUI.Label (new Rect (Screen.width / 2 - 150, 50, 300, 90), "Credits", textStyleTitle);
+		GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/20, Screen.width/3, Screen.height/20*3), "Credits", textStyleTitle);
 
 		// Scrollable credits area
-		GUILayout.BeginArea (new Rect(Screen.width/2-255, 130, 500, 300));
-			scrollPosition = GUILayout.BeginScrollView (scrollPosition, GUILayout.MaxWidth (500), GUILayout.ExpandWidth (false));
+		GUILayout.BeginArea (new Rect(Screen.width/2-Screen.width/80*17, Screen.height/60*13, Screen.width/12*5, Screen.height/2));
+			scrollPosition = GUILayout.BeginScrollView (scrollPosition, GUILayout.MaxWidth (Screen.width/12*5), GUILayout.ExpandWidth (false));
 			GUILayout.Label (credits, textStyleBody, GUILayout.ExpandWidth (true));
 			GUILayout.EndScrollView ();
 		GUILayout.EndArea ();
 
 		// Back button
-		if(GUI.Button(new Rect(Screen.width/2-150, 430 , 300,90), "Back", textStyleButton)) {
+		if(GUI.Button(new Rect(Screen.width/2-Screen.width/8, Screen.height/60*43, Screen.width/4, Screen.height/20*3), "Back", textStyleButton)) {
 			Application.LoadLevel("MainMenu");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
 		// Music toggle
-		if(GUI.Button(new Rect(Screen.width-250,20,100,90), musicSymbol, textStyleButton)) {
+		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12 , Screen.height/20*3), musicSymbol, textStyleButton)) {
 			// Toggle mute/unmute of music
 			soundPlayer.PlaySoundEffect ("menu");
 			soundPlayer.ToggleMusic("menu");
 		}
 
 		// Sound toggle
-		if(GUI.Button(new Rect(Screen.width-140,20,110,90), "sfx", textStyleButton)) {
+		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
 			// Toggle mute/unmute of game sounds
 			soundPlayer.PlaySoundEffect ("menu");
 			soundPlayer.ToggleSound();

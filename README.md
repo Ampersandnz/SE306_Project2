@@ -10,14 +10,14 @@ Pull this project into a new folder.
 Open the Unity scene called "Start". Unity should automatically deal with any user-specific binaries.
 Run the project.
 
-To play, use the left and right arrow keys to move horizontally, and left click to jump.
+Only the first story level is available. To play, use the left and right arrow keys to move horizontally, and left click to jump.
 
 HOW TO PLAY (ANDROID)
 =====================
 
 Pull the APK file from this repository. Transfer to phone and install.
 
-To play, face the phone's screen towards you and tilt left and right (like a steering wheel) to move horizontally, and tap the screen to jump.
+Only the first story level is available. To play, face the phone's screen towards you and tilt left and right (like a steering wheel) to move horizontally, and tap the screen to jump.
 
 DOCUMENTATION
 =============
