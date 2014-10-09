@@ -23,6 +23,8 @@ public class PlayerStory : MonoBehaviour {
 	public bool levelFinished;
 	private PauseMenu pauseMenu;
 
+	private bool invulnerable = false;
+
 	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
 	private float xDimension = 0.5166001f;
 	private float yDimension = 0.5165996f;
@@ -159,25 +161,22 @@ public class PlayerStory : MonoBehaviour {
 
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
-
-			var Sx = transform.position.x;
-			var Sy = transform.position.y;
-
-			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
+			if(transform.position.y-0.6f >= other.transform.position.y+0.36){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
 			}else{ // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				soundPlayer.PlaySoundEffect ("hit");
-				health--;
-
-				transform.position = new Vector2(Sx-3.0f, Sy);
-
-				if(health < max_health) {
-					// Get reference to list of all Life objects.
-					Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-					// Make all Life objects transparent.
-					foreach (Life life in lives) {
-						life.MakeOpaque();
+				if (! invulnerable) {
+					StartCoroutine(becomeInvulnerable());
+					soundPlayer.PlaySoundEffect ("hit");
+					health--;
+					
+					if(health < max_health) {
+						// Get reference to list of all Life objects.
+						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+						// Make all Life objects transparent.
+						foreach (Life life in lives) {
+							life.MakeOpaque();
+						}
 					}
 				}
 			}
@@ -204,5 +203,27 @@ public class PlayerStory : MonoBehaviour {
 			soundPlayer.Death ();
 			playerDead = true;
 		}
+	}
+
+	private IEnumerator becomeInvulnerable() {
+		invulnerable = true;
+		Color normal = renderer.material.color;
+		Color flash = renderer.material.color;
+		flash.a = 0;
+
+		// Flash for 3 seconds
+		for (int i = 0; i < 11; i++) {
+			if (i % 2 == 0) {
+				// Make the sprite invisible
+				renderer.material.color = flash;
+			} else {
+				// Make it normal again
+				renderer.material.color = normal;
+			}
+			yield return new WaitForSeconds (0.3f);
+		}
+
+		renderer.material.color = normal;
+		invulnerable = false;
 	}
 }
