@@ -167,6 +167,9 @@ public class PlayerStory : MonoBehaviour {
 
 			}else{ // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
 				if (! invulnerable) {
+					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+					StartCoroutine(flash.FlashOnHit());
+					print ("Flashed!");
 					StartCoroutine(becomeInvulnerable());
 					soundPlayer.PlaySoundEffect ("hit");
 					health--;
