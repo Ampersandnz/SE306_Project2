@@ -120,10 +120,10 @@ public class PlayerStory : MonoBehaviour {
 			transform.Translate (x_accel, 0, 0);
 
 			// Flip sprite horizontally depending on acceleration.
-			if(x_accel<0){
-				transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
-			}else if(x_accel>0){
-				transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
+			if(x_accel < 0) {
+				transform.localScale = new Vector2(-xDimension, yDimension); // Make sprite face left
+			} else if(x_accel > 0) {
+				transform.localScale = new Vector2(xDimension, yDimension); // Make sprite face right
 			}
 
 			previousVelocity = rigidbody2D.velocity;
@@ -166,11 +166,7 @@ public class PlayerStory : MonoBehaviour {
 
 			}else{ // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
 				if (! invulnerable) {
-					StartCoroutine(becomeInvulnerable());
-					soundPlayer.PlaySoundEffect ("hit");
-					health--;
-					
-					if(health < max_health) {
+					if(health == max_health) {
 						// Get reference to list of all Life objects.
 						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
 						// Make all Life objects transparent.
@@ -178,6 +174,12 @@ public class PlayerStory : MonoBehaviour {
 							life.MakeOpaque();
 						}
 					}
+
+					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+					StartCoroutine(flash.FlashOnHit());
+					StartCoroutine(becomeInvulnerable());
+					soundPlayer.PlaySoundEffect ("hit");
+					health--;
 				}
 			}
 			rigidbody2D.velocity = previousVelocity;
