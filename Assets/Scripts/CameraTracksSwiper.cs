@@ -6,7 +6,7 @@ public class CameraTracksSwiper : MonoBehaviour {
 	Transform player;
 	float offset;
 	PlayerStory player_GO;
-
+	
 	// Use this for initialization
 	void Start () {
 		player_GO = FindObjectOfType (typeof(PlayerStory)) as PlayerStory;
@@ -18,7 +18,6 @@ public class CameraTracksSwiper : MonoBehaviour {
 		
 		player = player_GO.transform;
 		offset = transform.position.x - player.position.x;
-		
 	}
 	
 	// Update is called once per frame
