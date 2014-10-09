@@ -12,7 +12,6 @@ public class RedFlash : MonoBehaviour {
 	}
 
 	public IEnumerator FlashOnHit() {
-		print ("Flash on hit called!");
 		red.enabled = true;
 		Color color = red.color;
 

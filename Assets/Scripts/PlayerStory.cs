@@ -9,6 +9,9 @@ public class PlayerStory : MonoBehaviour {
 	public Vector2 deathForce;
 	public Vector2 leftForce;
 	public Vector2 rightForce;
+	private Vector2 enemyBounceLeft;
+	private Vector2 enemyBounceRight;
+	private Vector2 enemyBounceUp;
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
 	public int coins; // Integer to store number of coins collected.
@@ -176,13 +179,16 @@ public class PlayerStory : MonoBehaviour {
 
 					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
 					StartCoroutine(flash.FlashOnHit());
-					print ("Flashed!");
 					StartCoroutine(becomeInvulnerable());
 					soundPlayer.PlaySoundEffect ("hit");
 					health--;
 				}
 			}
+
+			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
+			Vector2 enemyBounceForce = new Vector2(0f,0f);
 			rigidbody2D.velocity = previousVelocity;
+			rigidbody2D.AddForce(enemyBounceForce);
 		}
 		
 		// If collision is with the ground or platform, mark player as "grounded".
