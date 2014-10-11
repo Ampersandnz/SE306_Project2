@@ -23,7 +23,6 @@ public class PlayerStory : MonoBehaviour {
 	private SoundPlayer soundPlayer;
 
 	public bool playerDead;
-	public bool levelFinished;
 	private PauseMenu pauseMenu;
 
 	private bool invulnerable = false;
@@ -44,7 +43,6 @@ public class PlayerStory : MonoBehaviour {
 		pauseMenu = FindObjectOfType(typeof(PauseMenu)) as PauseMenu;
 
 		playerDead = false;
-		levelFinished = false;
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
 	}
@@ -194,12 +192,6 @@ public class PlayerStory : MonoBehaviour {
 		// If collision is with the ground or platform, mark player as "grounded".
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
 			isGrounded = true;
-		}
-
-		// If Swiper has reached the end flag, mark the level as completed.
-		if (other.transform.gameObject.tag == "endFlag") {
-			levelFinished = true;
-			soundPlayer.PlaySoundEffect("applause");
 		}
 	}
 

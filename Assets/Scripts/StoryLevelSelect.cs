@@ -27,7 +27,8 @@ public class StoryLevelSelect : MonoBehaviour {
 
 		// Button for level 1
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 , Screen.width/3, Screen.height/20*3), "Level 1", textStyleButton)) {
-			Application.LoadLevel("StoryLevel1");
+			//Application.LoadLevel("StoryLevel1");
+			Application.LoadLevel ("StoryLevel1 (bc)");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
