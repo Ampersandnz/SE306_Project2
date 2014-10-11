@@ -71,7 +71,7 @@ public class GUIStory : MonoBehaviour {
 
 		// Pause function
 		if(GUI.Button (new Rect(Screen.width/5*3, 0, Screen.height/20*2, Screen.height/20*4), pauseSymbol, textStyleButton)){
-			if(player.playerDead==false && player.levelFinished==false){
+			if(player.playerDead == false && player.levelFinished == false){
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = true;
 			}
@@ -79,8 +79,6 @@ public class GUIStory : MonoBehaviour {
 
 		// Death screen
 		if (player.playerDead == true) {
-			Time.timeScale = 0.0f; // Stop time
-
 			// Displaying the "game over" texture.
 			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
 

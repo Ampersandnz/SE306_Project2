@@ -9,6 +9,9 @@ public class PlayerStory : MonoBehaviour {
 	public Vector2 deathForce;
 	public Vector2 leftForce;
 	public Vector2 rightForce;
+	private Vector2 enemyBounceLeft;
+	private Vector2 enemyBounceRight;
+	private Vector2 enemyBounceUp;
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
 	public int coins; // Integer to store number of coins collected.
@@ -22,6 +25,8 @@ public class PlayerStory : MonoBehaviour {
 	public bool playerDead;
 	public bool levelFinished;
 	private PauseMenu pauseMenu;
+
+	private bool invulnerable = false;
 
 	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
 	private float xDimension = 0.5166001f;
@@ -46,9 +51,7 @@ public class PlayerStory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
 		// If the game is not paused, then:
-
 		if (pauseMenu.isPaused == false) {
 			// If Swiper is below the screen, kill him.
 			Vector2 screenPosition = Camera.main.WorldToScreenPoint (transform.position);
@@ -59,15 +62,15 @@ public class PlayerStory : MonoBehaviour {
 
 			// If Swiper's health is zero, run the death routine.
 			if (health < 1) {
-					Die ();
+				Die ();
 			}
 
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
-					if (isGrounded) {
+				if (isGrounded) {
 					rigidbody2D.velocity = Vector2.zero;
 					rigidbody2D.AddForce (leftForce);
-					transform.localScale = new Vector2(-xDimension , yDimension); // Flip sprite horizontally
+					transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
 				}
 			}
 
@@ -83,15 +86,15 @@ public class PlayerStory : MonoBehaviour {
 				if (isGrounded) {
 					rigidbody2D.velocity = Vector2.zero;
 					rigidbody2D.AddForce (rightForce);
-					transform.localScale = new Vector2(xDimension , yDimension); // Flip sprite horizontally
+					transform.localScale = new Vector2(xDimension, yDimension); // Flip sprite horizontally
 				}
 			}
 
 			// When up arrow key is pressed AND the character is grounded, apply force going up.
 			if ((Input.GetMouseButtonDown(0) || Input.GetKey ("up")) && isGrounded == true) {
-					soundPlayer.PlaySoundEffect ("bounce");
-					rigidbody2D.AddForce (jumpForce);
-					isGrounded = false;
+				soundPlayer.PlaySoundEffect ("bounce");
+				rigidbody2D.AddForce (jumpForce);
+				isGrounded = false;
 			}
 
 			previousVelocity = rigidbody2D.velocity;
@@ -163,20 +166,29 @@ public class PlayerStory : MonoBehaviour {
 			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
-			}else{ // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				soundPlayer.PlaySoundEffect ("hit");
-				health--;
-
-				if(health < max_health) {
-					// Get reference to list of all Life objects.
-					Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-					// Make all Life objects transparent.
-					foreach (Life life in lives) {
-						life.MakeOpaque();
+			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
+				if (! invulnerable) {
+					if(health == max_health) {
+						// Get reference to list of all Life objects.
+						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+						// Make all Life objects transparent.
+						foreach (Life life in lives) {
+							life.MakeOpaque();
+						}
 					}
+
+					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+					StartCoroutine(flash.FlashOnHit());
+					StartCoroutine(becomeInvulnerable());
+					soundPlayer.PlaySoundEffect ("hit");
+					health--;
 				}
 			}
+
+			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
+			Vector2 enemyBounceForce = new Vector2(0f,0f);
 			rigidbody2D.velocity = previousVelocity;
+			rigidbody2D.AddForce(enemyBounceForce);
 		}
 		
 		// If collision is with the ground or platform, mark player as "grounded".
@@ -196,8 +208,30 @@ public class PlayerStory : MonoBehaviour {
 		if (playerDead == false) {
 			collider2D.enabled = false;
 			rigidbody2D.AddForce (deathForce);
-			soundPlayer.Death ();
+			soundPlayer.Death();
 			playerDead = true;
 		}
+	}
+
+	private IEnumerator becomeInvulnerable() {
+		invulnerable = true;
+		Color normal = renderer.material.color;
+		Color flash = renderer.material.color;
+		flash.a = 0;
+		
+		// Flash for 3 seconds
+		for (int i = 0; i < 11; i++) {
+			if (i % 2 == 0) {
+				// Make the sprite invisible
+				renderer.material.color = flash;
+			} else {
+				// Make it normal again
+				renderer.material.color = normal;
+			}
+			yield return new WaitForSeconds (0.3f);
+		}
+		
+		renderer.material.color = normal;
+		invulnerable = false;
 	}
 }
