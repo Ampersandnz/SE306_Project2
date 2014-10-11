@@ -67,7 +67,7 @@ public class PlayerStory : MonoBehaviour {
 
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
-				if (isGrounded) {
+				if (isGrounded && screenPosition.x > 130) {
 					rigidbody2D.velocity = Vector2.zero;
 					rigidbody2D.AddForce (leftForce);
 					transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
