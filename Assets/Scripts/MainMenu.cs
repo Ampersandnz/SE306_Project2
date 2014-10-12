@@ -11,11 +11,9 @@ public class MainMenu : MonoBehaviour {
 	public GUISkin skin;
 	public string musicSymbol;
 	public string disclaimer;
-	private ExitMenu exitMenu; // Initialise reference to exit menu
 
 	// Loading sound player
 	void Start(){
-		exitMenu = FindObjectOfType(typeof(ExitMenu)) as ExitMenu;
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
 
@@ -69,7 +67,7 @@ public class MainMenu : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			exitMenu.backPressed = true;
+			Application.Quit();
 		}
 	}
 }
