@@ -61,7 +61,7 @@ public class RedAnt : MonoBehaviour {
 
 			Destroy (gameObject, 0.5f);
 			//Invoke("CreateObject", 3.0f);
-			CreateObject (coin, positionX, positionY);
+			CreateObject (coin, positionX, positionY+3.0f);
 			//Instantiate (coin, new Vector2 (positionX, positionY), Quaternion.identity);
 		}
 
