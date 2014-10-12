@@ -11,6 +11,7 @@ public class RedAnt : MonoBehaviour {
 
 	public bool alive;
 	public bool Hit1 = false;
+	public bool Hit2 = false;
 	public int hitCount;
 	private SoundPlayer soundPlayer;
 	Animator anim;
@@ -53,16 +54,18 @@ public class RedAnt : MonoBehaviour {
 		} 
 
 		// if ant dead
-		else if(alive == false){
+		else if(Hit2 == true){
 			anim.SetBool ("hit2", true); // Change to "dead ant" texture.
 			collider2D.enabled = false;
 			var positionX = transform.position.x;
 			var positionY = transform.position.y;
 
 			Destroy (gameObject, 0.5f);
+
 			//Invoke("CreateObject", 3.0f);
-			CreateObject (coin, positionX, positionY+3.0f);
+			CreateObject (coin, positionX+1.2f, positionY+3.0f);
 			//Instantiate (coin, new Vector2 (positionX, positionY), Quaternion.identity);
+			Hit2 = false;
 		}
 
 		else {
@@ -86,7 +89,8 @@ public class RedAnt : MonoBehaviour {
 		if (other.transform.gameObject.name == "Swiper") {
 			if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
 				Hit1 = false;
-				alive = true;
+				Hit2 = false;
+				//alive = true;
 				hitCount++;
 
 				if(hitCount == 1){
@@ -95,7 +99,7 @@ public class RedAnt : MonoBehaviour {
 
 				if (hitCount == 2){
 					//Hit1 = false;
-					alive = false;
+					Hit2 = true;
 					hitCount = 0;
 					soundPlayer.PlaySoundEffect("crunch");
 				}
