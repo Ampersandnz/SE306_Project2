@@ -18,7 +18,7 @@ public class PlayerStory : MonoBehaviour {
 	public int health; // Integer to store remaining health.
 	public int max_health;
 	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
-
+	
 	private Life[] lives;
 	private SoundPlayer soundPlayer;
 
@@ -31,6 +31,9 @@ public class PlayerStory : MonoBehaviour {
 	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
 	private float xDimension = 0.5166001f;
 	private float yDimension = 0.5165996f;
+
+	// Game object
+	public GameObject RedAnt;
 
 	// Animator when for Hero running animation.
 	Animator anim;
@@ -166,10 +169,22 @@ public class PlayerStory : MonoBehaviour {
 			var Sx = transform.position.x;
 			var Sy = transform.position.y;
 
-			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
+			var colliderSwiper = GetComponent<BoxCollider2D>();
+			var colliderS = colliderSwiper.collider2D;
+
+			var colliderRedAnt = RedAnt.GetComponent<BoxCollider2D>();
+			var colliderRA = colliderRedAnt.collider2D;
+
+			/*if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
-			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
+			} */
+
+			if(colliderS.bounds.min.y >= colliderRA.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
+				// Do nothing? Play a sound?
+			}
+
+			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
 				if (! invulnerable) {
 					if(health == max_health) {
 						// Get reference to list of all Life objects.

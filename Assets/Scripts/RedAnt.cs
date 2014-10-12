@@ -8,6 +8,7 @@ public class RedAnt : MonoBehaviour {
 	public int direction; // Direction of movement. 1 is left and -1 is right.
 
 	public GameObject coin;
+	public GameObject Swiper;
 
 	public bool alive;
 	public bool Hit1 = false;
@@ -15,10 +16,43 @@ public class RedAnt : MonoBehaviour {
 	public int hitCount;
 	private SoundPlayer soundPlayer;
 	Animator anim;
-	
+
+	//public int pathCount;
+	//public Vector2[] GetPath(int i);
+
+	//public var minX = Mathf.Infinity;
+	//public var maxX = -Mathf.Infinity;
+	//var minY = Mathf.Infinity;
+	//var maxY = Mathf.Infinity;
+
 	void Start () {
 		alive = true;
 		anim = GetComponent<Animator> ();
+
+		/*var antRenderer = GetComponent<Renderer>();
+		float antHeight = antRenderer.bounds.size.y;
+		//float width = renderer.bounds.size.x;
+		var swiperRenderer = Swiper.GetComponent<Renderer>();
+		float swiperHeight = swiperRenderer.bounds.size.y;
+
+		float ant = antRenderer.bounds.size.x;
+	
+		float swiper= swiperRenderer.bounds.size.x;
+		print ("swiperheight" + swiperHeight);
+		print ("antheight:" + antHeight);
+
+		print ("swiper" + swiper);
+		print ("ant:" + ant);
+
+		print (swiperRenderer.bounds.min.y);
+		print ("height:"+ antRenderer.bounds.max.y);
+
+		print (swiperRenderer.bounds.max.y);
+		print ("height:"+ antRenderer.bounds.min.y);*/
+		
+		
+		//float toTop = swiper - transform.position.y;
+		//print ("toTop:" + toTop);
 
 		//Instantiate (coin, new Vector2 (-6, -3), Quaternion.identity);
 		// Getting reference to player object.
@@ -87,14 +121,71 @@ public class RedAnt : MonoBehaviour {
 		
 		// If collision is with Swiper, check if it is dead.
 		if (other.transform.gameObject.name == "Swiper") {
-			if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
+
+			/*var minX = Mathf.Infinity;
+			var maxX = -Mathf.Infinity;
+			var minY = Mathf.Infinity;
+			var maxY = Mathf.Infinity;
+			
+			var poly = Swiper.GetComponent(BoxCollider2D);
+			for (var i = 0; i < poly.pathCount; i++) {
+				//var path = Vector2;
+				var path = poly.GetPath(i);
+				//for (var v = path) {
+				path = transform.TransformPoint(path);
+				if (path[0] < minX){ 
+					minX = path[0];
+				}
+				if (path[1] < minY){
+					minY = path[1];
+				}
+				if (path[0] > maxX){
+					maxX = path[0];
+				}
+				if (path[1] > maxY){
+					maxY = path[1];
+				}
+			} */
+			 
+			//var top = transform.position.y - minY;  
+			//var Totop = maxY - transform.position.y;
+
+			//var antRenderer = GetComponent<Renderer>();
+			//float antHeight = antRenderer.bounds.size.y;
+			//float width = renderer.bounds.size.x;
+			//var swiperRenderer = Swiper.GetComponent<Renderer>();
+			//float swiperHeight = swiperRenderer.bounds.size.y;
+
+			/*float swiperToButtom = swiperHeight/4.0f;
+			float antToTop = antHeight/4.0f;
+
+			float a = Swiper.transform.position.y - swiperToButtom;
+			float b = transform.position.y + antToTop;
+			print (swiperRenderer.bounds.min.y);
+			print ("height:"+ antRenderer.bounds.max.y);*/
+
+			var colliderSwiper = Swiper.GetComponent<BoxCollider2D>();
+			var colliderS = colliderSwiper.collider2D;
+			//int width = collider.bounds.size.x;
+			var colliderAnt = GetComponent<BoxCollider2D>();
+			var colliderA = colliderAnt.collider2D;
+				
+				//if (player.transform.position.y - swiperToButtom >= transform.position.y + antToTop) {
+			//print (colliderS.bounds.min.y);
+			//print ("height:"+ colliderA.bounds.max.y);
+
+			if (colliderS.bounds.min.y >= colliderA.bounds.max.y){
 				Hit1 = false;
 				Hit2 = false;
 				//alive = true;
 				hitCount++;
 
+				var Sx = Swiper.transform.position.x;
+				var Sy = Swiper.transform.position.y;
+				
 				if(hitCount == 1){
 					Hit1 = true;
+					Swiper.transform.position = new Vector2(Sx, Sy+3.0f);
 				}
 
 				if (hitCount == 2){
@@ -102,6 +193,7 @@ public class RedAnt : MonoBehaviour {
 					Hit2 = true;
 					hitCount = 0;
 					soundPlayer.PlaySoundEffect("crunch");
+					Swiper.transform.position = new Vector2(Sx, Sy+3.0f);
 				}
 
 			}
@@ -116,4 +208,21 @@ public class RedAnt : MonoBehaviour {
 	public void CreateObject(GameObject obj, float x, float y){
 		Instantiate (obj, new Vector2 (x, y), Quaternion.identity);
 	}
+
+//	public void SetMinMaxPoly2D() {
+
+		/*var minX = Vector2;
+	 	var minY = Vector2;
+		var maxX = Vector2;
+		var maxY = Vector2;
+
+		//var path = Vector2;
+		//var v = Vector2;
+
+		minX = Vector2(Mathf.Infinity,0);
+		minY = Vector2(0,Mathf.Infinity);
+		maxX = Vector2(-Mathf.Infinity,0);
+		maxY = Vector2(0,-Mathf.Infinity);*/
+
+//	}
 }
