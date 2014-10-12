@@ -26,7 +26,7 @@ public class PlayerStory : MonoBehaviour {
 	private PauseMenu pauseMenu;
 
 	private bool invulnerable = false;
-	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
+	public bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 
 	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
 	private float xDimension = 0.5166001f;
@@ -69,12 +69,11 @@ public class PlayerStory : MonoBehaviour {
 
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
-				rigidbody2D.velocity = Vector2.zero;
 				Vector2 force;
 				if (isGrounded) {
 					force = (leftForce);
 				} else {
-					force = leftForce / 2;
+					force = leftForce;
 					force.y = previousVelocity.y;
 				}
 				rigidbody2D.AddForce (force);
@@ -90,12 +89,11 @@ public class PlayerStory : MonoBehaviour {
 
 			// When right arrow key is held down, apply force going right.
 			if (Input.GetKey ("right")) {
-				rigidbody2D.velocity = Vector2.zero;
 				Vector2 force;
 				if (isGrounded) {
 					force = (rightForce);
 				} else {
-					force = rightForce / 2;
+					force = rightForce;
 					force.y = previousVelocity.y;
 				}
 				rigidbody2D.AddForce (force);
@@ -130,9 +128,9 @@ public class PlayerStory : MonoBehaviour {
 			transform.Translate (x_accel, 0, 0);
 
 			// Flip sprite horizontally depending on acceleration.
-			if(x_accel<0){
+			if(x_accel < 0){
 				transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
-			}else if(x_accel>0){
+			}else if(x_accel > 0){
 				transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
 			}
 
@@ -237,17 +235,5 @@ public class PlayerStory : MonoBehaviour {
 		
 		renderer.material.color = normal;
 		invulnerable = false;
-	}
-	
-	void OnTriggerEnter (Collider other) {
-		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
-			isGrounded = true;
-		}
-	}
-	
-	void OnTriggerExit (Collider other) {
-		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
-			isGrounded = false;
-		}
 	}
 }
