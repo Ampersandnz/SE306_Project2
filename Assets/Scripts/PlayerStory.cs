@@ -163,6 +163,9 @@ public class PlayerStory : MonoBehaviour {
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
 
+			var Sx = transform.position.x;
+			var Sy = transform.position.y;
+
 			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
@@ -182,6 +185,7 @@ public class PlayerStory : MonoBehaviour {
 					StartCoroutine(becomeInvulnerable());
 					soundPlayer.PlaySoundEffect ("hit");
 					health--;
+					transform.position = new Vector2(Sx-3.0f, Sy);
 				}
 			}
 
