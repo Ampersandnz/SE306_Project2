@@ -22,6 +22,10 @@ public class MainMenu : MonoBehaviour {
 		disclaimer = "DISCLAIMER: The makers of this game do not own any intellectual property associated with the Dora the Explorer franchise, which belongs to Nickelodeon, and whom we have no affiliation with. This is purely a fan-made project for entertainment purposes only. This game does not seek financial gain, does not aim to be distributed, does not attempt to substitute for the original work, and contains only a limited portion of the Dora the Explorer TV show.";
 	}
 
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.Escape))
+			Application.Quit ();
+	}
 
 	// Displaying everything
 	void OnGUI () {
