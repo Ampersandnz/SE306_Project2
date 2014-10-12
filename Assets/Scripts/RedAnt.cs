@@ -6,7 +6,9 @@ public class RedAnt : MonoBehaviour {
 	public float leftLimit;
 	public float rightLimit;
 	public int direction; // Direction of movement. 1 is left and -1 is right.
-	
+
+	public GameObject coin;
+
 	public bool alive;
 	public bool Hit1 = false;
 	public int hitCount;
@@ -16,7 +18,8 @@ public class RedAnt : MonoBehaviour {
 	void Start () {
 		alive = true;
 		anim = GetComponent<Animator> ();
-		
+
+		//Instantiate (coin, new Vector2 (-6, -3), Quaternion.identity);
 		// Getting reference to player object.
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
 		
@@ -51,12 +54,15 @@ public class RedAnt : MonoBehaviour {
 
 		// if ant dead
 		else if(alive == false){
-
 			anim.SetBool ("hit2", true); // Change to "dead ant" texture.
 			collider2D.enabled = false;
+			var positionX = transform.position.x;
+			var positionY = transform.position.y;
+
 			Destroy (gameObject, 0.5f);
-
-
+			//Invoke("CreateObject", 3.0f);
+			CreateObject (coin, positionX, positionY);
+			//Instantiate (coin, new Vector2 (positionX, positionY), Quaternion.identity);
 		}
 
 		else {
@@ -79,6 +85,8 @@ public class RedAnt : MonoBehaviour {
 		// If collision is with Swiper, check if it is dead.
 		if (other.transform.gameObject.name == "Swiper") {
 			if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
+				Hit1 = false;
+				alive = true;
 				hitCount++;
 
 				if(hitCount == 1){
@@ -86,7 +94,7 @@ public class RedAnt : MonoBehaviour {
 				}
 
 				if (hitCount == 2){
-					Hit1 = false;
+					//Hit1 = false;
 					alive = false;
 					hitCount = 0;
 					soundPlayer.PlaySoundEffect("crunch");
@@ -94,5 +102,14 @@ public class RedAnt : MonoBehaviour {
 
 			}
 		}
+	}
+
+	/* Method to create an object. Paramaters:
+	 * 	- obj - The GameObject to clone.
+	 * 	- x - The absolute x ordinate of the object.
+	 * 	- y - The absolute y ordinate of the object.
+	*/
+	public void CreateObject(GameObject obj, float x, float y){
+		Instantiate (obj, new Vector2 (x, y), Quaternion.identity);
 	}
 }
