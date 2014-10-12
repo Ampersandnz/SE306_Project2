@@ -9,6 +9,7 @@ public class Ant : MonoBehaviour {
 	public float rightLimit;
 	public int direction; // Direction of movement. 1 is left and -1 is right.
 
+	public GameObject coin;
 	public bool alive;
 	private SoundPlayer soundPlayer;
 	Animator anim;
@@ -33,15 +34,23 @@ public class Ant : MonoBehaviour {
 		if (alive == false) {
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
 			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
+
+			var positionX = transform.position.x;
+			var positionY = transform.position.y;
+
+			CreateObject (coin, positionX+1.2f, positionY+3.0f);
+
+			alive = true;
+
 		} else {
 
 			// Moving left and right
 			if (transform.position.x > rightLimit) {
 				direction = 1;
-				transform.localScale = new Vector2(0.3f , 0.3f); // Flip sprite horizontally
+				transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
 			} else if (transform.position.x < leftLimit) {
 				direction = -1;
-				transform.localScale = new Vector2(-0.3f , 0.3f); // Flip sprite horizontally
+				transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
 			}
 			transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
 
@@ -58,4 +67,14 @@ public class Ant : MonoBehaviour {
 			}
 		}
 	}
+
+	/* Method to create an object. Paramaters:
+	 * 	- obj - The GameObject to clone.
+	 * 	- x - The absolute x ordinate of the object.
+	 * 	- y - The absolute y ordinate of the object.
+	*/
+	public void CreateObject(GameObject obj, float x, float y){
+		Instantiate (obj, new Vector2 (x, y), Quaternion.identity);
+	}
+
 }

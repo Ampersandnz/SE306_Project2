@@ -76,10 +76,10 @@ public class RedAnt : MonoBehaviour {
 			//transform.localScale = new Vector2(0.3f , 0.3f);
 			if (transform.position.x > rightLimit) {
 				direction = 1;
-				transform.localScale = new Vector2(0.3f , 0.3f); // Flip sprite horizontally
+				transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
 			} else if (transform.position.x < leftLimit) {
 				direction = -1;
-				transform.localScale = new Vector2(-0.3f , 0.3f); // Flip sprite horizontally
+				transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
 			}
 			transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
 			//collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
