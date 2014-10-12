@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EndOfLevelOne : MonoBehaviour {
+public class EndOfLevel2 : MonoBehaviour {
 
 	public GUIStyle textStyleButton;
 	public GUISkin skin;
-
+	
 	// Use this for initialization
 	void Start () {
 		textStyleButton.fontSize = Screen.height / 50 * 3;
-
+		
 	}
 	
 	// Displaying everything
