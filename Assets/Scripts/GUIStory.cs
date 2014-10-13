@@ -126,12 +126,21 @@ public class GUIStory : MonoBehaviour {
 			}
 			
 			// Button to quit back to menu.
-			if (GUI.Button (new Rect (Screen.width / 2 + Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8*3, boxHeight - boxHeight/4, boxWidth/4, boxHeight/4), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
 				Application.LoadLevel ("Start");
 				soundPlayer.PlaySoundEffect ("menu");
+				Time.timeScale = 1.0f;
+			}
+
+			// Button to go to next level
+			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/4, boxWidth/4, boxHeight/4), "Next Level", textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				pauseMenu.isPaused = false;
+				player.levelFinished = false;
+				Application.LoadLevel ("StoryLevel2");
 				Time.timeScale = 1.0f;
 			}
 
