@@ -104,11 +104,20 @@ public class GUIStory : MonoBehaviour {
 		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
 			Time.timeScale = 0.0f; // Stop time
 
+			var boxWidth = Screen.width/2;
+			var boxHeight = Screen.height/2;
+
+			GUI.BeginGroup (new Rect (Screen.width / 2 - Screen.width/4, Screen.height / 2 - Screen.height/4, boxWidth, boxHeight));
+			// All rectangles are now adjusted to the group. (0,0) is the topleft corner of the group.
+			
+			// We'll make a box so you can see where the group is on-screen.
+			GUI.Box (new Rect (0,0,boxWidth, boxHeight), "Level Cleared!");
+
 			// Displaying the "level finished" texture.
-			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), levelFinishedTexture);
+			//GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), levelFinishedTexture);
 			
 			// Button to restart the level.
-			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/4, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
@@ -125,6 +134,9 @@ public class GUIStory : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 				Time.timeScale = 1.0f;
 			}
+
+			// End the group we started above. This is very important to remember!
+			GUI.EndGroup ();
 		}
 	}
 }
