@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+//Adapted from http://answers.unity3d.com/questions/20773/how-do-i-make-a-highscores-board.html
 
 /// <summary>
 /// High score manager.
@@ -12,9 +13,8 @@ using System.Collections.Generic;
 /// No need to attach this to any game object, thought it would create errors attaching.
 /// </summary>
 
-public class HighScoreManager : MonoBehaviour
-{
-	
+public class HighScoreManager : MonoBehaviour{
+
 	private static HighScoreManager m_instance;
 	private const int LeaderboardLength = 10;
 	
@@ -27,8 +27,7 @@ public class HighScoreManager : MonoBehaviour
 		}
 	}
 	
-	void Awake ()
-	{
+	void Awake (){
 		if (m_instance == null) {
 			m_instance = this;          
 		} else if (m_instance != this)      
@@ -37,8 +36,7 @@ public class HighScoreManager : MonoBehaviour
 		DontDestroyOnLoad (gameObject);
 	}
 	
-	public void SaveHighScore (string name, int score)
-	{
+	public void SaveHighScore (string name, int score){
 		List<Scores> HighScores = new List<Scores> ();
 		
 		int i = 1;
@@ -82,8 +80,7 @@ public class HighScoreManager : MonoBehaviour
 		
 	}
 	
-	public List<Scores>  GetHighScore ()
-	{
+	public List<Scores>  GetHighScore (){
 		List<Scores> HighScores = new List<Scores> ();
 		
 		int i = 1;
@@ -97,10 +94,10 @@ public class HighScoreManager : MonoBehaviour
 		
 		return HighScores;
 	}
-	
+
+	//Delete the high scores
 	public void ClearLeaderBoard ()
 	{
-		//for(int i=0;i<HighScores.
 		List<Scores> HighScores = GetHighScore();
 		
 		for(int i=1;i<=HighScores.Count;i++)
@@ -110,8 +107,7 @@ public class HighScoreManager : MonoBehaviour
 		}
 	}
 	
-	void OnApplicationQuit()
-	{
+	void OnApplicationQuit(){
 		PlayerPrefs.Save();
 	}
 }
