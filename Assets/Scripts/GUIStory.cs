@@ -13,12 +13,15 @@ public class GUIStory : MonoBehaviour {
 	public GUISkin skin;
 	public GUIStyle textStyle;
 	public GUIStyle textStyleButton;
+	public GUIStyle boxStyle;
 	public Texture2D opaqueHeartTexture;
 	public Texture2D transparentHeartTexture;
 	public Texture2D coinTexture;
+	public Texture2D starTexture;
 
 	// Initialising the death and end-of-level textures.
 	public Texture2D deathTexture;
+	public Texture2D endOfLevelTexture;
 	private int graphicWidth = 736;
 	private int graphicHeight = 172;
 
@@ -103,15 +106,18 @@ public class GUIStory : MonoBehaviour {
 		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
 			Time.timeScale = 0.0f; // Stop time
 
-			var boxWidth = Screen.width/2;
+			var boxWidth = Screen.width/8*5;
 			var boxHeight = Screen.height/2;
 
-			GUI.BeginGroup (new Rect (Screen.width / 2 - Screen.width/4, Screen.height / 2 - Screen.height/4, boxWidth, boxHeight),textStyle);
-					
-			GUI.Box (new Rect (0,0,boxWidth, boxHeight), "Level Cleared!", textStyle);
+			GUI.BeginGroup (new Rect (Screen.width/2-boxWidth/2, Screen.height / 2 - boxHeight/2, boxWidth, boxHeight),boxStyle);
+
+			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
+
+			//Display stars
+			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture);
 
 			// Button to restart the level.
-			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/4, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
@@ -120,7 +126,7 @@ public class GUIStory : MonoBehaviour {
 			}
 			
 			// Button to quit back to menu.
-			if (GUI.Button (new Rect (boxWidth/8*3, boxHeight - boxHeight/4, boxWidth/4, boxHeight/4), "Quit", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8*3, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
@@ -130,7 +136,7 @@ public class GUIStory : MonoBehaviour {
 			}
 
 			// Button to go to next level
-			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/4, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
