@@ -107,11 +107,11 @@ public class GUIStory : MonoBehaviour {
 			var boxWidth = Screen.width/2;
 			var boxHeight = Screen.height/2;
 
-			GUI.BeginGroup (new Rect (Screen.width / 2 - Screen.width/4, Screen.height / 2 - Screen.height/4, boxWidth, boxHeight));
+			GUI.BeginGroup (new Rect (Screen.width / 2 - Screen.width/4, Screen.height / 2 - Screen.height/4, boxWidth, boxHeight),textStyle);
 			// All rectangles are now adjusted to the group. (0,0) is the topleft corner of the group.
 			
 			// We'll make a box so you can see where the group is on-screen.
-			GUI.Box (new Rect (0,0,boxWidth, boxHeight), "Level Cleared!");
+			GUI.Box (new Rect (0,0,boxWidth, boxHeight), "Level Cleared!", textStyle);
 
 			// Displaying the "level finished" texture.
 			//GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), levelFinishedTexture);
@@ -136,7 +136,7 @@ public class GUIStory : MonoBehaviour {
 			}
 
 			// Button to go to next level
-			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/4, boxWidth/4, boxHeight/4), "Next Level", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/4, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
