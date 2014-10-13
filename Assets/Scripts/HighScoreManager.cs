@@ -79,6 +79,36 @@ public class HighScoreManager : MonoBehaviour{
 		}
 		
 	}
+
+	//Check if a given score would be a highscore
+	public bool isHighScore(int score){
+		List<Scores> HighScores = new List<Scores> ();
+
+		//Load playerprefs
+		int i = 1;
+		while (i<=LeaderboardLength && PlayerPrefs.HasKey("HighScore"+i+"score")) {
+			Scores temp = new Scores ();
+			temp.score = PlayerPrefs.GetInt ("HighScore" + i + "score");
+			temp.name = PlayerPrefs.GetString ("HighScore" + i + "name");
+			HighScores.Add (temp);
+			i++;
+		}
+		//Test if it is a high score
+		if (HighScores.Count == 0) {            
+			return true;
+		} else {
+			for (i=1; i<=HighScores.Count && i<=LeaderboardLength; i++) {
+				if (score > HighScores [i - 1].score) {
+					return true;
+				}           
+				if (i == HighScores.Count && i < LeaderboardLength) {
+					return true;
+				}
+			}
+		}
+		//Return false if it is not a highscore
+		return false;
+	}
 	
 	public List<Scores>  GetHighScore (){
 		List<Scores> HighScores = new List<Scores> ();
