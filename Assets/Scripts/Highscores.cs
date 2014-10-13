@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+//Adapted from http://answers.unity3d.com/questions/20773/how-do-i-make-a-highscores-board.html
 
 // Class to display the high scores.
 public class Highscores : MonoBehaviour {
@@ -9,22 +12,33 @@ public class Highscores : MonoBehaviour {
 	public GUISkin skin;
 	public string musicSymbol;
 
-	// Initialise the sound player.
+	string name="";
+	string score="";
+	List<Scores> highscore;
+
+	// Initialise the sound player and highscores
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
 		
 		textStyleTitle.fontSize = Screen.height / 50 * 4;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
+
+		//Currently do not need
+		//EventManager._instance._buttonClick += ButtonClicked;
+		
+		highscore = new List<Scores>();
 	}
-	
+
+
+
 	void OnGUI () {
 		GUI.skin = skin;
 
 		// Title
 		GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/20, Screen.width/3, Screen.height/20*3), "High Scores", textStyleTitle);
 
-		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4, Screen.height/20*3, Screen.width/2, Screen.height/20*3), "(this feature not implemented yet)", textStyleTitle);
+		//GUI.Label (new Rect (Screen.width / 2 - Screen.width/4, Screen.height/20*3, Screen.width/2, Screen.height/20*3), "(this feature not implemented yet)", textStyleTitle);
 
 		// List high scores
 	
@@ -46,6 +60,25 @@ public class Highscores : MonoBehaviour {
 		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
 			soundPlayer.PlaySoundEffect ("menu");
 			soundPlayer.ToggleSound();
+		}
+
+		highscore = HighScoreManager._instance.GetHighScore();
+
+		GUILayout.Space(60);
+		
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Name",GUILayout.Width(Screen.width/2));
+		GUILayout.Label("Scores",GUILayout.Width(Screen.width/2));
+		GUILayout.EndHorizontal();
+		
+		GUILayout.Space(25);
+		
+		foreach(Scores _score in highscore)
+		{
+			GUILayout.BeginHorizontal();
+			GUILayout.Label(_score.name,GUILayout.Width(Screen.width/2));
+			GUILayout.Label(""+_score.score,GUILayout.Width(Screen.width/2));
+			GUILayout.EndHorizontal();
 		}
 	}
 }
