@@ -39,11 +39,13 @@ public class Ant : MonoBehaviour {
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
 			//collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
 
+			// the position of ant's before it dead
 			var positionX = transform.position.x;
 			var positionY = transform.position.y;
 
 			Destroy (gameObject, 0.5f);
 
+			//generate a coin when the ant been killed.
 			CreateObject (coin, positionX+1.2f, positionY+3.0f);
 
 			alive = true;
@@ -71,9 +73,11 @@ public class Ant : MonoBehaviour {
 			var Sx = Swiper.transform.position.x;
 			var Sy = Swiper.transform.position.y;
 
+			// the lowest position of swiper's collider box
 			var colliderSwiper = Swiper.GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
 
+			// the highest position of ant's collider box
 			var colliderAnt = GetComponent<BoxCollider2D>();
 			var colliderA = colliderAnt.collider2D;
 
@@ -82,9 +86,10 @@ public class Ant : MonoBehaviour {
 				soundPlayer.PlaySoundEffect("crunch");
 			}*/
 
-			print (colliderS.bounds.min.y);
-			print ("height:"+ colliderA.bounds.max.y);
-			
+			//print (colliderS.bounds.min.y);
+			//print ("height:"+ colliderA.bounds.max.y);
+
+			// if the swiper hit the ants from top
 			if(colliderS.bounds.min.y >= colliderA.bounds.max.y){
 				alive = false;
 				soundPlayer.PlaySoundEffect("crunch");

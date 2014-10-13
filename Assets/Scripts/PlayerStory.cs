@@ -167,12 +167,15 @@ public class PlayerStory : MonoBehaviour {
 		// If collision is with an red ant object...
 		if (other.transform.gameObject.tag == "redAnt") {
 
+			// the swiper's position when the collision is detected
 			var Sx = transform.position.x;
 			var Sy = transform.position.y;
 
+			// the lowest position of swiper's collider box
 			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
 
+			// the highest position of redAnt's collider box
 			var colliderRedAnt = RedAnt.GetComponent<BoxCollider2D>();
 			var colliderRA = colliderRedAnt.collider2D;
 
@@ -213,13 +216,16 @@ public class PlayerStory : MonoBehaviour {
 
 		// If collision is with a black ant object...
 		if (other.transform.gameObject.tag == "Ant") {
-			
+
+			// the swiper's position when the collision is detected
 			var Sx = transform.position.x;
 			var Sy = transform.position.y;
-			
+
+			// the lowest position of swiper's collider box
 			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
-			
+
+			// the highest position of blackAnt's collider box
 			var colliderAnt = Ant.GetComponent<BoxCollider2D>();
 			var colliderA = colliderAnt.collider2D;
 			
@@ -258,9 +264,10 @@ public class PlayerStory : MonoBehaviour {
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
 
-		// If collision is with an enemy object...
+		// If collision is with an other enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
-			
+
+			// the swiper's position when the collision is detected
 			var Sx = transform.position.x;
 			var Sy = transform.position.y;
 			
