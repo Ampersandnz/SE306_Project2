@@ -9,6 +9,8 @@ public class StoryLevelSelect : MonoBehaviour {
 	public GUISkin skin;
 	public string musicSymbol;
 
+	public static int currentLevel;
+
 	// Load sound player
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
@@ -27,18 +29,21 @@ public class StoryLevelSelect : MonoBehaviour {
 
 		// Button for level 1
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 , Screen.width/3, Screen.height/20*3), "Level 1", textStyleButton)) {
+			currentLevel = 1;
 			Application.LoadLevel("StoryLevel1");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
 		// Button for level 2
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10, Screen.width/3, Screen.height/20*3), "Level 2", textStyleButton)) {
+			currentLevel = 2;
 			Application.LoadLevel("StoryLevel2");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
 		// Button for level 3
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10*2, Screen.width/3, Screen.height/20*3), "Level 3", textStyleButton)) {
+			currentLevel = 3;
 			Application.LoadLevel("StoryLevel3");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
@@ -62,3 +67,4 @@ public class StoryLevelSelect : MonoBehaviour {
 		}
 	}
 }
+
