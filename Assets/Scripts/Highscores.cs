@@ -33,6 +33,7 @@ public class Highscores : MonoBehaviour {
 
 
 	void OnGUI () {
+		textStyleTitle.fontSize = Screen.height / 50 * 4;
 		GUI.skin = skin;
 
 		// Title
@@ -43,7 +44,7 @@ public class Highscores : MonoBehaviour {
 		// List high scores
 	
 		// Button to go back to endless runner mode menu.
-		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) {
+		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*13 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) {
 			Application.LoadLevel("EndlessRunnerMode");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
@@ -67,18 +68,21 @@ public class Highscores : MonoBehaviour {
 		GUILayout.Space(60);
 		
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Name",GUILayout.Width(Screen.width/2));
-		GUILayout.Label("Scores",GUILayout.Width(Screen.width/2));
+		GUILayout.Label("Name",textStyleTitle,GUILayout.Width(Screen.width/2));
+		GUILayout.Label("Scores",textStyleTitle,GUILayout.Width(Screen.width/2));
 		GUILayout.EndHorizontal();
 		
 		GUILayout.Space(25);
-		
+		textStyleTitle.fontSize = Screen.height / 50 * 3;
 		foreach(Scores _score in highscore)
 		{
 			GUILayout.BeginHorizontal();
-			GUILayout.Label(_score.name,GUILayout.Width(Screen.width/2));
-			GUILayout.Label(""+_score.score,GUILayout.Width(Screen.width/2));
+			GUILayout.Label(_score.name,textStyleTitle,GUILayout.Width(Screen.width/2));
+			GUILayout.Label(""+_score.score,textStyleTitle,GUILayout.Width(Screen.width/2));
 			GUILayout.EndHorizontal();
+			//GUILayout.BeginHorizontal();
+			//GUILayout.Label("",textStyleTitle,GUILayout.Width(Screen.width/2));
+			//GUILayout.EndHorizontal();
 		}
 	}
 }
