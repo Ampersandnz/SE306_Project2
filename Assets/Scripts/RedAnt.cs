@@ -89,8 +89,9 @@ public class RedAnt : MonoBehaviour {
 
 		// if ant dead
 		else if(Hit2 == true){
-			anim.SetBool ("hit2", true); // Change to "dead ant" texture.
 			collider2D.enabled = false;
+			anim.SetBool ("hit2", true); // Change to "dead ant" texture.
+			//collider2D.enabled = false;
 			var positionX = transform.position.x;
 			var positionY = transform.position.y;
 
@@ -167,14 +168,14 @@ public class RedAnt : MonoBehaviour {
 			var colliderSwiper = Swiper.GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
 			//int width = collider.bounds.size.x;
-			var colliderAnt = GetComponent<BoxCollider2D>();
-			var colliderA = colliderAnt.collider2D;
+			var colliderRedAnt = GetComponent<BoxCollider2D>();
+			var colliderRA = colliderRedAnt.collider2D;
 				
 				//if (player.transform.position.y - swiperToButtom >= transform.position.y + antToTop) {
 			//print (colliderS.bounds.min.y);
 			//print ("height:"+ colliderA.bounds.max.y);
 
-			if (colliderS.bounds.min.y >= colliderA.bounds.max.y){
+			if (colliderS.bounds.min.y >= colliderRA.bounds.max.y){
 				Hit1 = false;
 				Hit2 = false;
 				//alive = true;

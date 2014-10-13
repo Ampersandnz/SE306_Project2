@@ -10,6 +10,7 @@ public class Ant : MonoBehaviour {
 	public int direction; // Direction of movement. 1 is left and -1 is right.
 
 	public GameObject coin;
+	public GameObject Swiper;
 	public bool alive;
 	private SoundPlayer soundPlayer;
 	Animator anim;
@@ -32,11 +33,16 @@ public class Ant : MonoBehaviour {
 	void Update () {
 		// If ant is dead, then:
 		if (alive == false) {
+
+			collider2D.enabled = false;
+
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
-			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
+			//collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
 
 			var positionX = transform.position.x;
 			var positionY = transform.position.y;
+
+			Destroy (gameObject, 0.5f);
 
 			CreateObject (coin, positionX+1.2f, positionY+3.0f);
 
@@ -61,10 +67,30 @@ public class Ant : MonoBehaviour {
 
 		// If collision is with Swiper, check if it is dead.
 		if (other.transform.gameObject.name == "Swiper") {
-			if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
+
+			var Sx = Swiper.transform.position.x;
+			var Sy = Swiper.transform.position.y;
+
+			var colliderSwiper = Swiper.GetComponent<BoxCollider2D>();
+			var colliderS = colliderSwiper.collider2D;
+
+			var colliderAnt = GetComponent<BoxCollider2D>();
+			var colliderA = colliderAnt.collider2D;
+
+			/*if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
 				alive = false;
 				soundPlayer.PlaySoundEffect("crunch");
+			}*/
+
+			print (colliderS.bounds.min.y);
+			print ("height:"+ colliderA.bounds.max.y);
+			
+			if(colliderS.bounds.min.y >= colliderA.bounds.max.y){
+				alive = false;
+				soundPlayer.PlaySoundEffect("crunch");
+				Swiper.transform.position = new Vector2(Sx, Sy+3.0f);
 			}
+
 		}
 	}
 
