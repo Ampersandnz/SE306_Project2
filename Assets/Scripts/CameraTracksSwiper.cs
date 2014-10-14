@@ -15,9 +15,10 @@ public class CameraTracksSwiper : MonoBehaviour {
 			Debug.LogError ("No player!");
 			return;
 		}
-		
+
 		player = player_GO.transform;
 		offset = transform.position.x - player.position.x;
+		offset = transform.position.y - player.position.y;
 	}
 	
 	// Update is called once per frame
@@ -25,6 +26,7 @@ public class CameraTracksSwiper : MonoBehaviour {
 		if (player != null && !player_GO.playerDead) {
 			Vector3 pos = transform.position;
 			pos.x = player.position.x + offset;
+			pos.y = player.position.y + offset;
 			transform.position = pos;
 		}
 	}
