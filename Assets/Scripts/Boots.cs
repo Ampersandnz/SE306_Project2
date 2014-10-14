@@ -45,9 +45,7 @@ public class Boots : MonoBehaviour{
 	}
 
 	// Method to throw a banana.
-	void ThrowBanana() {
-		if (startedThrowing) {
-			Instantiate (banana, new Vector2 (transform.position.x, transform.position.y - 2f), Quaternion.identity);
-		}
+	void ThrowBanana(){
+		Instantiate(banana, new Vector2(transform.position.x, transform.position.y-2f), Quaternion.identity);
 	} 
 }

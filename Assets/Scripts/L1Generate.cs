@@ -9,9 +9,10 @@ public class L1Generate : MonoBehaviour {
 
 	// The array of x and y positions for our collectibles.
 	float[][] positions = new float[][] {
-		new float[] {26.6f, -3.75f},
-		new float[] {28.59f, -1.3f},
-		new float[] {30.92f, -3.75f}
+		new float[] {-4,0},
+		new float[] {-1, 0},
+		new float[] {3, 1},
+		new float[] {5, 1}
 	};
 
 	public int random_location;
@@ -25,9 +26,9 @@ public class L1Generate : MonoBehaviour {
 	void CreateCollectibles() {
 		for (int i=0; i<positions.Length; i++) {
 			if(random_location.CompareTo (i)==0){
-				CreateObject (life, positions[i][0], positions[i][1]);
-			}else{
 				CreateObject (coin, positions[i][0], positions[i][1]);
+			}else{
+				CreateObject (life, positions[i][0], positions[i][1]);
 			}
 		}
 	}

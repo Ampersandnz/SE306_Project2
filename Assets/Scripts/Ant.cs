@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 // Class for the ant enemy.
@@ -29,16 +29,12 @@ public class Ant : MonoBehaviour {
 	}
 
 	void Update () {
-		// If the ant is below the ground, destroy the game object.
-		if (transform.position.y < -10) {
-			Destroy (gameObject);
-				}
-
 		// If ant is dead, then:
 		if (alive == false) {
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
 			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
 		} else {
+
 			// Moving left and right
 			if (transform.position.x > rightLimit) {
 				direction = 1;

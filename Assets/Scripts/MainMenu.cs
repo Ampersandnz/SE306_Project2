@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour {
 		disclaimer = "DISCLAIMER: The makers of this game do not own any intellectual property associated with the Dora the Explorer franchise, which belongs to Nickelodeon, and whom we have no affiliation with. This is purely a fan-made project for entertainment purposes only. This game does not seek financial gain, does not aim to be distributed, does not attempt to substitute for the original work, and contains only a limited portion of the Dora the Explorer TV show.";
 	}
 
+
 	// Displaying everything
 	void OnGUI () {
 		GUI.skin = skin;
@@ -64,10 +65,6 @@ public class MainMenu : MonoBehaviour {
 		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
 			soundPlayer.PlaySoundEffect ("menu");
 			soundPlayer.ToggleSound();
-		}
-
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.Quit();
 		}
 	}
 }

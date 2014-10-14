@@ -23,11 +23,6 @@ public class Spider : MonoBehaviour {
 	}
 	
 	void Update () {
-		// If the spider is below the ground, destroy the game object.
-		if (transform.position.y < -10) {
-			Destroy (gameObject);
-		}
-
 		// If spider is dead, then:
 		if (alive == false) {
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.

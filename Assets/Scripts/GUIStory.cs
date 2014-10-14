@@ -31,8 +31,6 @@ public class GUIStory : MonoBehaviour {
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
 
-	public bool levelFinished = false;
-
 	// Setting up references to player, pause menu and sound player
 	void Start() {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
@@ -73,7 +71,7 @@ public class GUIStory : MonoBehaviour {
 
 		// Pause function
 		if(GUI.Button (new Rect(Screen.width/5*3, 0, Screen.height/20*2, Screen.height/20*4), pauseSymbol, textStyleButton)){
-			if(player.playerDead == false && levelFinished == false){
+			if(player.playerDead == false && player.levelFinished == false){
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = true;
 			}
@@ -86,17 +84,7 @@ public class GUIStory : MonoBehaviour {
 
 			// Button to restart the level.
 			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
-<<<<<<< HEAD
-				if(StoryLevelSelect.currentLevel == 1){
-					Application.LoadLevel ("StoryLevel1");
-				}else if (StoryLevelSelect.currentLevel == 2){
-					Application.LoadLevel ("StoryLevel2");
-				}else if (StoryLevelSelect.currentLevel == 3){
-					Application.LoadLevel ("StoryLevel3");
-				}
-=======
-				Application.LoadLevel ("StoryLevel1 (bc)");
->>>>>>> feature/level1
+				Application.LoadLevel ("StoryLevel1");
 				player.playerDead = false;
 				pauseMenu.isPaused = false;
 				soundPlayer.PlaySoundEffect ("menu");
@@ -113,7 +101,7 @@ public class GUIStory : MonoBehaviour {
 				Time.timeScale = 1.0f;
 			}
 
-		} else if (levelFinished == true) { // If the player has reached the end of the level.
+		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
 			Time.timeScale = 0.0f; // Stop time
 
 			// Displaying the "level finished" texture.
@@ -123,19 +111,8 @@ public class GUIStory : MonoBehaviour {
 			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
-<<<<<<< HEAD
 				player.levelFinished = false;
-				if(StoryLevelSelect.currentLevel == 1){
-					Application.LoadLevel ("StoryLevel1");
-				}else if (StoryLevelSelect.currentLevel == 2){
-					Application.LoadLevel ("StoryLevel2");
-				}else if (StoryLevelSelect.currentLevel == 3){
-					Application.LoadLevel ("StoryLevel3");
-				}
-=======
-				levelFinished = false;
-				Application.LoadLevel ("StoryLevel1 (bc)");
->>>>>>> feature/level1
+				Application.LoadLevel ("StoryLevel1");
 				Time.timeScale = 1.0f;
 			}
 			
@@ -143,7 +120,7 @@ public class GUIStory : MonoBehaviour {
 			if (GUI.Button (new Rect (Screen.width / 2 + Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
 				soundPlayer.PlayMenuMusic ();
 				pauseMenu.isPaused = false;
-				levelFinished = false;
+				player.levelFinished = false;
 				Application.LoadLevel ("Start");
 				soundPlayer.PlaySoundEffect ("menu");
 				Time.timeScale = 1.0f;

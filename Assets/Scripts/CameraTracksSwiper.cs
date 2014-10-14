@@ -25,15 +25,8 @@ public class CameraTracksSwiper : MonoBehaviour {
 	void Update () {
 		if (player != null && !player_GO.playerDead) {
 			Vector3 pos = transform.position;
-<<<<<<< HEAD
 			pos.x = player.position.x + offset;
 			pos.y = player.position.y + offset;
-=======
-			pos.x = player.position.x + offset+9;
-			if(player.position.y>2.9){
-				pos.y = player.position.y + offset;
-			}
->>>>>>> feature/level1
 			transform.position = pos;
 		}
 	}
