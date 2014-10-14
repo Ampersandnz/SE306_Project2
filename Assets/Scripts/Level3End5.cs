@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Level3End3 : MonoBehaviour {
+public class Level3End5 : MonoBehaviour {
 
 	public GUIStyle textStyleButton;
 	public GUISkin skin;
@@ -17,8 +17,8 @@ public class Level3End3 : MonoBehaviour {
 		GUI.skin = skin;
 		
 		// Button to go back to main menu
-		if(GUI.Button(new Rect(Screen.width/30*25, Screen.height/20*12 + Screen.height/10*3, Screen.width/3, Screen.height/20*3), "Next", textStyleButton)) {
-			Application.LoadLevel("Level3End4");
+		if(GUI.Button(new Rect(Screen.width/8*7, Screen.height/20*12 + Screen.height/10*3, Screen.width/3, Screen.height/20*3), "Next", textStyleButton)) {
+			Application.LoadLevel("Level3End6");
 		}
 	}
 }
