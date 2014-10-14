@@ -17,7 +17,6 @@ public class PlayerStory : MonoBehaviour {
 	public int coins; // Integer to store number of coins collected.
 	public int health; // Integer to store remaining health.
 	public int max_health;
-	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 
 	private Life[] lives;
 	private SoundPlayer soundPlayer;
@@ -27,6 +26,7 @@ public class PlayerStory : MonoBehaviour {
 	private PauseMenu pauseMenu;
 
 	private bool invulnerable = false;
+	public bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 
 	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
 	private float xDimension = 0.5166001f;
@@ -51,6 +51,8 @@ public class PlayerStory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		previousVelocity = rigidbody2D.velocity;
+
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
 			// If Swiper is below the screen, kill him.
@@ -67,11 +69,15 @@ public class PlayerStory : MonoBehaviour {
 
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
+				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
+				Vector2 force;
 				if (isGrounded) {
-					rigidbody2D.velocity = Vector2.zero;
-					rigidbody2D.AddForce (leftForce);
-					transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
+					force = (leftForce);
+				} else {
+					force = leftForce;
 				}
+				rigidbody2D.AddForce (force);
+				transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
 			}
 
 			// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
@@ -83,22 +89,23 @@ public class PlayerStory : MonoBehaviour {
 
 			// When right arrow key is held down, apply force going right.
 			if (Input.GetKey ("right")) {
+				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
+				Vector2 force;
 				if (isGrounded) {
-					rigidbody2D.velocity = Vector2.zero;
-					rigidbody2D.AddForce (rightForce);
-					transform.localScale = new Vector2(xDimension, yDimension); // Flip sprite horizontally
+					force = (rightForce);
+				} else {
+					force = rightForce;
 				}
+				rigidbody2D.AddForce (force);
+				transform.localScale = new Vector2(xDimension, yDimension); // Flip sprite horizontally
 			}
 
 			// When up arrow key is pressed AND the character is grounded, apply force going up.
 			if ((Input.GetMouseButtonDown(0) || Input.GetKey ("up")) && isGrounded == true) {
 				soundPlayer.PlaySoundEffect ("bounce");
 				rigidbody2D.AddForce (jumpForce);
-				isGrounded = false;
 			}
-
-			previousVelocity = rigidbody2D.velocity;
-
+		
 			var x_accel = (float)Input.acceleration.x;
 			x_accel = (float)0.4 * x_accel;
 						
@@ -121,9 +128,9 @@ public class PlayerStory : MonoBehaviour {
 			transform.Translate (x_accel, 0, 0);
 
 			// Flip sprite horizontally depending on acceleration.
-			if(x_accel<0){
+			if(x_accel < 0){
 				transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
-			}else if(x_accel>0){
+			}else if(x_accel > 0){
 				transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
 			}
 
@@ -190,11 +197,6 @@ public class PlayerStory : MonoBehaviour {
 			rigidbody2D.velocity = previousVelocity;
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
-		
-		// If collision is with the ground or platform, mark player as "grounded".
-		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
-			isGrounded = true;
-		}
 
 		// If Swiper has reached the end flag, mark the level as completed.
 		if (other.transform.gameObject.tag == "endFlag") {
@@ -204,7 +206,7 @@ public class PlayerStory : MonoBehaviour {
 	}
 
 	// Function to kill swiper. Plays death sounds and animation.
-	void Die(){
+	void Die() {
 		if (playerDead == false) {
 			collider2D.enabled = false;
 			rigidbody2D.AddForce (deathForce);
