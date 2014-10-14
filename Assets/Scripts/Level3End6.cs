@@ -17,7 +17,7 @@ public class Level3End6 : MonoBehaviour {
 		GUI.skin = skin;
 		
 		// Button to go back to main menu
-		if(GUI.Button(new Rect(Screen.width/8*7, Screen.height/20*12 + Screen.height/10*3, Screen.width/3, Screen.height/20*3), "Main Menu", textStyleButton)) {
+		if(GUI.Button(new Rect(Screen.width/30*24, Screen.height/20*11 + Screen.height/10*3, Screen.width/5, Screen.height/20*3), "Main Menu", textStyleButton)) {
 			Application.LoadLevel("MainMenu");
 		}
 	}

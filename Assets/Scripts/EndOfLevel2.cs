@@ -17,7 +17,7 @@ public class EndOfLevel2 : MonoBehaviour {
 		GUI.skin = skin;
 		
 		// Button to go back to main menu
-		if(GUI.Button(new Rect(Screen.width/8*7, Screen.height/20*12 + Screen.height/10*3, Screen.width/3, Screen.height/20*3), "Exit", textStyleButton)) {
+		if(GUI.Button(new Rect(Screen.width/30*25, Screen.height/20*11 + Screen.height/10*3, Screen.width/6, Screen.height/20*3), "Exit", textStyleButton)) {
 			Application.LoadLevel("MainMenu");
 		}
 	}
