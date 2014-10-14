@@ -29,6 +29,11 @@ public class Ant : MonoBehaviour {
 	}
 
 	void Update () {
+		// If the ant is below the ground, destroy the game object.
+		if (transform.position.y < -10) {
+			Destroy (gameObject);
+				}
+
 		// If ant is dead, then:
 		if (alive == false) {
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
