@@ -18,13 +18,17 @@ public class CameraTracksSwiper : MonoBehaviour {
 		
 		player = player_GO.transform;
 		offset = transform.position.x - player.position.x;
+		offset = transform.position.y - player.position.y;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (player != null && !player_GO.playerDead) {
 			Vector3 pos = transform.position;
-			pos.x = player.position.x + offset;
+			pos.x = player.position.x + offset+9;
+			if(player.position.y>2.9){
+				pos.y = player.position.y + offset;
+			}
 			transform.position = pos;
 		}
 	}
