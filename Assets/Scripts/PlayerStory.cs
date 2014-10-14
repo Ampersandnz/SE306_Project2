@@ -168,7 +168,7 @@ public class PlayerStory : MonoBehaviour {
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
 
-			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
+			if(transform.position.y-0.6f >= other.transform.position.y+0.7) { // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
 			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
