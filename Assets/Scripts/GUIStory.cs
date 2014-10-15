@@ -36,10 +36,12 @@ public class GUIStory : MonoBehaviour {
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
 
-	private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
+	//private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
+	private List<int> level1Stars = new List<int>(new int[] {3, 5}); 	// Coin values for two and three stars in Level 1
 	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
 	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
 	private Texture2D starTexture; // stores star texture to display
+	private bool enoughStars = false;
 
 	// Setting up references to player, pause menu and sound player
 	void Start() {
@@ -125,31 +127,40 @@ public class GUIStory : MonoBehaviour {
 			// If level 1 TODO
 			if (player.coins >= level1Stars[1]) { // three stars
 				starTexture = threeStarsTexture;
+				enoughStars = true;
 			} else if (player.coins < level1Stars[0]) { // one star
 				starTexture = oneStarTexture;
-			} else {
+				enoughStars = false;
+			} else { // two stars
 				starTexture = twoStarsTexture;
+				enoughStars = true;
 			}
-
+			/*
 			// else if level 2 TODO
 			if (player.coins >= level2Stars[1]) { // three stars
 				starTexture = threeStarsTexture;
+				enoughStars = true;
 			} else if (player.coins < level2Stars[0]) { // one star
 				starTexture = oneStarTexture;
-			} else {
+				enoughStars = false;
+			} else { // two stars
 				starTexture = twoStarsTexture;
+				enoughStars = true;
 			}
 
 			// else if level 3 TODO
 			if (player.coins >= level3Stars[1]) { // three stars
 				starTexture = threeStarsTexture;
+				enoughStars = true;
 			} else if (player.coins < level3Stars[0]) { // one star
 				starTexture = oneStarTexture;
-			} else {
+				enoughStars = false;
+			} else { // two stars
 				starTexture = twoStarsTexture;
-			}
+				enoughStars = true;
+			}*/
 
-			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture);
+			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
 
 			// Button to restart the level.
 			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
@@ -170,13 +181,19 @@ public class GUIStory : MonoBehaviour {
 				Time.timeScale = 1.0f;
 			}
 
-			// Button to go to next level
+			// Button to go to next level if two or three stars achieved
 			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
-				soundPlayer.PlaySoundEffect ("menu");
-				pauseMenu.isPaused = false;
-				player.levelFinished = false;
-				Application.LoadLevel ("StoryLevel2");
-				Time.timeScale = 1.0f;
+				if (enoughStars) {	
+					soundPlayer.PlaySoundEffect ("menu");
+					pauseMenu.isPaused = false;
+					player.levelFinished = false;
+					
+					// if on level 1, load level 2 TODO
+					Application.LoadLevel ("StoryLevel2");
+					// if on level 2, load level 3 TODO
+					// Application.LoadLevel ("StoryLevel3");
+					Time.timeScale = 1.0f;
+				}
 			}
 
 			// End the group we started above. This is very important to remember!
