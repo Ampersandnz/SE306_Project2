@@ -25,8 +25,8 @@ public class RedAnt : MonoBehaviour {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
 		
 		// Setting default values for the left and right limits.
-		leftLimit = -1;
-		rightLimit = 1;
+		//leftLimit = -1;
+		//rightLimit = 1;
 		direction = 1;
 		
 		// Setting up sound player.

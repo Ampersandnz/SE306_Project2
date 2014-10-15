@@ -80,19 +80,15 @@ public class Ant : MonoBehaviour {
 			var colliderSwiper = Swiper.GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
 			
-			// the highest position of redAnt's collider
+			// the highest position of Ant's collider
 			var colliderAnt = GetComponent<BoxCollider2D>();
 			var colliderA = colliderAnt.collider2D;
 
 
-			/*if (player.transform.position.y - 0.6f >= transform.position.y + 0.7f) {
-				alive = false;
-				soundPlayer.PlaySoundEffect("crunch");
-			}*/
-
 			if (colliderS.bounds.min.y >= colliderA.bounds.max.y) {
 				alive = false;
 				soundPlayer.PlaySoundEffect("crunch");
+				Swiper.transform.position = new Vector2(Sx, Sy+3.0f);
 			}
 		}
 	}
