@@ -39,7 +39,7 @@ public class EndlessMode : MonoBehaviour {
 		}
 
 		// Button to go back to main menu
-		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) {
+		if((GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) || (Input.GetKeyDown(KeyCode.Escape))) {
 			Application.LoadLevel("MainMenu");
 			soundPlayer.PlaySoundEffect ("menu");
 		}

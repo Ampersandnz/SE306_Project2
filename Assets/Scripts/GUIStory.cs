@@ -84,7 +84,13 @@ public class GUIStory : MonoBehaviour {
 
 			// Button to restart the level.
 			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
-				Application.LoadLevel ("StoryLevel1");
+				if(StoryLevelSelect.currentLevel == 1){
+					Application.LoadLevel ("StoryLevel1");
+				}else if (StoryLevelSelect.currentLevel == 2){
+					Application.LoadLevel ("StoryLevel2");
+				}else if (StoryLevelSelect.currentLevel == 3){
+					Application.LoadLevel ("StoryLevel3");
+				}
 				player.playerDead = false;
 				pauseMenu.isPaused = false;
 				soundPlayer.PlaySoundEffect ("menu");
@@ -112,7 +118,13 @@ public class GUIStory : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
-				Application.LoadLevel ("StoryLevel1");
+				if(StoryLevelSelect.currentLevel == 1){
+					Application.LoadLevel ("StoryLevel1");
+				}else if (StoryLevelSelect.currentLevel == 2){
+					Application.LoadLevel ("StoryLevel2");
+				}else if (StoryLevelSelect.currentLevel == 3){
+					Application.LoadLevel ("StoryLevel3");
+				}
 				Time.timeScale = 1.0f;
 			}
 			

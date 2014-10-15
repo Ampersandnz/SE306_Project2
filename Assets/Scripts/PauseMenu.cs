@@ -77,7 +77,13 @@ public class PauseMenu : MonoBehaviour {
 					isPaused = false;
 					confirmRestart = false;
 					Time.timeScale = 1.0f;
-					Application.LoadLevel ("StoryLevel1");
+					if(StoryLevelSelect.currentLevel == 1){
+						Application.LoadLevel ("StoryLevel1");
+					}else if (StoryLevelSelect.currentLevel == 2){
+						Application.LoadLevel ("StoryLevel2");
+					}else if (StoryLevelSelect.currentLevel == 3){
+						Application.LoadLevel ("StoryLevel3");
+					}
 				}
 				
 				// Button to go back to pause menu
