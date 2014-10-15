@@ -8,11 +8,9 @@ public class Spider : MonoBehaviour {
 	
 	public bool alive;
 	private SoundPlayer soundPlayer;
-	Animator anim;
 	
 	void Start () {
 		alive = true;
-		anim = GetComponent<Animator> ();
 		
 		// Getting reference to player object.
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
@@ -25,7 +23,6 @@ public class Spider : MonoBehaviour {
 	void Update () {
 		// If spider is dead, then:
 		if (alive == false) {
-			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
 			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
 		} else {
 			
@@ -41,6 +38,7 @@ public class Spider : MonoBehaviour {
 		if (other.transform.gameObject.name == "Swiper") {
 			if (player.transform.position.y - 0.6f >= transform.position.y + 0.5) {
 				alive = false;
+				Destroy(gameObject);
 				soundPlayer.PlaySoundEffect("crunch");
 			}
 		}

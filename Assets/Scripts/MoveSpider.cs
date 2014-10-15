@@ -6,8 +6,7 @@ public class MoveSpider : MonoBehaviour {
 	private Transform web_child;
 	private Transform spider_child;
 	private float height, startY;
-	private float angle = 0;
-	private float toDegrees = Mathf.PI / 180;
+
 	// Use this for initialization
 	void Start () {
 		startY = transform.position.y;
@@ -22,12 +21,13 @@ public class MoveSpider : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		angle += 1 * Time.deltaTime;
-
-		if (angle > 360) {
-			angle = 0;
+		if (spider_child == null) {
+			if (web_child != null){
+				Destroy (web_child.gameObject);
+			}
+		} else {
+			float newY = Mathf.PingPong (Time.time, web_child.collider2D.bounds.size.y) + startY - web_child.collider2D.bounds.size.y;
+			spider_child.transform.position = new Vector2(spider_child.transform.position.x, newY);
 		}
-		float newY = Mathf.Cos (angle * toDegrees);// + startY - web_child.transform.localScale.y;
-		spider_child.transform.position = new Vector2(spider_child.transform.position.x, newY);
 	}
 }
