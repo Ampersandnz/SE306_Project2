@@ -19,7 +19,7 @@ public class L1Generate : MonoBehaviour {
 	
 	void Start() {
 		random_location = (int)(Random.value*positions.Length); // Select one random position to change into a life pack.
-		CreateCollectibles ();
+		//CreateCollectibles ();
 	}
 
 	// Method to create clones of collectibles in all of our chosen locations.
