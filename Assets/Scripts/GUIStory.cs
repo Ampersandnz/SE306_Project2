@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // Class to display the GUI in the story
 public class GUIStory : MonoBehaviour {
@@ -17,7 +18,9 @@ public class GUIStory : MonoBehaviour {
 	public Texture2D opaqueHeartTexture;
 	public Texture2D transparentHeartTexture;
 	public Texture2D coinTexture;
-	public Texture2D starTexture;
+	public Texture2D oneStarTexture;
+	public Texture2D twoStarsTexture;
+	public Texture2D threeStarsTexture;
 
 	// Initialising the death and end-of-level textures.
 	public Texture2D deathTexture;
@@ -33,6 +36,11 @@ public class GUIStory : MonoBehaviour {
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
 
+	private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
+	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
+	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
+	private Texture2D starTexture; // stores star texture to display
+
 	// Setting up references to player, pause menu and sound player
 	void Start() {
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
@@ -47,7 +55,7 @@ public class GUIStory : MonoBehaviour {
 
 	// Displaying everything.
 	void OnGUI () {
-		
+
 		// Health display
 		int i = 0;
 
@@ -113,7 +121,34 @@ public class GUIStory : MonoBehaviour {
 
 			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
 
-			//Display stars
+			// Check what level we are in and display stars based on how many coins collected
+			// If level 1 TODO
+			if (player.coins >= level1Stars[1]) { // three stars
+				starTexture = threeStarsTexture;
+			} else if (player.coins < level1Stars[0]) { // one star
+				starTexture = oneStarTexture;
+			} else {
+				starTexture = twoStarsTexture;
+			}
+
+			// else if level 2 TODO
+			if (player.coins >= level2Stars[1]) { // three stars
+				starTexture = threeStarsTexture;
+			} else if (player.coins < level2Stars[0]) { // one star
+				starTexture = oneStarTexture;
+			} else {
+				starTexture = twoStarsTexture;
+			}
+
+			// else if level 3 TODO
+			if (player.coins >= level3Stars[1]) { // three stars
+				starTexture = threeStarsTexture;
+			} else if (player.coins < level3Stars[0]) { // one star
+				starTexture = oneStarTexture;
+			} else {
+				starTexture = twoStarsTexture;
+			}
+
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture);
 
 			// Button to restart the level.
