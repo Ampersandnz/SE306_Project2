@@ -5,7 +5,9 @@ using System.Collections;
 public class Spider : MonoBehaviour {
 	
 	private PlayerStory player;
-	
+
+	public GameObject Swiper;
+
 	public bool alive;
 	private SoundPlayer soundPlayer;
 	
@@ -24,6 +26,7 @@ public class Spider : MonoBehaviour {
 		// If spider is dead, then:
 		if (alive == false) {
 			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
+			Destroy(gameObject, 0.5f);
 		} else {
 			
 			// Implement movement.
@@ -36,9 +39,24 @@ public class Spider : MonoBehaviour {
 		// If collision is with Swiper, check if it is dead.
 
 		if (other.transform.gameObject.name == "Swiper") {
-			if (player.transform.position.y - 0.6f >= transform.position.y + 0.5) {
+
+			//the lowest position of swiper's collider box
+			var colliderSwiper = Swiper.GetComponent<BoxCollider2D>();
+			var colliderSw = colliderSwiper.collider2D;
+			
+			// the highest position of Ant's collider
+			var colliderSpider = GetComponent<BoxCollider2D>();
+			var colliderSp = colliderSpider.collider2D;
+
+			/*if (player.transform.position.y - 0.6f >= transform.position.y + 0.5) {
 				alive = false;
 				Destroy(gameObject);
+				soundPlayer.PlaySoundEffect("crunch");
+			}*/
+
+			if (colliderSw.bounds.min.y >= colliderSp.bounds.max.y) {
+				alive = false;
+				//Destroy(gameObject, 0.5f);
 				soundPlayer.PlaySoundEffect("crunch");
 			}
 		}
