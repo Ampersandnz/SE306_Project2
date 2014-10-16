@@ -169,34 +169,29 @@ public class PlayerStory : MonoBehaviour {
 
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
-
-			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-
-			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				if (! invulnerable) {
-					if(health == max_health) {
-						// Get reference to list of all Life objects.
-						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-						// Make all Life objects transparent.
-						foreach (Life life in lives) {
-							life.MakeOpaque();
-						}
+			// The player has collided into the enemy in the regular way. Decrease the relevant count. Update the life packs to make them opaque again.
+			if (! invulnerable) {
+				if(health == max_health) {
+					// Get reference to list of all Life objects.
+					Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+					// Make all Life objects transparent.
+					foreach (Life life in lives) {
+						life.MakeOpaque();
 					}
-
-					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
-					StartCoroutine(flash.FlashOnHit());
-					StartCoroutine(becomeInvulnerable());
-					soundPlayer.PlaySoundEffect ("hit");
-					health--;
 				}
-			}
 
-			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
-			Vector2 enemyBounceForce = new Vector2(0f,0f);
-			rigidbody2D.velocity = previousVelocity;
-			rigidbody2D.AddForce(enemyBounceForce);
+				RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+				StartCoroutine(flash.FlashOnHit());
+				StartCoroutine(becomeInvulnerable());
+				soundPlayer.PlaySoundEffect ("hit");
+				health--;
+			}
 		}
+
+		// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
+		Vector2 enemyBounceForce = new Vector2(0f,0f);
+		rigidbody2D.velocity = previousVelocity;
+		rigidbody2D.AddForce(enemyBounceForce);
 
 		// If Swiper has reached the end flag, mark the level as completed.
 		if (other.transform.gameObject.tag == "endFlag") {

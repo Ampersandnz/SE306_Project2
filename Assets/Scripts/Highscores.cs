@@ -12,9 +12,9 @@ public class Highscores : MonoBehaviour {
 	public GUISkin skin;
 	public string musicSymbol;
 
-	string name="";
-	string score="";
-	List<Scores> highscore;
+	string playerName="";
+	string playerScore="";
+	List<Scores> highscores;
 
 	// Initialise the sound player and highscores
 	void Start(){
@@ -28,7 +28,7 @@ public class Highscores : MonoBehaviour {
 		//EventManager._instance._buttonClick += ButtonClicked;
 
 		//Initialize a list of scores
-		highscore = new List<Scores>();
+		highscores = new List<Scores>();
 	}
 
 
@@ -65,7 +65,7 @@ public class Highscores : MonoBehaviour {
 		}
 
 		//Get the highscores
-		highscore = HighScoreManager._instance.GetHighScore();
+		highscores = HighScoreManager._instance.GetHighScore();
 
 		GUILayout.Space(60);
 
@@ -78,7 +78,7 @@ public class Highscores : MonoBehaviour {
 		GUILayout.Space(25);
 		//Go through each high score and print it to the screen
 		textStyleTitle.fontSize = Screen.height / 50 * 3;
-		foreach(Scores _score in highscore)
+		foreach(Scores _score in highscores)
 		{
 			GUILayout.BeginHorizontal();
 			GUILayout.Label(_score.name,textStyleTitle,GUILayout.Width(Screen.width/2));
