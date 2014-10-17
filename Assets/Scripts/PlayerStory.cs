@@ -199,6 +199,7 @@ public class PlayerStory : MonoBehaviour {
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 		// If collision is with a Spider object...
@@ -244,6 +245,13 @@ public class PlayerStory : MonoBehaviour {
 			rigidbody2D.velocity = previousVelocity;
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
+=======
+
+		if  (other.transform.gameObject.tag == "void"){
+			Die();
+		}
+		
+>>>>>>> feature/level3
 		// If collision is with the ground or platform, mark player as "grounded".
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
 			isGrounded = true;
