@@ -38,6 +38,7 @@ public class PlayerStory : MonoBehaviour {
 	// Game object
 	public GameObject RedAnt;
 	public GameObject Ant;
+	public GameObject Spider;
 
 	// Initialise sound player and pause menu.
 	void Start(){
@@ -271,6 +272,52 @@ public class PlayerStory : MonoBehaviour {
 			rigidbody2D.velocity = previousVelocity;
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
+
+		// If collision is with a spider ant object...
+		if (other.transform.gameObject.tag == "Spider") {
+			
+			// the swiper's position when the collision is detected
+			var Sx = transform.position.x;
+			var Sy = transform.position.y;
+			
+			// the lowest position of swiper's collider box
+			var colliderSwiper = GetComponent<BoxCollider2D>();
+			var colliderSw = colliderSwiper.collider2D;
+			
+			// the highest position of blackAnt's collider box
+			var colliderSpider = Spider.GetComponent<BoxCollider2D>();
+			var colliderSp = colliderSpider.collider2D;
+			
+			if(colliderSw.bounds.min.y >= colliderSp.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
+				// Do nothing? Play a sound?
+			}
+			
+			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
+				if (! invulnerable) {
+					if(health == max_health) {
+						// Get reference to list of all Life objects.
+						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+						// Make all Life objects transparent.
+						foreach (Life life in lives) {
+							life.MakeOpaque();
+						}
+					}
+					
+					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+					StartCoroutine(flash.FlashOnHit());
+					StartCoroutine(becomeInvulnerable());
+					soundPlayer.PlaySoundEffect ("hit");
+					health--;
+					transform.position = new Vector2(Sx-3.0f, Sy);
+				}
+			}
+			
+			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
+			Vector2 enemyBounceForce = new Vector2(0f,0f);
+			rigidbody2D.velocity = previousVelocity;
+			rigidbody2D.AddForce(enemyBounceForce);
+		}
+
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
 
