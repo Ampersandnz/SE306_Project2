@@ -11,7 +11,7 @@ public class MoveSpider : MonoBehaviour {
 	void Start () {
 		startY = transform.position.y;
 		web_child = transform.FindChild ("web");
-		spider_child = transform.FindChild ("spider");
+		spider_child = transform.FindChild ("spider_body");
 
 		height = web_child.transform.localScale.y * percent_height / 100;
 

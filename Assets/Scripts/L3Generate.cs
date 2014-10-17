@@ -26,9 +26,9 @@ public class L3Generate : MonoBehaviour {
 	void CreateCollectibles() {
 		for (int i=0; i<positions.Length; i++) {
 			if(random_location.CompareTo (i)==0){
-				CreateObject (coin, positions[i][0], positions[i][1]);
-			}else{
 				CreateObject (life, positions[i][0], positions[i][1]);
+			}else{
+				CreateObject (coin, positions[i][0], positions[i][1]);
 			}
 		}
 	}

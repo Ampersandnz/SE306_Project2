@@ -5,6 +5,9 @@ using System.Collections.Generic;
 // Class to display the GUI in the story
 public class GUIStory : MonoBehaviour {
 
+	// Get the name of the current level
+	public string thisLevel;
+
 	// Sizes of the text and icons
 	private int iconWidth = 85;
 	private int iconHeight = 75;
@@ -33,15 +36,15 @@ public class GUIStory : MonoBehaviour {
 	public string musicSymbol;
 	public string pauseSymbol;
 
-	private PauseMenu pauseMenu; // Initialising reference to pause menu
-	private PlayerStory player; // Initialising reference to player
-
 	//private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
 	private List<int> level1Stars = new List<int>(new int[] {3, 5}); 	// Coin values for two and three stars in Level 1
 	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
 	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
 	private Texture2D starTexture; // stores star texture to display
 	private bool enoughStars = false;
+
+	private PauseMenu pauseMenu; // Initialising reference to pause menu
+	private PlayerStory player; // Initialising reference to player
 
 	// Setting up references to player, pause menu and sound player
 	void Start() {
@@ -53,11 +56,13 @@ public class GUIStory : MonoBehaviour {
 		DontDestroyOnLoad (soundPlayer);
 
 		textStyleButton.fontSize = Screen.height / 50 * 3;
+
+		thisLevel = Application.loadedLevelName;
 	}
 
 	// Displaying everything.
 	void OnGUI () {
-
+		
 		// Health display
 		int i = 0;
 
@@ -96,7 +101,6 @@ public class GUIStory : MonoBehaviour {
 
 			// Button to restart the level.
 			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
-<<<<<<< HEAD
 				if(StoryLevelSelect.currentLevel == 1){
 					Application.LoadLevel ("StoryLevel1");
 				}else if (StoryLevelSelect.currentLevel == 2){
@@ -104,9 +108,6 @@ public class GUIStory : MonoBehaviour {
 				}else if (StoryLevelSelect.currentLevel == 3){
 					Application.LoadLevel ("StoryLevel3");
 				}
-=======
-				Application.LoadLevel ("StoryLevel3");
->>>>>>> feature/level3
 				player.playerDead = false;
 				pauseMenu.isPaused = false;
 				soundPlayer.PlaySoundEffect ("menu");
@@ -125,14 +126,14 @@ public class GUIStory : MonoBehaviour {
 
 		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
 			Time.timeScale = 0.0f; // Stop time
-
+			
 			var boxWidth = Screen.width/8*5;
 			var boxHeight = Screen.height/2;
-
+			
 			GUI.BeginGroup (new Rect (Screen.width/2-boxWidth/2, Screen.height / 2 - boxHeight/2, boxWidth, boxHeight),boxStyle);
-
+			
 			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
-
+			
 			// Check what level we are in and display stars based on how many coins collected
 			// If level 1 TODO
 			if (player.coins >= level1Stars[1]) { // three stars
@@ -169,25 +170,15 @@ public class GUIStory : MonoBehaviour {
 				starTexture = twoStarsTexture;
 				enoughStars = true;
 			}*/
-
+			
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
-
+			
 			// Button to restart the level.
 			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
-<<<<<<< HEAD
-				if(StoryLevelSelect.currentLevel == 1){
-					Application.LoadLevel ("StoryLevel1");
-				}else if (StoryLevelSelect.currentLevel == 2){
-					Application.LoadLevel ("StoryLevel2");
-				}else if (StoryLevelSelect.currentLevel == 3){
-					Application.LoadLevel ("StoryLevel3");
-				}
-=======
-				Application.LoadLevel ("StoryLevel3");
->>>>>>> feature/level3
+				Application.LoadLevel ("StoryLevel1");
 				Time.timeScale = 1.0f;
 			}
 			
@@ -200,22 +191,28 @@ public class GUIStory : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 				Time.timeScale = 1.0f;
 			}
-
+			
 			// Button to go to next level if two or three stars achieved
 			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
 				if (enoughStars) {	
 					soundPlayer.PlaySoundEffect ("menu");
 					pauseMenu.isPaused = false;
 					player.levelFinished = false;
-					
-					// if on level 1, load level 2 TODO
-					Application.LoadLevel ("StoryLevel2");
-					// if on level 2, load level 3 TODO
-					// Application.LoadLevel ("StoryLevel3");
+
+					// Load the next level depending on what level we are already on.
+					// TODO - Change to the storyboard scenes instead.
+					if(thisLevel=="StoryLevel1"){
+						Application.LoadLevel ("EndOfLevel1");
+					} else if (thisLevel =="StoryLevel2"){
+						Application.LoadLevel ("EndOfLevel2");
+					} else if (thisLevel=="StoryLevel3"){
+						Application.LoadLevel ("Level3End1");
+					}
+
 					Time.timeScale = 1.0f;
 				}
 			}
-
+			
 			// End the group we started above. This is very important to remember!
 			GUI.EndGroup ();
 		}

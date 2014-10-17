@@ -8,7 +8,8 @@ public class RedAnt : MonoBehaviour {
 	public int direction; // Direction of movement. 1 is left and -1 is right.
 
 	public GameObject coin;
-	public GameObject Swiper;
+	public PlayerStory Swiper;
+	public PauseMenu pauseMenu;
 
 	//public bool alive;
 	public bool Hit1 = false;
@@ -22,8 +23,11 @@ public class RedAnt : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 
 		// Getting reference to player object.
-		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
+		Swiper = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
 		
+		// Getting reference to pause menu.
+		pauseMenu = FindObjectOfType (typeof(PauseMenu)) as PauseMenu;
+
 		// Setting default values for the left and right limits.
 		//leftLimit = -1;
 		//rightLimit = 1;
@@ -59,27 +63,28 @@ public class RedAnt : MonoBehaviour {
 			// the position of ant's before it dead
 			var positionX = transform.position.x;
 			var positionY = transform.position.y;
-
-			Destroy (gameObject, 0.5f);
-
+			
 			//generate a coin when the ant been killed.
 			CreateObject (coin, positionX+1.2f, positionY+3.0f);
+
+			Destroy (gameObject, 0.5f);
 
 			Hit2 = false;
 		}
 
 		else {
-			
-			// Moving left and right
-			if (transform.position.x > rightLimit) {
-				direction = 1;
-				transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
-			} else if (transform.position.x < leftLimit) {
-				direction = -1;
-				transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
+
+			if(!pauseMenu.isPaused){
+				// Moving left and right
+				if (transform.position.x > rightLimit) {
+					direction = 1;
+					transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
+				} else if (transform.position.x < leftLimit) {
+					direction = -1;
+					transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
+				}
+				transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
 			}
-			transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
-			
 		}
 	}
 	

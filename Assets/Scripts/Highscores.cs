@@ -12,9 +12,9 @@ public class Highscores : MonoBehaviour {
 	public GUISkin skin;
 	public string musicSymbol;
 
-	string playerName="";
-	string playerScore="";
-	List<Scores> highscores;
+	string name="";
+	string score="";
+	List<Scores> highscore;
 
 	// Initialise the sound player and highscores
 	void Start(){
@@ -28,7 +28,7 @@ public class Highscores : MonoBehaviour {
 		//EventManager._instance._buttonClick += ButtonClicked;
 
 		//Initialize a list of scores
-		highscores = new List<Scores>();
+		highscore = new List<Scores>();
 	}
 
 
@@ -45,7 +45,7 @@ public class Highscores : MonoBehaviour {
 		// List high scores
 	
 		// Button to go back to endless runner mode menu.
-		if((GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) || (Input.GetKeyDown(KeyCode.Escape))) {
+		if((GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*13 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) || (Input.GetKeyDown(KeyCode.Escape))) {
 			Application.LoadLevel("EndlessRunnerMode");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
@@ -65,7 +65,7 @@ public class Highscores : MonoBehaviour {
 		}
 
 		//Get the highscores
-		highscores = HighScoreManager._instance.GetHighScore();
+		highscore = HighScoreManager._instance.GetHighScore();
 
 		GUILayout.Space(60);
 
@@ -78,7 +78,7 @@ public class Highscores : MonoBehaviour {
 		GUILayout.Space(25);
 		//Go through each high score and print it to the screen
 		textStyleTitle.fontSize = Screen.height / 50 * 3;
-		foreach(Scores _score in highscores)
+		foreach(Scores _score in highscore)
 		{
 			GUILayout.BeginHorizontal();
 			GUILayout.Label(_score.name,textStyleTitle,GUILayout.Width(Screen.width/2));

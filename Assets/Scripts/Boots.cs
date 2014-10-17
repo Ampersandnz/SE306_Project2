@@ -14,7 +14,7 @@ public class Boots : MonoBehaviour{
 		SwiperNear = false;
 		startedThrowing = false;
 		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
-		desiredY = 7.0f; // Setting the desired height that we want Boots to end up after emerging from the "ceiling".
+		desiredY = 4.5f; // Setting the desired height that we want Boots to end up after emerging from the "ceiling".
 	}
 
 	void Update(){
@@ -46,6 +46,8 @@ public class Boots : MonoBehaviour{
 
 	// Method to throw a banana.
 	void ThrowBanana(){
-		Instantiate(banana, new Vector2(transform.position.x, transform.position.y-2f), Quaternion.identity);
+		if (startedThrowing && !player.levelFinished) {
+			Instantiate (banana, new Vector2 (transform.position.x, transform.position.y - 2f), Quaternion.identity);
+		}
 	} 
 }

@@ -9,7 +9,7 @@ public class HoleCollision : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter2D (Collider2D other) {
-		if(other.transform.gameObject.tag == "Hole") {
+		if(other.transform.gameObject.tag == "void") {
 			player.health = 0;
 		}
 	}

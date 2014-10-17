@@ -25,7 +25,7 @@ public class Banana : MonoBehaviour{
 		// If no behaviour is chosen, the banana just drops straight down.
 
 		// Make the banana rotate
-		rigidbody2D.AddTorque (10f);
+		rigidbody2D.AddTorque (4f);
 	}
 
 	// If the banana hits something, destroy the banana.

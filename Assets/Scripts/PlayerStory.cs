@@ -17,16 +17,10 @@ public class PlayerStory : MonoBehaviour {
 	public int coins; // Integer to store number of coins collected.
 	public int health; // Integer to store remaining health.
 	public int max_health;
-<<<<<<< HEAD
 
-=======
-	private bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
-	
->>>>>>> feature/ants
 	private Life[] lives;
 	private SoundPlayer soundPlayer;
 
-	public GameObject Spider;
 	public bool playerDead;
 	public bool levelFinished;
 	private PauseMenu pauseMenu;
@@ -38,12 +32,12 @@ public class PlayerStory : MonoBehaviour {
 	private float xDimension = 0.5166001f;
 	private float yDimension = 0.5165996f;
 
+	// Animator when for Hero running animation.
+	Animator anim;
+	
 	// Game object
 	public GameObject RedAnt;
 	public GameObject Ant;
-
-	// Animator when for Hero running animation.
-	Animator anim;
 
 	// Initialise sound player and pause menu.
 	void Start(){
@@ -65,12 +59,6 @@ public class PlayerStory : MonoBehaviour {
 
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
-			// If Swiper is below the screen, kill him.
-			Vector2 screenPosition = Camera.main.WorldToScreenPoint (transform.position);
-			if (screenPosition.y < 0) {
-				health = 0;
-				Die ();
-			}
 
 			// If Swiper's health is zero, run the death routine.
 			if (health < 1) {
@@ -79,19 +67,12 @@ public class PlayerStory : MonoBehaviour {
 
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
-<<<<<<< HEAD
 				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
 				Vector2 force;
 				if (isGrounded) {
 					force = (leftForce);
 				} else {
 					force = leftForce;
-=======
-				if (isGrounded && screenPosition.x > 130) {
-					rigidbody2D.velocity = Vector2.zero;
-					rigidbody2D.AddForce (leftForce);
-					transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
->>>>>>> issues_storyboard
 				}
 				rigidbody2D.AddForce (force);
 				transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
@@ -157,6 +138,13 @@ public class PlayerStory : MonoBehaviour {
 
 	// Detects collision with anything.
 	void OnCollisionEnter2D(Collision2D other) {
+		
+		// If the player hits a void object, die.
+		// TODO commented out because this collision is now the reponsibility of the HoleCollision.cs script.
+		/*
+		if  (other.transform.gameObject.tag == "void"){
+			Die();
+		}*/
 
 		// If collision is with a coin object, increase the relevant count.
 		if (other.transform.gameObject.tag == "Coin") {
@@ -183,75 +171,31 @@ public class PlayerStory : MonoBehaviour {
 			}
 			rigidbody2D.velocity = previousVelocity;
 		}
-
-<<<<<<< HEAD
-		// If collision is with an enemy object...
-		if (other.transform.gameObject.tag == "Enemy") {
-			// The player has collided into the enemy in the regular way. Decrease the relevant count. Update the life packs to make them opaque again.
-			if (! invulnerable) {
-				if(health == max_health) {
-					// Get reference to list of all Life objects.
-					Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-					// Make all Life objects transparent.
-					foreach (Life life in lives) {
-						life.MakeOpaque();
-					}
-				}
-
-				RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
-				StartCoroutine(flash.FlashOnHit());
-				StartCoroutine(becomeInvulnerable());
-				soundPlayer.PlaySoundEffect ("hit");
-				health--;
-			}
-		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-		// If collision is with a Spider object...
-		if (other.transform.gameObject.tag == "Spider") {
-			
-=======
+		
 		// If collision is with an red ant object...
 		if (other.transform.gameObject.tag == "redAnt") {
-
+			
 			// the swiper's position when the collision is detected
 			var Sx = transform.position.x;
 			var Sy = transform.position.y;
-
+			
 			// the lowest position of swiper's collider box
 			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
-
+			
 			// the highest position of redAnt's collider box
 			var colliderRedAnt = RedAnt.GetComponent<BoxCollider2D>();
 			var colliderRA = colliderRedAnt.collider2D;
-
->>>>>>> feature/ants
+			
 			/*if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
-				
-			}*/
 
-<<<<<<< HEAD
-			var colliderSwiper = GetComponent<BoxCollider2D>();
-			var colliderSw = colliderSwiper.collider2D;
-			
-			// the highest position of Ant's collider
-			var colliderSpider = GetComponent<BoxCollider2D>();
-			var colliderSp = colliderSpider.collider2D;
-
-			if(colliderSw.bounds.min.y >= colliderSp.bounds.max.y){
-
-=======
 			} */
-
+			
 			if(colliderS.bounds.min.y >= colliderRA.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
->>>>>>> feature/ants
 			}
-
+			
 			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
 				if (! invulnerable) {
 					if(health == max_health) {
@@ -271,24 +215,24 @@ public class PlayerStory : MonoBehaviour {
 					transform.position = new Vector2(Sx-3.0f, Sy);
 				}
 			}
-
+			
 			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
 			Vector2 enemyBounceForce = new Vector2(0f,0f);
 			rigidbody2D.velocity = previousVelocity;
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
-
+		
 		// If collision is with a black ant object...
 		if (other.transform.gameObject.tag == "Ant") {
-
+			
 			// the swiper's position when the collision is detected
 			var Sx = transform.position.x;
 			var Sy = transform.position.y;
-
+			
 			// the lowest position of swiper's collider box
 			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
-
+			
 			// the highest position of blackAnt's collider box
 			var colliderAnt = Ant.GetComponent<BoxCollider2D>();
 			var colliderA = colliderAnt.collider2D;
@@ -322,31 +266,18 @@ public class PlayerStory : MonoBehaviour {
 				}
 			}
 			
-<<<<<<< HEAD
-=======
 			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
 			Vector2 enemyBounceForce = new Vector2(0f,0f);
 			rigidbody2D.velocity = previousVelocity;
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
-
-		// If collision is with an other enemy object...
+		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {
 
-			// the swiper's position when the collision is detected
-			var Sx = transform.position.x;
-			var Sy = transform.position.y;
-			
-			if(transform.position.y-0.6f >= other.transform.position.y+0.7f){ // If the player has bounced on the top of the enemy, then:
+			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
 				// Do nothing? Play a sound?
 
-			}
-			
-			/*if(colliderS.bounds.min.y >= colliderRA.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-			}*/
-			
-			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
+			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
 				if (! invulnerable) {
 					if(health == max_health) {
 						// Get reference to list of all Life objects.
@@ -356,45 +287,21 @@ public class PlayerStory : MonoBehaviour {
 							life.MakeOpaque();
 						}
 					}
-					
+
 					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
 					StartCoroutine(flash.FlashOnHit());
 					StartCoroutine(becomeInvulnerable());
 					soundPlayer.PlaySoundEffect ("hit");
 					health--;
-					transform.position = new Vector2(Sx-3.0f, Sy);
 				}
 			}
-			
->>>>>>> feature/ants
+
 			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
 			Vector2 enemyBounceForce = new Vector2(0f,0f);
 			rigidbody2D.velocity = previousVelocity;
 			rigidbody2D.AddForce(enemyBounceForce);
 		}
-=======
 
-		if  (other.transform.gameObject.tag == "void"){
-			Die();
-		}
-		
->>>>>>> feature/level3
-		// If collision is with the ground or platform, mark player as "grounded".
-		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
-			isGrounded = true;
-		}
->>>>>>> feature/level2
-
-		// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
-		Vector2 enemyBounceForce = new Vector2(0f,0f);
-		rigidbody2D.velocity = previousVelocity;
-		rigidbody2D.AddForce(enemyBounceForce);
-
-		// If Swiper has reached the end flag, mark the level as completed.
-		if (other.transform.gameObject.tag == "endFlag") {
-			levelFinished = true;
-			soundPlayer.PlaySoundEffect("applause");
-		}
 	}
 
 	// Function to kill swiper. Plays death sounds and animation.

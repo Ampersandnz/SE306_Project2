@@ -4,10 +4,12 @@ using System.Collections;
 public class CameraTracksSwiper : MonoBehaviour {
 	
 	Transform player;
-	float offset;
+	float threshold;
+	float offset1;
+	float offset2;
+	string levelName;
 	PlayerStory player_GO;
-	private Vector3 prev_pos;
-
+	
 	// Use this for initialization
 	void Start () {
 		player_GO = FindObjectOfType (typeof(PlayerStory)) as PlayerStory;
@@ -18,31 +20,31 @@ public class CameraTracksSwiper : MonoBehaviour {
 		}
 
 		player = player_GO.transform;
-		prev_pos = player.position;
-		offset = transform.position.x - player.position.x;
-		offset = transform.position.y - player.position.y;
+		offset1 = transform.position.x - player.position.x;
+		offset1 = transform.position.y - player.position.y;
+
+		levelName = Application.loadedLevelName;
+		if (levelName == "StoryLevel1") {
+			threshold = 2.9f;
+			offset2 = 0;
+		} else if (levelName == "StoryLevel2") {
+			threshold = -1.6f;
+			offset2 = 3;
+		} else if (levelName == "StoryLevel3") {
+			threshold = -3f;
+			offset2 = 3;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (player != null && !player_GO.playerDead) {
-<<<<<<< HEAD
 			Vector3 pos = transform.position;
-			pos.x = player.position.x + offset;
-			if(player.position.y > 2.9) {
-				pos.y = player.position.y + offset;
+			pos.x = player.position.x + offset1 + 9;
+			if(player.position.y > threshold) {
+				pos.y = player.position.y + offset1 - offset2;
 			}
 			transform.position = pos;
-=======
-			float diff = transform.position.x - player.position.x;
-			if (player.position.x > prev_pos.x && diff < offset) {
-				Vector3 pos = transform.position;
-				pos.x = player.position.x + offset;
-				transform.position = pos;
-			}
-			prev_pos = player.position;
->>>>>>> issues_storyboard
 		}
 	}
-	
 }
