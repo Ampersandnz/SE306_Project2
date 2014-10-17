@@ -4,7 +4,6 @@ using System.Collections;
 // Class for the ant enemy.
 public class Ant : MonoBehaviour {
 
-	private PlayerStory player;
 	public float leftLimit;
 	public float rightLimit;
 	public int direction; // Direction of movement. 1 is left and -1 is right.
@@ -17,9 +16,6 @@ public class Ant : MonoBehaviour {
 		alive = true;
 		anim = GetComponent<Animator> ();
 
-		// Getting reference to player object.
-		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
-
 		// Setting default values for the left and right limits.
 		direction = 1;
 
@@ -31,6 +27,7 @@ public class Ant : MonoBehaviour {
 	void Update () {
 		// If ant is dead, then:
 		if (alive == false) {
+			soundPlayer.PlaySoundEffect("crunch");
 			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
 			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
 		} else {
@@ -44,18 +41,6 @@ public class Ant : MonoBehaviour {
 				transform.localScale = new Vector2(-0.3f , 0.3f); // Flip sprite horizontally
 			}
 			transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
-
-		}
-	}
-
-	void OnCollisionEnter2D(Collision2D other) {
-
-		// If collision is with Swiper, check if it is dead.
-		if (other.transform.gameObject.name == "Swiper") {
-			if (player.transform.position.y - 0.6f >= transform.position.y + 0.7) {
-				alive = false;
-				soundPlayer.PlaySoundEffect("crunch");
-			}
 		}
 	}
 }

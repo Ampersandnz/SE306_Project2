@@ -4,19 +4,19 @@ using System.Collections;
 // Class for the ant enemy.
 public class Spider : MonoBehaviour {
 	
+<<<<<<< HEAD
 	private PlayerStory player;
 
 	public GameObject Swiper;
 	public GameObject coin;
 
+=======
+>>>>>>> feature/feet_stuff
 	public bool alive;
 	private SoundPlayer soundPlayer;
 	
 	void Start () {
 		alive = true;
-		
-		// Getting reference to player object.
-		player = FindObjectOfType(typeof(PlayerStory)) as PlayerStory;
 		
 		// Setting up sound player.
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
@@ -26,6 +26,10 @@ public class Spider : MonoBehaviour {
 	void Update () {
 		// If spider is dead, then:
 		if (alive == false) {
+<<<<<<< HEAD
+=======
+			soundPlayer.PlaySoundEffect("crunch");
+>>>>>>> feature/feet_stuff
 			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
 
 			// the position of spider's before it dead
@@ -45,6 +49,7 @@ public class Spider : MonoBehaviour {
 			
 		}
 	}
+<<<<<<< HEAD
 	
 	void OnCollisionEnter2D(Collision2D other) {
 		
@@ -82,4 +87,6 @@ public class Spider : MonoBehaviour {
 	public void CreateObject(GameObject obj, float x, float y){
 		Instantiate (obj, new Vector2 (x, y), Quaternion.identity);
 	}
+=======
+>>>>>>> feature/feet_stuff
 }
