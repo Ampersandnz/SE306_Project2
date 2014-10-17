@@ -63,10 +63,10 @@ public class Ant : MonoBehaviour {
 				// Moving left and right
 				if (transform.position.x > rightLimit) {
 					direction = 1;
-					transform.localScale = new Vector2(0.3f , 0.3f); // Flip sprite horizontally
+					transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
 				} else if (transform.position.x < leftLimit) {
 					direction = -1;
-					transform.localScale = new Vector2(-0.3f , 0.3f); // Flip sprite horizontally
+					transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
 				}
 				transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
 			}
