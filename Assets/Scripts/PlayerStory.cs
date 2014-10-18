@@ -174,7 +174,7 @@ public class PlayerStory : MonoBehaviour {
 		}
 	}
 
-	void TakeDamage() {
+	public void TakeDamage() {
 		if (! invulnerable) {
 			if(health == max_health) {
 				// Get reference to list of all Life objects.
@@ -198,7 +198,7 @@ public class PlayerStory : MonoBehaviour {
 	}
 
 	// Function to kill swiper. Plays death sounds and animation.
-	void Die() {
+	public void Die() {
 		if (playerDead == false) {
 			collider2D.enabled = false;
 			rigidbody2D.AddForce (deathForce);
