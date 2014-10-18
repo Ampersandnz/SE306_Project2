@@ -21,14 +21,9 @@ public class PlayerEndless : MonoBehaviour {
 	public bool playerDead;
 	public bool levelFinished;
 	private PauseMenu pauseMenu;
-	
-	private bool invulnerable = false;
+
 	public bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
-	
-	// These are the dimensions that we have scaled the sprite by. Don't change these! We need to reference these numbers to do the horizontal flip.
-	private float xDimension = 0.5166001f;
-	private float yDimension = 0.5165996f;
-	
+		
 	// Animator when for Hero running animation.
 	Animator anim;
 	
@@ -48,8 +43,6 @@ public class PlayerEndless : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		previousVelocity = rigidbody2D.velocity;
-
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
 
@@ -62,35 +55,7 @@ public class PlayerEndless : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("bounce");
 				rigidbody2D.AddForce (jumpForce);
 			}
-			
-			var x_accel = (float)Input.acceleration.x;
-			x_accel = (float)0.4 * x_accel;
-			
-			// Upper limits
-			if (x_accel > (float)0.15) {
-				x_accel = (float)0.15;
-			} else if (x_accel < (float)-0.15) {
-				x_accel = (float)-0.15;
-			}
-			
-			// Lower limits
-			if (x_accel < (float)0.05 && x_accel > (float)-0.05) {
-				x_accel = 0;
-			}
-			
-			// Un-comment animator when we have a better running animation.
-			anim.SetFloat ("Speed", Mathf.Abs (x_accel));
-			
-			//Read accelerometer input in the x direction
-			transform.Translate (x_accel, 0, 0);
-			
-			// Flip sprite horizontally depending on acceleration.
-			if(x_accel < 0) {
-				transform.localScale = new Vector2(-xDimension , yDimension); // Make sprite face left
-			} else if(x_accel > 0) {
-				transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
-			}
-			
+
 			previousVelocity = rigidbody2D.velocity;
 		}
 	}
