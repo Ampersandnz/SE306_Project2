@@ -5,9 +5,6 @@ using System.Collections.Generic;
 // Class to display the GUI in the story
 public class GUIStory : MonoBehaviour {
 
-	// Get the name of the current level
-	public string thisLevel;
-
 	// Sizes of the text and icons
 	private int iconWidth = 85;
 	private int iconHeight = 75;
@@ -44,6 +41,7 @@ public class GUIStory : MonoBehaviour {
 
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
+	string levelName;
 
 	// Setting up references to player, pause menu and sound player
 	void Start() {
@@ -55,8 +53,7 @@ public class GUIStory : MonoBehaviour {
 		DontDestroyOnLoad (soundPlayer);
 
 		textStyleButton.fontSize = Screen.height / 50 * 3;
-
-		thisLevel = Application.loadedLevelName;
+		levelName = Application.loadedLevelName;
 	}
 
 	// Displaying everything.
@@ -133,8 +130,6 @@ public class GUIStory : MonoBehaviour {
 			
 			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
 
-			string levelName = Application.loadedLevelName;
-
 			// Check what level we are in and display stars based on how many coins collected
 			if (levelName == "StoryLevel1") {
 				if (player.coins >= level1Stars[1]) { // three stars
@@ -200,12 +195,11 @@ public class GUIStory : MonoBehaviour {
 					player.levelFinished = false;
 
 					// Load the next level depending on what level we are already on.
-					// TODO - Change to the storyboard scenes instead.
-					if(thisLevel=="StoryLevel1"){
+					if(levelName == "StoryLevel1"){
 						Application.LoadLevel ("EndOfLevel1");
-					} else if (thisLevel =="StoryLevel2"){
+					} else if (levelName == "StoryLevel2"){
 						Application.LoadLevel ("EndOfLevel2");
-					} else if (thisLevel=="StoryLevel3"){
+					} else if (levelName == "StoryLevel3"){
 						Application.LoadLevel ("Level3End1");
 					}
 
