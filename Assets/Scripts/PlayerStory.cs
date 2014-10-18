@@ -9,9 +9,7 @@ public class PlayerStory : MonoBehaviour {
 	public Vector2 deathForce;
 	public Vector2 leftForce;
 	public Vector2 rightForce;
-	private Vector2 enemyBounceLeft;
-	private Vector2 enemyBounceRight;
-	private Vector2 enemyBounceUp;
+	public Vector2 enemyBounce;
 	private Vector2 previousVelocity; // Store this so that collisions with coins do not cause Swiper to bounce.
 	
 	public int coins; // Integer to store number of coins collected.
@@ -34,11 +32,6 @@ public class PlayerStory : MonoBehaviour {
 
 	// Animator when for Hero running animation.
 	Animator anim;
-	
-	// Game object
-	public GameObject RedAnt;
-	public GameObject Ant;
-	public GameObject Spider;
 
 	// Initialise sound player and pause menu.
 	void Start(){
@@ -61,11 +54,6 @@ public class PlayerStory : MonoBehaviour {
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
 
-			// If Swiper's health is zero, run the death routine.
-			if (health < 1) {
-				Die ();
-			}
-
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
 				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
@@ -73,7 +61,7 @@ public class PlayerStory : MonoBehaviour {
 				if (isGrounded) {
 					force = (leftForce);
 				} else {
-					force = leftForce;
+					force = leftForce * 0.8f;
 				}
 				rigidbody2D.AddForce (force);
 				transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
@@ -93,7 +81,7 @@ public class PlayerStory : MonoBehaviour {
 				if (isGrounded) {
 					force = (rightForce);
 				} else {
-					force = rightForce;
+					force = rightForce * 0.8f;
 				}
 				rigidbody2D.AddForce (force);
 				transform.localScale = new Vector2(xDimension, yDimension); // Flip sprite horizontally
@@ -139,13 +127,6 @@ public class PlayerStory : MonoBehaviour {
 
 	// Detects collision with anything.
 	void OnCollisionEnter2D(Collision2D other) {
-		
-		// If the player hits a void object, die.
-		// TODO commented out because this collision is now the reponsibility of the HoleCollision.cs script.
-		/*
-		if  (other.transform.gameObject.tag == "void"){
-			Die();
-		}*/
 
 		// If collision is with a coin object, increase the relevant count.
 		if (other.transform.gameObject.tag == "Coin") {
@@ -172,183 +153,48 @@ public class PlayerStory : MonoBehaviour {
 			}
 			rigidbody2D.velocity = previousVelocity;
 		}
-		
-		// If collision is with an red ant object...
-		if (other.transform.gameObject.tag == "redAnt") {
-			
-			// the swiper's position when the collision is detected
-			var Sx = transform.position.x;
-			var Sy = transform.position.y;
-			
-			// the lowest position of swiper's collider box
-			var colliderSwiper = GetComponent<BoxCollider2D>();
-			var colliderS = colliderSwiper.collider2D;
-			
-			// the highest position of redAnt's collider box
-			var colliderRedAnt = RedAnt.GetComponent<BoxCollider2D>();
-			var colliderRA = colliderRedAnt.collider2D;
-			
-			/*if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-
-			} */
-			
-			if(colliderS.bounds.min.y >= colliderRA.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-			}
-			
-			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				if (! invulnerable) {
-					if(health == max_health) {
-						// Get reference to list of all Life objects.
-						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-						// Make all Life objects transparent.
-						foreach (Life life in lives) {
-							life.MakeOpaque();
-						}
-					}
-					
-					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
-					StartCoroutine(flash.FlashOnHit());
-					StartCoroutine(becomeInvulnerable());
-					soundPlayer.PlaySoundEffect ("hit");
-					health--;
-					transform.position = new Vector2(Sx-3.0f, Sy);
-				}
-			}
-			
-			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
-			Vector2 enemyBounceForce = new Vector2(0f,0f);
-			rigidbody2D.velocity = previousVelocity;
-			rigidbody2D.AddForce(enemyBounceForce);
-		}
-		
-		// If collision is with a black ant object...
-		if (other.transform.gameObject.tag == "Ant") {
-			
-			// the swiper's position when the collision is detected
-			var Sx = transform.position.x;
-			var Sy = transform.position.y;
-			
-			// the lowest position of swiper's collider box
-			var colliderSwiper = GetComponent<BoxCollider2D>();
-			var colliderS = colliderSwiper.collider2D;
-			
-			// the highest position of blackAnt's collider box
-			var colliderAnt = Ant.GetComponent<BoxCollider2D>();
-			var colliderA = colliderAnt.collider2D;
-			
-			/*if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-
-			} */
-			
-			if(colliderS.bounds.min.y >= colliderA.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-			}
-			
-			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				if (! invulnerable) {
-					if(health == max_health) {
-						// Get reference to list of all Life objects.
-						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-						// Make all Life objects transparent.
-						foreach (Life life in lives) {
-							life.MakeOpaque();
-						}
-					}
-					
-					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
-					StartCoroutine(flash.FlashOnHit());
-					StartCoroutine(becomeInvulnerable());
-					soundPlayer.PlaySoundEffect ("hit");
-					health--;
-					transform.position = new Vector2(Sx-3.0f, Sy);
-				}
-			}
-			
-			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
-			Vector2 enemyBounceForce = new Vector2(0f,0f);
-			rigidbody2D.velocity = previousVelocity;
-			rigidbody2D.AddForce(enemyBounceForce);
-		}
-
-		// If collision is with a spider ant object...
-		if (other.transform.gameObject.tag == "Spider") {
-			
-			// the swiper's position when the collision is detected
-			var Sx = transform.position.x;
-			var Sy = transform.position.y;
-			
-			// the lowest position of swiper's collider box
-			var colliderSwiper = GetComponent<BoxCollider2D>();
-			var colliderSw = colliderSwiper.collider2D;
-			
-			// the highest position of blackAnt's collider box
-			var colliderSpider = Spider.GetComponent<BoxCollider2D>();
-			var colliderSp = colliderSpider.collider2D;
-			
-			if(colliderSw.bounds.min.y >= colliderSp.bounds.max.y){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
-			}
-			
-			else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				if (! invulnerable) {
-					if(health == max_health) {
-						// Get reference to list of all Life objects.
-						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-						// Make all Life objects transparent.
-						foreach (Life life in lives) {
-							life.MakeOpaque();
-						}
-					}
-					
-					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
-					StartCoroutine(flash.FlashOnHit());
-					StartCoroutine(becomeInvulnerable());
-					soundPlayer.PlaySoundEffect ("hit");
-					health--;
-					transform.position = new Vector2(Sx-3.0f, Sy);
-				}
-			}
-			
-			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
-			Vector2 enemyBounceForce = new Vector2(0f,0f);
-			rigidbody2D.velocity = previousVelocity;
-			rigidbody2D.AddForce(enemyBounceForce);
-		}
 
 		// If collision is with an enemy object...
-		if (other.transform.gameObject.tag == "Enemy") {
+		if (other.transform.gameObject.tag == "Enemy") {		
 
-			if(transform.position.y-0.6f >= other.transform.position.y+0.7){ // If the player has bounced on the top of the enemy, then:
-				// Do nothing? Play a sound?
+			Ant ant = other.gameObject.GetComponent<Ant>();
+			if (ant != null && ant.alive) {
+				TakeDamage();
+			}
+			
+			RedAnt redAnt = other.gameObject.GetComponent<RedAnt>();
+			if (redAnt != null && redAnt.hitCount < 2) {
+				TakeDamage();
+			}
+			
+			Spider spider = other.gameObject.GetComponent<Spider>();
+			if (spider != null && spider.alive) {
+				TakeDamage();
+			}
+		}
+	}
 
-			} else { // If the player has collided into the enemy in the regular way, then decrease the relevant count. Update the life packs to make them opaque again.
-				if (! invulnerable) {
-					if(health == max_health) {
-						// Get reference to list of all Life objects.
-						Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
-						// Make all Life objects transparent.
-						foreach (Life life in lives) {
-							life.MakeOpaque();
-						}
-					}
-
-					RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
-					StartCoroutine(flash.FlashOnHit());
-					StartCoroutine(becomeInvulnerable());
-					soundPlayer.PlaySoundEffect ("hit");
-					health--;
+	void TakeDamage() {
+		if (! invulnerable) {
+			if(health == max_health) {
+				// Get reference to list of all Life objects.
+				Life[] lives = FindObjectsOfType(typeof(Life)) as Life[];
+				// Make all Life objects transparent.
+				foreach (Life life in lives) {
+					life.MakeOpaque();
 				}
 			}
+			
+			RedFlash flash = FindObjectOfType(typeof(RedFlash)) as RedFlash;
+			StartCoroutine(flash.FlashOnHit());
+			StartCoroutine(becomeInvulnerable());
+			soundPlayer.PlaySoundEffect ("hit");
+			health--;
 
-			// Later we'll detect which direction Swiper hit the enemy from (left, right, or above), and bounce him off a little bit in the opposite direction.
-			Vector2 enemyBounceForce = new Vector2(0f,0f);
-			rigidbody2D.velocity = previousVelocity;
-			rigidbody2D.AddForce(enemyBounceForce);
+			if (health == 0) {
+				Die ();
+			}
 		}
-
 	}
 
 	// Function to kill swiper. Plays death sounds and animation.
