@@ -36,8 +36,7 @@ public class GUIStory : MonoBehaviour {
 	public string musicSymbol;
 	public string pauseSymbol;
 
-	//private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
-	private List<int> level1Stars = new List<int>(new int[] {3, 5}); 	// Coin values for two and three stars in Level 1
+	private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
 	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
 	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
 	private Texture2D starTexture; // stores star texture to display
