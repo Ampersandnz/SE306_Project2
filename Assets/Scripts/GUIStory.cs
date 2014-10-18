@@ -178,7 +178,13 @@ public class GUIStory : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
-				Application.LoadLevel ("StoryLevel1");
+				if(thisLevel=="StoryLevel1"){
+					Application.LoadLevel ("EndOfLevel1");
+				} else if (thisLevel =="StoryLevel2"){
+					Application.LoadLevel ("EndOfLevel2");
+				} else if (thisLevel=="StoryLevel3"){
+					Application.LoadLevel ("Level3End1");
+				}
 				Time.timeScale = 1.0f;
 			}
 			

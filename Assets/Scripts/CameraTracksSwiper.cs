@@ -31,7 +31,7 @@ public class CameraTracksSwiper : MonoBehaviour {
 			threshold = -1.6f;
 			offset2 = 3;
 		} else if (levelName == "StoryLevel3") {
-			threshold = -3f;
+			threshold = -8.5f;
 			offset2 = 3;
 		}
 	}
