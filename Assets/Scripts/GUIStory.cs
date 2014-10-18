@@ -132,43 +132,44 @@ public class GUIStory : MonoBehaviour {
 			GUI.BeginGroup (new Rect (Screen.width/2-boxWidth/2, Screen.height / 2 - boxHeight/2, boxWidth, boxHeight),boxStyle);
 			
 			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
-			
-			// Check what level we are in and display stars based on how many coins collected
-			// If level 1 TODO
-			if (player.coins >= level1Stars[1]) { // three stars
-				starTexture = threeStarsTexture;
-				enoughStars = true;
-			} else if (player.coins < level1Stars[0]) { // one star
-				starTexture = oneStarTexture;
-				enoughStars = false;
-			} else { // two stars
-				starTexture = twoStarsTexture;
-				enoughStars = true;
-			}
-			/*
-			// else if level 2 TODO
-			if (player.coins >= level2Stars[1]) { // three stars
-				starTexture = threeStarsTexture;
-				enoughStars = true;
-			} else if (player.coins < level2Stars[0]) { // one star
-				starTexture = oneStarTexture;
-				enoughStars = false;
-			} else { // two stars
-				starTexture = twoStarsTexture;
-				enoughStars = true;
-			}
 
-			// else if level 3 TODO
-			if (player.coins >= level3Stars[1]) { // three stars
-				starTexture = threeStarsTexture;
-				enoughStars = true;
-			} else if (player.coins < level3Stars[0]) { // one star
-				starTexture = oneStarTexture;
-				enoughStars = false;
-			} else { // two stars
-				starTexture = twoStarsTexture;
-				enoughStars = true;
-			}*/
+			string levelName = Application.loadedLevelName;
+
+			// Check what level we are in and display stars based on how many coins collected
+			if (levelName == "StoryLevel1") {
+				if (player.coins >= level1Stars[1]) { // three stars
+					starTexture = threeStarsTexture;
+					enoughStars = true;
+				} else if (player.coins < level1Stars[0]) { // one star
+					starTexture = oneStarTexture;
+					enoughStars = false;
+				} else { // two stars
+					starTexture = twoStarsTexture;
+					enoughStars = true;
+				}
+			} else if (levelName == "StoryLevel2") {
+				if (player.coins >= level2Stars[1]) { // three stars
+					starTexture = threeStarsTexture;
+					enoughStars = true;
+				} else if (player.coins < level2Stars[0]) { // one star
+					starTexture = oneStarTexture;
+					enoughStars = false;
+				} else { // two stars
+					starTexture = twoStarsTexture;
+					enoughStars = true;
+				}
+			} else if (levelName == "StoryLevel3") {
+				if (player.coins >= level3Stars[1]) { // three stars
+					starTexture = threeStarsTexture;
+					enoughStars = true;
+				} else if (player.coins < level3Stars[0]) { // one star
+					starTexture = oneStarTexture;
+					enoughStars = false;
+				} else { // two stars
+					starTexture = twoStarsTexture;
+					enoughStars = true;
+				}
+			}
 			
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
 			
