@@ -36,40 +36,16 @@ public class Ant : MonoBehaviour {
 	}
 
 	void Update () {
-		// If ant is dead, then:
-		if (alive == false) {
-
-			// the position of swiper when the hit is detected
-			var Sx = Swiper.transform.position.x;
-			var Sy = Swiper.transform.position.y;
-			Swiper.transform.position = new Vector2(Sx, Sy+3.0f); // Make Swiper jump.
-
-			collider2D.enabled = false; // Make ant intangible so Swiper can't collide with the carcass.
-			
-			anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
-			
-			// the position of ant's before it dead
-			var positionX = transform.position.x;
-			var positionY = transform.position.y;
-
-			//generate a coin when the ant been killed.
-			CreateObject (coin, positionX+1.2f, positionY+3.0f);
-
-			Destroy (gameObject, 0.5f);
-			
-			alive = true;
-		} else {
-			if(!pauseMenu.isPaused){ // Disable movement while the game is paused.
-				// Moving left and right
-				if (transform.position.x > rightLimit) {
-					direction = 1;
-					transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
-				} else if (transform.position.x < leftLimit) {
-					direction = -1;
-					transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
-				}
-				transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
+		if(!pauseMenu.isPaused) { // Disable movement while the game is paused.
+			// Moving left and right
+			if (transform.position.x > rightLimit) {
+				direction = 1;
+				transform.localScale = new Vector2(0.6f , 0.6f); // Flip sprite horizontally
+			} else if (transform.position.x < leftLimit) {
+				direction = -1;
+				transform.localScale = new Vector2(-0.6f , 0.6f); // Flip sprite horizontally
 			}
+			transform.position = new Vector2 (transform.position.x + (-0.02f * (float)direction), transform.position.y);
 		}
 	}
 	
@@ -80,5 +56,19 @@ public class Ant : MonoBehaviour {
 	*/
 	public void CreateObject(GameObject obj, float x, float y){
 		Instantiate (obj, new Vector2 (x, y), Quaternion.identity);
+	}
+
+	public void Die() {
+		alive = false;
+		anim.SetBool ("isAlive", false); // Change to "dead ant" texture.
+		
+		// the position of ant's before it dead
+		var positionX = transform.position.x;
+		var positionY = transform.position.y;
+		
+		//generate a coin when the ant been killed.
+		CreateObject (coin, positionX+1.2f, positionY+3.0f);
+
+		Destroy (gameObject, 0.5f);
 	}
 }
