@@ -168,6 +168,11 @@ public class GUIStory : MonoBehaviour {
 			}
 			
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
+
+			// Display message if only one star achieved
+			if (!enoughStars) {
+				GUI.Label(new Rect(boxWidth/3, boxHeight/3*2, boxWidth/10*4, boxHeight/10*4), "Need more coins!");
+			}
 			
 			// Button to restart the level.
 			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
