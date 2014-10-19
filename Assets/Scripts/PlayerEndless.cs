@@ -20,7 +20,7 @@ public class PlayerEndless : MonoBehaviour {
 	
 	public bool playerDead;
 	public bool levelFinished;
-	private PauseMenu pauseMenu;
+	private PauseMenuEndless pauseMenu;
 
 	public bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 		
@@ -33,7 +33,7 @@ public class PlayerEndless : MonoBehaviour {
 		// Animator when we have for Hero running animation.
 		anim = GetComponent<Animator> ();
 		
-		pauseMenu = FindObjectOfType(typeof(PauseMenu)) as PauseMenu;
+		pauseMenu = FindObjectOfType(typeof(PauseMenuEndless)) as PauseMenuEndless;
 		
 		playerDead = false;
 		levelFinished = false;
@@ -43,6 +43,7 @@ public class PlayerEndless : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		previousVelocity = rigidbody2D.velocity;
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
 
