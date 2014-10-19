@@ -110,6 +110,7 @@ public class PlayerStory : MonoBehaviour {
 						
 			// Un-comment animator when we have a better running animation.
 			anim.SetFloat ("Speed", Mathf.Abs (x_accel));
+			anim.SetFloat ("Speed", Mathf.Abs (5));
 
 			//Read accelerometer input in the x direction
 			transform.Translate (x_accel, 0, 0);
