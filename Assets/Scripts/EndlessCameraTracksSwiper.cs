@@ -23,6 +23,7 @@ public class EndlessCameraTracksSwiper : MonoBehaviour {
 		offset1 = transform.position.y - player.position.y;
 
 		offset2 = 3;
+		threshold = -3f;
 	}
 	
 	// Update is called once per frame
