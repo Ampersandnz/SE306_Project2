@@ -26,8 +26,8 @@ public class MoveSpider : MonoBehaviour {
 				Destroy (web_child.gameObject);
 			}
 		} else {
-//			float newY = Mathf.PingPong (Time.time, web_child.collider2D.bounds.size.y) + startY - web_child.collider2D.bounds.size.y;
-//			spider_child.transform.position = new Vector2(spider_child.transform.position.x, newY);
+			float newY = Mathf.PingPong (Time.time, web_child.collider2D.bounds.size.y) + startY - web_child.collider2D.bounds.size.y;
+			spider_child.transform.position = new Vector2(spider_child.transform.position.x, newY);
 		}
 	}
 }
