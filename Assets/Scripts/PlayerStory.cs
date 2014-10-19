@@ -171,6 +171,7 @@ public class PlayerStory : MonoBehaviour {
 			if (spider != null && spider.alive) {
 				TakeDamage();
 			}
+
 		}
 	}
 
