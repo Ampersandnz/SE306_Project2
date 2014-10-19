@@ -41,7 +41,8 @@ public class GUIStory : MonoBehaviour {
 
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
-	string levelName;
+	string levelName; // Name of current level
+	string nextButton; // Text for next button
 
 	// Setting up references to player, pause menu and sound player
 	void Start() {
@@ -186,9 +187,18 @@ public class GUIStory : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 				Time.timeScale = 1.0f;
 			}
-			
+
+
+
+			// Button to go to the end scenes if two or three stars achieved on level 3
+			if (levelName == "StoryLevel3"){
+				nextButton = "Next";
+			} else {
+				nextButton = "Next Level";
+			}
+
 			// Button to go to next level if two or three stars achieved
-			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
+			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), nextButton, textStyleButton)) {
 				if (enoughStars) {	
 					soundPlayer.PlaySoundEffect ("menu");
 					pauseMenu.isPaused = false;
