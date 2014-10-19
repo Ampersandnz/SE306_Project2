@@ -19,8 +19,8 @@ public class StartOfEndless : MonoBehaviour {
 		GUI.skin = skin;
 		
 		// Button to go back to main menu
-		if(GUI.Button(new Rect(Screen.width/30*25, Screen.height/20*11 + Screen.height/10*3, Screen.width/6, Screen.height/20*3), "Next", textStyleButton)) {
-			Application.LoadLevel("Level3End2");
+		if(GUI.Button(new Rect(Screen.width/30*25, Screen.height/20*11 + Screen.height/10*3, Screen.width/6, Screen.height/20*3), "Start", textStyleButton)) {
+			Application.LoadLevel("EndlessModePlay");
 		}
 	}
 }
