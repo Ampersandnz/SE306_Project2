@@ -15,8 +15,8 @@ public class SnowEndOfLevelSymbol : MonoBehaviour {
 
 	void OnMouseDown(){
 		// this object was clicked - do something
-		Application.LoadLevel("StoryLevel3");	
 		StoryLevelSelect.currentLevel = 3; 
+		Application.LoadLevel("StoryLevel3");	
 
 	}
 }
