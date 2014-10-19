@@ -8,16 +8,9 @@ public class EnemyCollisionEndless : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		Ant ant = other.gameObject.GetComponent<Ant>();
+		AntEndless ant = other.gameObject.GetComponent<AntEndless>();
 		if (ant != null && ant.alive) {
 			ant.Die ();
-			playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
-			Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
-		}
-
-		RedAnt redAnt = other.gameObject.GetComponent<RedAnt>();
-		if (redAnt != null && redAnt.hitCount < 2) {
-			redAnt.TakeDamage();
 			playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
 			Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
 		}
