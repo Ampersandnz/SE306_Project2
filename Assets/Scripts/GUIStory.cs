@@ -224,7 +224,7 @@ public class GUIStory : MonoBehaviour {
 
 			// Display padlock if not enough stars
 			if (!enoughStars) {
-				GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4 - boxWidth/50, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
+				GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
 			}
 			
 			// End the group we started above. This is very important to remember!
