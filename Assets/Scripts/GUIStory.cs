@@ -15,6 +15,7 @@ public class GUIStory : MonoBehaviour {
 	public GUIStyle textStyle;
 	public GUIStyle textStyleButton;
 	public GUIStyle boxStyle;
+	public GUIStyle messageStyle;
 	public Texture2D opaqueHeartTexture;
 	public Texture2D transparentHeartTexture;
 	public Texture2D coinTexture;
@@ -41,8 +42,8 @@ public class GUIStory : MonoBehaviour {
 
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
-	string levelName; // Name of current level
-	string nextButton; // Text for next button
+	private string levelName; // Name of current level
+	private string nextButton; // Text for next button
 
 	// Setting up references to player, pause menu and sound player
 	void Start() {
@@ -171,7 +172,7 @@ public class GUIStory : MonoBehaviour {
 
 			// Display message if only one star achieved
 			if (!enoughStars) {
-				GUI.Label(new Rect(boxWidth/3, boxHeight/3*2, boxWidth/10*4, boxHeight/10*4), "Need more coins!");
+				GUI.Label(new Rect(boxWidth/3, boxHeight/3*2, boxWidth/10*4, boxHeight/10*4), "Need more coins!", messageStyle);
 			}
 			
 			// Button to restart the level.
