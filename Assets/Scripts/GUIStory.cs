@@ -226,17 +226,19 @@ public class GUIStory : MonoBehaviour {
 			if (!enoughStars) {
 				GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
 			}
-
-			// Store stars if more than max TODO
-			// Store stars achieved
-			if (starTexture == oneStarTexture) {
-				PlayerPrefs.SetInt("Stars", 1);
-			} else if (starTexture == twoStarsTexture) {
-				PlayerPrefs.SetInt("Stars", 2);
-			} else if (starTexture == threeStarsTexture) {
-				PlayerPrefs.SetInt("Stars", 3);
+		
+			// Store stars for the level if greater than max stars ever achieved
+			for(i = 1; i <= 3; i++){
+				if (levelName == "StoryLevel" + i) {
+					if ((starTexture == oneStarTexture) && (PlayerPrefs.GetInt("SwiperStarsL" + i) < 1)) {
+						PlayerPrefs.SetInt("SwiperStarsL" + i, 1);
+					} else if ((starTexture == twoStarsTexture) && (PlayerPrefs.GetInt("SwiperStarsL" + i) < 2)) {
+						PlayerPrefs.SetInt("SwiperStarsL" + i, 2);
+					} else if (starTexture == threeStarsTexture) {
+						PlayerPrefs.SetInt("SwiperStarsL" + i, 3);
+					}
+				}
 			}
-
 
 			// End the group we started above. This is very important to remember!
 			GUI.EndGroup ();

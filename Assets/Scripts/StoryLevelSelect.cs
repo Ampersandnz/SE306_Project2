@@ -38,18 +38,17 @@ public class StoryLevelSelect : MonoBehaviour {
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
-		//Check what stars are stored
-		if (PlayerPrefs.GetInt ("Stars") == 1) {
+		// Display stars TODO
+		if (PlayerPrefs.GetInt ("SwiperStarsL1") == 1) {
 			starTexture = oneStarTexture;
-		} else if (PlayerPrefs.GetInt ("Stars") == 2) {
+		} else if (PlayerPrefs.GetInt ("SwiperStarsL1") == 2) {
 			starTexture = twoStarsTexture;
-		} else if (PlayerPrefs.GetInt ("Stars") == 3) {
+		} else if (PlayerPrefs.GetInt ("SwiperStarsL1") == 3) {
 			starTexture = threeStarsTexture;
 		}
-
-		GUI.Label (new Rect (Screen.width / 2, Screen.height / 20 * 3, Screen.width / 3, Screen.height / 20 * 3), starTexture);
+		GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7, Screen.width / 3, Screen.height / 20 * 2), starTexture);
 				
-
+		
 
 		// Button for level 2
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10, Screen.width/3, Screen.height/20*3), "Level 2", textStyleButton)) {
