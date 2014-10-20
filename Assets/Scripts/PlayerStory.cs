@@ -191,10 +191,11 @@ public class PlayerStory : MonoBehaviour {
 			StartCoroutine(becomeInvulnerable());
 			soundPlayer.PlaySoundEffect ("hit");
 			health--;
-			Handheld.Vibrate();
 
 			if (health == 0) {
 				Die ();
+			}else{
+				Handheld.Vibrate();
 			}
 		}
 	}
