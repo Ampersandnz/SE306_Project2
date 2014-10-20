@@ -11,6 +11,7 @@ public class StoryLevelSelect : MonoBehaviour {
 	public Texture2D oneStarTexture;
 	public Texture2D twoStarsTexture;
 	public Texture2D threeStarsTexture;
+	public Texture2D lockTexture;
 	private Texture2D starL1Texture; // stores star texture to display for L1
 	private Texture2D starL2Texture; // stores star texture to display for L2
 	private Texture2D starL3Texture; // stores star texture to display for L3
@@ -56,14 +57,18 @@ public class StoryLevelSelect : MonoBehaviour {
 			Application.LoadLevel("StoryLevel2");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
-
-		// Display stars for level 2
-		if (PlayerPrefs.GetInt ("SwiperStarsL2") == 1) {
-			starL2Texture = oneStarTexture;
-		} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 2) {
-			starL2Texture = twoStarsTexture;
-		} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 3) {
-			starL2Texture = threeStarsTexture;
+	
+		// Display lock or stars for level 2
+		if (PlayerPrefs.GetInt ("SwiperStarsL2") == 0) { // Display lock
+			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10, Screen.width / 3, Screen.height / 20 * 2), lockTexture);
+		} else { // Display stars
+			if (PlayerPrefs.GetInt ("SwiperStarsL2") == 1) {
+				starL2Texture = oneStarTexture;
+			} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 2) {
+				starL2Texture = twoStarsTexture;
+			} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 3) {
+				starL2Texture = threeStarsTexture;
+			}
 		}
 		GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10, Screen.width / 3, Screen.height / 20 * 2), starL2Texture);
 

@@ -171,8 +171,8 @@ public class GUIStory : MonoBehaviour {
 			
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
 
-			// Display message if only one star achieved
-			if (!enoughStars) {
+			// Display message if only one star achieved and maximum stars stored is also one 
+			if (!enoughStars && PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) < 2) {
 				GUI.Label(new Rect(boxWidth/3, boxHeight/10*7, boxWidth, boxHeight/10*4), "Need more coins!", messageStyle);
 			}
 			
@@ -195,16 +195,16 @@ public class GUIStory : MonoBehaviour {
 				Time.timeScale = 1.0f;
 			}
 
-			// Button to go to the end scenes if two or three stars achieved on level 3
+			// Button text to go to the end scenes if two or three stars achieved on level 3
 			if (levelName == "StoryLevel3"){
 				nextButton = "Next";
-			} else {
+			} else { // Button text for next level
 				nextButton = "Next Level";
 			}
 
 			// Button to go to next level if two or three stars achieved
 			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), nextButton, textStyleButton)) {
-				if (enoughStars) {	
+				if (enoughStars || PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) > 1) {	
 					soundPlayer.PlaySoundEffect ("menu");
 					pauseMenu.isPaused = false;
 					player.levelFinished = false;
@@ -222,9 +222,13 @@ public class GUIStory : MonoBehaviour {
 				}
 			}
 
-			// Display padlock if not enough stars
-			if (!enoughStars) {
-				GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
+			// Display padlock if not enough stars and stored stars for the level is 1
+			for(i = 1; i <= 3; i++){
+				if (levelName == "StoryLevel" + i) {
+					if ((!enoughStars) && (PlayerPrefs.GetInt("SwiperStarsL" + i) < 2))  {
+						GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
+					}
+				}
 			}
 		
 			// Store stars for the level if greater than max stars ever achieved
