@@ -8,6 +8,10 @@ public class StoryLevelSelect : MonoBehaviour {
 	public GUIStyle textStyleButton;
 	public GUISkin skin;
 	public string musicSymbol;
+	public Texture2D oneStarTexture;
+	public Texture2D twoStarsTexture;
+	public Texture2D threeStarsTexture;
+	private Texture2D starTexture; // stores star texture to display
 
 	public static int currentLevel;
 
@@ -33,6 +37,19 @@ public class StoryLevelSelect : MonoBehaviour {
 			Application.LoadLevel("StoryLevel1");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
+
+		//Check what stars are stored
+		if (PlayerPrefs.GetInt ("Stars") == 1) {
+			starTexture = oneStarTexture;
+		} else if (PlayerPrefs.GetInt ("Stars") == 2) {
+			starTexture = twoStarsTexture;
+		} else if (PlayerPrefs.GetInt ("Stars") == 3) {
+			starTexture = threeStarsTexture;
+		}
+
+		GUI.Label (new Rect (Screen.width / 2, Screen.height / 20 * 3, Screen.width / 3, Screen.height / 20 * 3), starTexture);
+				
+
 
 		// Button for level 2
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10, Screen.width/3, Screen.height/20*3), "Level 2", textStyleButton)) {
