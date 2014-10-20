@@ -201,6 +201,8 @@ public class PlayerStory : MonoBehaviour {
 	// Function to kill swiper. Plays death sounds and animation.
 	public void Die() {
 		if (playerDead == false) {
+
+			Handheld.Vibrate();
 			collider2D.enabled = false;
 			rigidbody2D.AddForce (deathForce);
 			soundPlayer.Death();
