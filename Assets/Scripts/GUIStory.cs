@@ -22,6 +22,7 @@ public class GUIStory : MonoBehaviour {
 	public Texture2D oneStarTexture;
 	public Texture2D twoStarsTexture;
 	public Texture2D threeStarsTexture;
+	public Texture2D lockTexture;
 
 	// Initialising the death and end-of-level textures.
 	public Texture2D deathTexture;
@@ -194,8 +195,6 @@ public class GUIStory : MonoBehaviour {
 				Time.timeScale = 1.0f;
 			}
 
-
-
 			// Button to go to the end scenes if two or three stars achieved on level 3
 			if (levelName == "StoryLevel3"){
 				nextButton = "Next";
@@ -221,6 +220,11 @@ public class GUIStory : MonoBehaviour {
 
 					Time.timeScale = 1.0f;
 				}
+			}
+
+			// Display padlock if not enough stars
+			if (!enoughStars) {
+				GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4 - boxWidth/50, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
 			}
 			
 			// End the group we started above. This is very important to remember!
