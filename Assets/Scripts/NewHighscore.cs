@@ -39,10 +39,8 @@ public class NewHighscore : MonoBehaviour {
 		
 		// Title
 		GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/20, Screen.width/3, Screen.height/20*3), "Please Enter Your Name", textStyleTitle);
-		
-		name =  GUILayout.TextField(name);
-		// List high scores
-		
+
+
 		// Button to go back to endless runner mode menu.
 		if((GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*13 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Continue", textStyleButton))) {
 			if(name!=""){
@@ -52,8 +50,7 @@ public class NewHighscore : MonoBehaviour {
 			}
 		}
 		
-		// Disclaimer.
-		
+
 		// Button to toggle music
 		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12 , Screen.height/20*3), musicSymbol, textStyleButton)) {
 			soundPlayer.PlaySoundEffect ("menu");
@@ -67,16 +64,15 @@ public class NewHighscore : MonoBehaviour {
 		}
 		
 
-		
+
+		//Keep to make sure the size of the textfield for the user to enter their name stays the same
 		GUILayout.Space(60);
-		
-		//Set the title for the name and score
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Name",textStyleTitle,GUILayout.Width(Screen.width/2));
-		GUILayout.Label("Scores",textStyleTitle,GUILayout.Width(Screen.width/2));
+		GUILayout.Label("",textStyleTitle,GUILayout.Width(Screen.width/2));
+		GUILayout.Label("",textStyleTitle,GUILayout.Width(Screen.width/2));
 		GUILayout.EndHorizontal();
-		
 		GUILayout.Space(25);
 
+		name =  GUILayout.TextField(name);
 	}
 }
