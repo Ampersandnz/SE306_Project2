@@ -17,6 +17,7 @@ public class L1Generate : MonoBehaviour {
 	public int random_location;
 	
 	void Start() {
+		Time.timeScale = 1.0f;
 		random_location = (int)(Random.value*positions.Length); // Select one random position to change into a life pack.
 		CreateCollectibles ();
 	}

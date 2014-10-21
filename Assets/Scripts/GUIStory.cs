@@ -5,9 +5,6 @@ using System.Collections.Generic;
 // Class to display the GUI in the story
 public class GUIStory : MonoBehaviour {
 
-	// Get the name of the current level
-	public string thisLevel;
-
 	// Sizes of the text and icons
 	private int iconWidth = 85;
 	private int iconHeight = 75;
@@ -18,12 +15,14 @@ public class GUIStory : MonoBehaviour {
 	public GUIStyle textStyle;
 	public GUIStyle textStyleButton;
 	public GUIStyle boxStyle;
+	public GUIStyle messageStyle;
 	public Texture2D opaqueHeartTexture;
 	public Texture2D transparentHeartTexture;
 	public Texture2D coinTexture;
 	public Texture2D oneStarTexture;
 	public Texture2D twoStarsTexture;
 	public Texture2D threeStarsTexture;
+	public Texture2D lockTexture;
 
 	// Initialising the death and end-of-level textures.
 	public Texture2D deathTexture;
@@ -36,15 +35,17 @@ public class GUIStory : MonoBehaviour {
 	public string musicSymbol;
 	public string pauseSymbol;
 
-	//private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
-	private List<int> level1Stars = new List<int>(new int[] {3, 5}); 	// Coin values for two and three stars in Level 1
+	private List<int> level1Stars = new List<int>(new int[] {12, 20}); 	// Coin values for two and three stars in Level 1
 	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
 	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
 	private Texture2D starTexture; // stores star texture to display
+	
 	private bool enoughStars = false;
 
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
+	private string levelName; 		// Name of current level
+	private string nextButton; 		// Text for next button
 
 	// Setting up references to player, pause menu and sound player
 	void Start() {
@@ -57,7 +58,7 @@ public class GUIStory : MonoBehaviour {
 
 		textStyleButton.fontSize = Screen.height / 50 * 3;
 
-		thisLevel = Application.loadedLevelName;
+		levelName = Application.loadedLevelName;
 	}
 
 	// Displaying everything.
@@ -101,11 +102,11 @@ public class GUIStory : MonoBehaviour {
 
 			// Button to restart the level.
 			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
-				if(StoryLevelSelect.currentLevel == 1){
+				if(levelName=="StoryLevel1"){
 					Application.LoadLevel ("StoryLevel1");
-				}else if (StoryLevelSelect.currentLevel == 2){
+				}else if (levelName=="StoryLevel2"){
 					Application.LoadLevel ("StoryLevel2");
-				}else if (StoryLevelSelect.currentLevel == 3){
+				}else if (levelName=="StoryLevel3"){
 					Application.LoadLevel ("StoryLevel3");
 				}
 				player.playerDead = false;
@@ -135,55 +136,60 @@ public class GUIStory : MonoBehaviour {
 			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
 			
 			// Check what level we are in and display stars based on how many coins collected
-			// If level 1 TODO
-			if (player.coins >= level1Stars[1]) { // three stars
-				starTexture = threeStarsTexture;
-				enoughStars = true;
-			} else if (player.coins < level1Stars[0]) { // one star
-				starTexture = oneStarTexture;
-				enoughStars = false;
-			} else { // two stars
-				starTexture = twoStarsTexture;
-				enoughStars = true;
+			if (levelName == "StoryLevel1") {
+				if (player.coins >= level1Stars[1]) { // three stars
+					starTexture = threeStarsTexture;
+					enoughStars = true;
+				} else if (player.coins < level1Stars[0]) { // one star
+					starTexture = oneStarTexture;
+					enoughStars = false;
+				} else { // two stars
+					starTexture = twoStarsTexture;
+					enoughStars = true;
+				}
+			} else if (levelName == "StoryLevel2") {
+				if (player.coins >= level2Stars[1]) { // three stars
+					starTexture = threeStarsTexture;
+					enoughStars = true;
+				} else if (player.coins < level2Stars[0]) { // one star
+					starTexture = oneStarTexture;
+					enoughStars = false;
+				} else { // two stars
+					starTexture = twoStarsTexture;
+					enoughStars = true;
+				}
+			} else if (levelName == "StoryLevel3") {
+				if (player.coins >= level3Stars[1]) { // three stars
+					starTexture = threeStarsTexture;
+					enoughStars = true;
+				} else if (player.coins < level3Stars[0]) { // one star
+					starTexture = oneStarTexture;
+					enoughStars = false;
+				} else { // two stars
+					starTexture = twoStarsTexture;
+					enoughStars = true;
+				}
 			}
-			/*
-			// else if level 2 TODO
-			if (player.coins >= level2Stars[1]) { // three stars
-				starTexture = threeStarsTexture;
-				enoughStars = true;
-			} else if (player.coins < level2Stars[0]) { // one star
-				starTexture = oneStarTexture;
-				enoughStars = false;
-			} else { // two stars
-				starTexture = twoStarsTexture;
-				enoughStars = true;
-			}
-
-			// else if level 3 TODO
-			if (player.coins >= level3Stars[1]) { // three stars
-				starTexture = threeStarsTexture;
-				enoughStars = true;
-			} else if (player.coins < level3Stars[0]) { // one star
-				starTexture = oneStarTexture;
-				enoughStars = false;
-			} else { // two stars
-				starTexture = twoStarsTexture;
-				enoughStars = true;
-			}*/
 			
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
+
 			
+			// Display message if only one star achieved and maximum stars stored is also one 
+			if (!enoughStars && PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) < 2) {
+				GUI.Label(new Rect(boxWidth/3, boxHeight/10*7, boxWidth, boxHeight/10*4), "Need more coins!", messageStyle);
+			}
+
 			// Button to restart the level.
 			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				pauseMenu.isPaused = false;
 				player.levelFinished = false;
-				if(thisLevel=="StoryLevel1"){
-					Application.LoadLevel ("EndOfLevel1");
-				} else if (thisLevel =="StoryLevel2"){
-					Application.LoadLevel ("EndOfLevel2");
-				} else if (thisLevel=="StoryLevel3"){
-					Application.LoadLevel ("Level3End1");
+				if(levelName=="StoryLevel1"){
+					Application.LoadLevel ("StoryLevel1");
+				} else if (levelName =="StoryLevel2"){
+					Application.LoadLevel ("StoryLevel2");
+				} else if (levelName=="StoryLevel3"){
+					Application.LoadLevel ("StoryLevel3");
 				}
 				Time.timeScale = 1.0f;
 			}
@@ -197,25 +203,53 @@ public class GUIStory : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 				Time.timeScale = 1.0f;
 			}
+
+			// Button text to go to the end scenes if two or three stars achieved on level 3
+			if (levelName == "StoryLevel3"){
+				nextButton = "Next";
+			} else { // Button text for next level
+				nextButton = "Next Level";
+			}
 			
 			// Button to go to next level if two or three stars achieved
-			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), "Next Level", textStyleButton)) {
-				if (enoughStars) {	
+			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), nextButton, textStyleButton)) {
+				if (enoughStars || PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) > 1) {	
 					soundPlayer.PlaySoundEffect ("menu");
 					pauseMenu.isPaused = false;
 					player.levelFinished = false;
-
+					
 					// Load the next level depending on what level we are already on.
-					// TODO - Change to the storyboard scenes instead.
-					if(thisLevel=="StoryLevel1"){
+					if(levelName == "StoryLevel1"){
 						Application.LoadLevel ("EndOfLevel1");
-					} else if (thisLevel =="StoryLevel2"){
+					} else if (levelName == "StoryLevel2"){
 						Application.LoadLevel ("EndOfLevel2");
-					} else if (thisLevel=="StoryLevel3"){
+					} else if (levelName == "StoryLevel3"){
 						Application.LoadLevel ("Level3End1");
 					}
-
+					
 					Time.timeScale = 1.0f;
+				}
+			}
+			
+			// Display padlock if not enough stars and stored stars for the level is 1
+			for(i = 1; i <= 3; i++){
+				if (levelName == "StoryLevel" + i) {
+					if ((!enoughStars) && (PlayerPrefs.GetInt("SwiperStarsL" + i) < 2))  {
+						GUI.Label (new Rect(boxWidth/8*5 + boxWidth/4, boxHeight - boxHeight/5 - boxHeight/50, boxWidth/10*3, boxHeight/10*3), lockTexture);
+					}
+				}
+			}
+			
+			// Store stars for the level if greater than max stars ever achieved
+			for(i = 1; i <= 3; i++){
+				if (levelName == "StoryLevel" + i) {
+					if ((starTexture == oneStarTexture) && (PlayerPrefs.GetInt("SwiperStarsL" + i) < 1)) {
+						PlayerPrefs.SetInt("SwiperStarsL" + i, 1);
+					} else if ((starTexture == twoStarsTexture) && (PlayerPrefs.GetInt("SwiperStarsL" + i) < 2)) {
+						PlayerPrefs.SetInt("SwiperStarsL" + i, 2);
+					} else if (starTexture == threeStarsTexture) {
+						PlayerPrefs.SetInt("SwiperStarsL" + i, 3);
+					}
 				}
 			}
 			
