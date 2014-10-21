@@ -72,7 +72,7 @@ public class NewHighscore : MonoBehaviour {
 		
 		//Get the User to enter their name
 		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), "Name:", textStyleTitle);
-		name = GUI.TextField(new Rect (Screen.width / 2 + Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), name, 25, textStyleInput);
+		name = GUI.TextField(new Rect (Screen.width / 2 + Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), name, 12, textStyleInput);
 		
 		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Score:", textStyleTitle);
 		GUI.Label (new Rect (Screen.width / 2 + Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), score , textStyleTitle);
