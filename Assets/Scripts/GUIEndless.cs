@@ -105,8 +105,9 @@ public class GUIEndless : MonoBehaviour {
 
 				// Button to go to scene to get the user to enter a name.
 				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/10, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Continue", textStyleButton)) {
+					PlayerPrefs.SetInt("SwiperNewHighscore",player.coins);
 					soundPlayer.PlayMenuMusic ();
-					Application.LoadLevel ("Start");
+					Application.LoadLevel ("NewHighscore");
 					player.playerDead = false;
 					pauseMenu.isPaused = false;
 					soundPlayer.PlaySoundEffect ("menu");
