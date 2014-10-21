@@ -25,7 +25,9 @@ public class NewHighscore : MonoBehaviour {
 		textStyleTitle.fontSize = Screen.height / 50 * 4;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
 
-		name = PlayerPrefs.GetString("HighScore1name");
+		if (PlayerPrefs.HasKey("SwiperHighScore1name")){
+			name = PlayerPrefs.GetString("SwiperHighScore1name");
+		}
 		//Currently do not need
 		//EventManager._instance._buttonClick += ButtonClicked;
 
@@ -73,6 +75,7 @@ public class NewHighscore : MonoBehaviour {
 		GUILayout.EndHorizontal();
 		GUILayout.Space(25);
 
+		//Have a textfield for the user to enter their name
 		name =  GUILayout.TextField(name);
 	}
 }
