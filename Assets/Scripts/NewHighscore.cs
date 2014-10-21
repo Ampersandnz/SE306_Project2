@@ -76,4 +76,5 @@ public class NewHighscore : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width / 2 + Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), score , textStyleButton);
 		
 	}
+	
 }

@@ -44,6 +44,7 @@ public class PlayerEndless : MonoBehaviour {
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
 		anim.SetFloat ("Speed", Mathf.Abs (5));
+		rigidbody2D.AddForce (jumpForce);
 	}
 	
 	// Update is called once per frame
@@ -118,7 +119,7 @@ public class PlayerEndless : MonoBehaviour {
 			}
 		}
 
-		if (other.transform.gameObject.tag == "Platform") {
+		if ((other.transform.gameObject.tag == "Platform")||(other.transform.gameObject.tag =="Ground")) {
 			sideHit();
 		}
 	}
