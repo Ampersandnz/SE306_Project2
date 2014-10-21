@@ -25,8 +25,8 @@ public class NewHighscore : MonoBehaviour {
 		textStyleTitle.fontSize = Screen.height / 50 * 4;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
 
-		if (PlayerPrefs.HasKey("SwiperHighScore1name")){
-			name = PlayerPrefs.GetString("SwiperHighScore1name");
+		if (PlayerPrefs.HasKey("SwiperHighscore1name")){
+			name = PlayerPrefs.GetString("SwiperHighscore1name");
 		}
 		//Currently do not need
 		//EventManager._instance._buttonClick += ButtonClicked;
