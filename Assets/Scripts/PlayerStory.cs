@@ -194,8 +194,6 @@ public class PlayerStory : MonoBehaviour {
 
 			if (health == 0) {
 				Die ();
-			}else{
-				Handheld.Vibrate();
 			}
 		}
 	}

@@ -37,7 +37,8 @@ public class Spider : MonoBehaviour {
 		
 		//generate a coin when the ant been killed.
 		CreateObject (coin, positionX+1.2f, positionY+3.0f);
-		
+
+		soundPlayer.PlaySoundEffect ("crunch");
 		Destroy (gameObject, 0.5f);
 	}
 }

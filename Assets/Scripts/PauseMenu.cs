@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour {
 	public bool isPaused;
 	private bool confirmRestart;
 	private bool confirmQuit;
+	private string levelName;
 
 	// Initialising sound player
 	void Start () {
@@ -21,7 +22,8 @@ public class PauseMenu : MonoBehaviour {
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		soundPlayer.PlayStoryMusic ();
 		DontDestroyOnLoad (soundPlayer);
-		
+
+		levelName = Application.loadedLevelName;
 		textStyleTitle.fontSize = Screen.height / 50 * 4;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
 	}
@@ -77,11 +79,11 @@ public class PauseMenu : MonoBehaviour {
 					isPaused = false;
 					confirmRestart = false;
 					Time.timeScale = 1.0f;
-					if(StoryLevelSelect.currentLevel == 1){
+					if(levelName == "StoryLevel1"){
 						Application.LoadLevel ("StoryLevel1");
-					}else if (StoryLevelSelect.currentLevel == 2){
+					}else if (levelName == "StoryLevel2"){
 						Application.LoadLevel ("StoryLevel2");
-					}else if (StoryLevelSelect.currentLevel == 3){
+					}else if (levelName == "StoryLevel3"){
 						Application.LoadLevel ("StoryLevel3");
 					}
 				}
