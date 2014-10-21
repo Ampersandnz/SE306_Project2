@@ -10,7 +10,9 @@ public class Highscores : MonoBehaviour {
 	public GUIStyle textStyleTitle;
 	public GUIStyle textStyleButton;
 	public GUISkin skin;
-	public string musicSymbol;
+	private bool hasMusic = SoundPlayer.music;
+	private bool hasSound = SoundPlayer.sound;
+	public Texture2D noMusic, music, noSound, sound;
 
 	string name="";
 	string score="";
@@ -53,17 +55,30 @@ public class Highscores : MonoBehaviour {
 		// Disclaimer.
 
 		// Button to toggle music
-		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12 , Screen.height/20*3), musicSymbol, textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleMusic("menu");
+		if (hasMusic == true) {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), music, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
+		} else {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), noMusic, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
 		}
-
-		// Button to toggle sound effects
-		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleSound();
+		
+		
+		if (hasSound == true) {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), sound, textStyleButton)){
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
+		} else {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), noSound, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
 		}
-
 		//Get the highscores
 		highscore = HighScoreManager._instance.GetHighScore();
 

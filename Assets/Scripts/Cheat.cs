@@ -9,7 +9,11 @@ public class Cheat : MonoBehaviour {
 	public GUIStyle textStyleButton;
 	public GUIStyle textStyleInput;
 	public GUISkin skin;
-	public string musicSymbol;
+
+	private bool hasMusic = SoundPlayer.music;
+	private bool hasSound = SoundPlayer.sound;
+	public Texture2D noMusic, music, noSound, sound;
+
 	
 	string cheatCode="";
 
@@ -66,17 +70,30 @@ public class Cheat : MonoBehaviour {
 		
 		
 		// Button to toggle music
-		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12 , Screen.height/20*3), musicSymbol, textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleMusic("menu");
+		if (hasMusic == true) {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), music, GUIStyle.none)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
+		} else {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), noMusic, GUIStyle.none)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
 		}
 		
-		// Button to toggle sound effects
-		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleSound();
-		}
 		
+		if (hasSound == true) {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), sound, GUIStyle.none)){
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
+		} else {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), noSound, GUIStyle.none)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
+		}
 		
 		
 		

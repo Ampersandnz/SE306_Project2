@@ -13,6 +13,10 @@ public class MainMenu : MonoBehaviour {
 	public string disclaimer;
 	public Texture2D lockTexture;
 
+	private bool hasMusic = SoundPlayer.music;
+	private bool hasSound = SoundPlayer.sound;
+	public Texture2D noMusic, music, noSound, sound;
+	
 	// Loading sound player
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
@@ -64,15 +68,29 @@ public class MainMenu : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width / 4, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), disclaimer, textStyleLabel);
 
 		// Button to toggle music
-		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12, Screen.height/20*3), musicSymbol, textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleMusic("menu");
+		if (hasMusic == true) {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), music, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
+		} else {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), noMusic, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
 		}
 
-		// Button to toggle sound effects
-		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleSound();
+
+		if (hasSound == true) {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), sound, textStyleButton)){
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
+		} else {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), noSound, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.Escape)) {

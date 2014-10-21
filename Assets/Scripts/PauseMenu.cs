@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour {
 	private bool confirmRestart;
 	private bool confirmQuit;
 	private string levelName;
+	private bool hasMusic = SoundPlayer.music;
+	private bool hasSound = SoundPlayer.sound;
 
 	// Initialising sound player
 	void Start () {
@@ -57,16 +59,19 @@ public class PauseMenu : MonoBehaviour {
 					confirmQuit = true;
 				}
 
+
 				// Button to toggle music
-				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*3, Screen.width/4, Screen.height/20*3), "Toggle music", textStyleButton)) {
+				string musicVal = hasMusic ? "Music: Off": "Music: On";
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*3, Screen.width/4, Screen.height/20*3), musicVal, textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
-					soundPlayer.ToggleMusic ("story");
+					hasMusic = soundPlayer.ToggleMusic ("story");
 				}
 
 				// Button to toggle sounds
-				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*4, Screen.width/4, Screen.height/20*3), "Toggle sfx", textStyleButton)) {
+				string soundVal = hasSound ? "Sound: Off": "Sound: On";
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/8, Screen.height/4+Screen.height/10*4, Screen.width/4, Screen.height/20*3), soundVal, textStyleButton)) {
 					soundPlayer.PlaySoundEffect ("menu");
-					soundPlayer.ToggleSound ();
+					hasSound = soundPlayer.ToggleSound ();
 				}
 
 			}else if(confirmRestart==true){ // Asking user for confirmation that they want to restart the level

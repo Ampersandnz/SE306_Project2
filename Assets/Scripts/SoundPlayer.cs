@@ -4,8 +4,8 @@ using System.Collections;
 // Class to load and play sound. NEVER destroy this across scenes!
 public class SoundPlayer : MonoBehaviour {
 	// Booleans to toggle music and sound.
-	public bool music;
-	public bool sound;
+	public static bool music;
+	public static bool sound;
 
 	// Audio sources for music.
 	GameObject menuMusic;
@@ -66,7 +66,7 @@ public class SoundPlayer : MonoBehaviour {
 
 	// Function to toggle music. INPUTS:
 	// 	- sceneType: string. Represents the type of scene the player is currently in. Values include "menu" or "story".
-	public void ToggleMusic (string sceneType){
+	public bool ToggleMusic (string sceneType){
 		if (music == true) {
 			music = false;
 			storyMusicSound.Stop ();
@@ -81,10 +81,11 @@ public class SoundPlayer : MonoBehaviour {
 				PlayStoryMusic ();
 			}
 		}
+		return music;
 	}
 
 	// Function to toggle the sound effects on or off.
-	public void ToggleSound (){
+	public bool ToggleSound (){
 		if (sound == true) {
 			sound = false;
 			PlayerPrefs.SetInt("SwiperSound",0);
@@ -92,6 +93,7 @@ public class SoundPlayer : MonoBehaviour {
 			sound = true;
 			PlayerPrefs.SetInt("SwiperSound",1);
 		}
+		return sound;
 	}
 
 	// Load the files for the  music.

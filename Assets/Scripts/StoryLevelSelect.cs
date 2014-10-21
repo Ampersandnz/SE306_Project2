@@ -16,6 +16,10 @@ public class StoryLevelSelect : MonoBehaviour {
 	private Texture2D starL2Texture; // stores star texture to display for L2
 	private Texture2D starL3Texture; // stores star texture to display for L3
 
+	private bool hasMusic = SoundPlayer.music;
+	private bool hasSound = SoundPlayer.sound;
+	public Texture2D noMusic, music, noSound, sound;
+	
 	public static int currentLevel;
 
 	// Load sound player
@@ -112,15 +116,29 @@ public class StoryLevelSelect : MonoBehaviour {
 		}
 
 		// Button to toggle music
-		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12 , Screen.height/20*3), musicSymbol, textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleMusic("menu");
+		if (hasMusic == true) {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), music, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
+		} else {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), noMusic, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasMusic = soundPlayer.ToggleMusic ("menu");
+			}
 		}
 		
-		// Button to toggle sound effects
-		if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/30, Screen.width/120*11, Screen.height/20*3), "sfx", textStyleButton)) {
-			soundPlayer.PlaySoundEffect ("menu");
-			soundPlayer.ToggleSound();
+		
+		if (hasSound == true) {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), sound, textStyleButton)){
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
+		} else {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), noSound, textStyleButton)) {
+				soundPlayer.PlaySoundEffect ("menu");
+				hasSound = soundPlayer.ToggleSound();
+			}
 		}
 	}
 }
