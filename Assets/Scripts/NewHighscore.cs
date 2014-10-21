@@ -75,7 +75,7 @@ public class NewHighscore : MonoBehaviour {
 		GUILayout.EndHorizontal();
 		GUILayout.Space(25);
 
-		//Have a textfield for the user to enter their name
+		//Have a textfield
 		name =  GUILayout.TextField(name);
 	}
 }

@@ -19,6 +19,7 @@ public class GUIEndless : MonoBehaviour {
 	public GUIStyle textStyleButton;
 	public GUIStyle boxStyle;
 	public Texture2D coinTexture;
+	public GUIStyle textStyleTitle;
 
 	// Initialising the death and end-of-level textures.
 	public Texture2D deathTexture;
@@ -44,6 +45,7 @@ public class GUIEndless : MonoBehaviour {
 		DontDestroyOnLoad (soundPlayer);
 
 		textStyleButton.fontSize = Screen.height / 50 * 3;
+		textStyleTitle.fontSize = Screen.height / 50 * 10;
 
 		thisLevel = Application.loadedLevelName;
 	}
@@ -100,11 +102,11 @@ public class GUIEndless : MonoBehaviour {
 				}
 			}else{
 
-				//TODO  Display the "New Highscore" texturesDisplaying the "game over" texture.
-				GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
+				//Display the "New Highscore" Title.
+				GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/3, Screen.width/3, Screen.height/20*3), "High Scores", textStyleTitle);
 
 				// Button to go to scene to get the user to enter a name.
-				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/10, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Continue", textStyleButton)) {
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/6, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Continue", textStyleButton)) {
 					PlayerPrefs.SetInt("SwiperNewHighscore",player.coins);
 					soundPlayer.PlayMenuMusic ();
 					Application.LoadLevel ("NewHighscore");
