@@ -44,8 +44,13 @@ public class Credits : MonoBehaviour {
 		GUILayout.EndArea ();
 
 		// Back button
-		if((GUI.Button(new Rect(Screen.width/2-Screen.width/8, Screen.height/60*43, Screen.width/4, Screen.height/20*3), "Back", textStyleButton)) || (Input.GetKeyDown(KeyCode.Escape))) {
+		if((GUI.Button(new Rect(Screen.width/2-Screen.width/4, Screen.height/60*43, Screen.width/4, Screen.height/20*3), "Back", textStyleButton)) || (Input.GetKeyDown(KeyCode.Escape))) {
 			Application.LoadLevel("MainMenu");
+			soundPlayer.PlaySoundEffect ("menu");
+		}
+		//Cheat button
+		if(GUI.Button(new Rect(Screen.width/2+Screen.width/50, Screen.height/60*43, Screen.width/4, Screen.height/20*3), "Cheat", textStyleButton)) {
+			Application.LoadLevel("Cheat");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
 
