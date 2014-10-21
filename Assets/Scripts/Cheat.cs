@@ -37,7 +37,7 @@ public class Cheat : MonoBehaviour {
 		
 		// Button to go back to endless runner mode menu.
 		if (GUI.Button(new Rect(Screen.width/2+Screen.width/50, Screen.height/60*43, Screen.width/4, Screen.height/20*3), "Continue", textStyleButton)) {
-			if(cheatCode=="jellybeans"){
+			if(cheatCode.ToLower()=="jellybeans"){
 				PlayerPrefs.SetInt("SwiperStarsL1",3);
 				PlayerPrefs.SetInt("SwiperStarsL2",3);
 				PlayerPrefs.SetInt("SwiperStarsL3",3);
@@ -45,7 +45,7 @@ public class Cheat : MonoBehaviour {
 				Application.LoadLevel("MainMenu");
 				soundPlayer.PlaySoundEffect ("menu");
 			}
-			if(cheatCode=="android"){
+			if(cheatCode.ToLower()=="android"){
 				PlayerPrefs.DeleteAll();
 				Application.LoadLevel("MainMenu");
 				soundPlayer.PlaySoundEffect ("menu");
