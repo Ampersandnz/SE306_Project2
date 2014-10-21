@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//Adapted from http://answers.unity3d.com/questions/20773/how-do-i-make-a-highscores-board.html
-
 // Class to display the high scores.
 public class NewHighscore : MonoBehaviour {
 	private SoundPlayer soundPlayer;
@@ -24,13 +22,15 @@ public class NewHighscore : MonoBehaviour {
 		
 		textStyleTitle.fontSize = Screen.height / 50 * 4;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
-
-		if (PlayerPrefs.HasKey("SwiperHighscore1name")){
-			name = PlayerPrefs.GetString("SwiperHighscore1name");
+		
+		//Store the best highscore as the expected new highscore name
+		if (PlayerPrefs.HasKey ("SwiperHighscore1name")) {
+			name = PlayerPrefs.GetString ("SwiperHighscore1name");
+		} else {
+			name = "Swiper";
 		}
-		//Currently do not need
-		//EventManager._instance._buttonClick += ButtonClicked;
-
+		score = PlayerPrefs.GetInt ("SwiperNewHighscore").ToString();
+		GUI.SetNextControlName (name);
 	}
 	
 	
@@ -41,8 +41,8 @@ public class NewHighscore : MonoBehaviour {
 		
 		// Title
 		GUI.Label (new Rect (Screen.width / 2 - Screen.width/6, Screen.height/20, Screen.width/3, Screen.height/20*3), "Please Enter Your Name", textStyleTitle);
-
-
+		
+		
 		// Button to go back to endless runner mode menu.
 		if((GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*13 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Continue", textStyleButton))) {
 			if(name!=""){
@@ -52,7 +52,7 @@ public class NewHighscore : MonoBehaviour {
 			}
 		}
 		
-
+		
 		// Button to toggle music
 		if(GUI.Button(new Rect(Screen.width-Screen.width/24*5,Screen.height/30, Screen.width/12 , Screen.height/20*3), musicSymbol, textStyleButton)) {
 			soundPlayer.PlaySoundEffect ("menu");
@@ -65,17 +65,15 @@ public class NewHighscore : MonoBehaviour {
 			soundPlayer.ToggleSound();
 		}
 		
-
-
-		//Keep to make sure the size of the textfield for the user to enter their name stays the same
-		GUILayout.Space(60);
-		GUILayout.BeginHorizontal();
-		GUILayout.Label("",textStyleTitle,GUILayout.Width(Screen.width/2));
-		GUILayout.Label("",textStyleTitle,GUILayout.Width(Screen.width/2));
-		GUILayout.EndHorizontal();
-		GUILayout.Space(25);
-
-		//Have a textfield
-		name =  GUILayout.TextField(name);
+		
+		
+		
+		//Get the User to enter their name
+		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), "Name:", textStyleButton);
+		name = GUI.TextField(new Rect (Screen.width / 2 + Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), name, 25, textStyleButton);
+		
+		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Score:", textStyleButton);
+		GUI.Label (new Rect (Screen.width / 2 + Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), score , textStyleButton);
+		
 	}
 }
