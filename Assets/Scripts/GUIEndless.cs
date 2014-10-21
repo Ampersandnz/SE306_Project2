@@ -72,28 +72,47 @@ public class GUIEndless : MonoBehaviour {
 
 		// Death screen
 		if (player.playerDead == true) {
-			// Displaying the "game over" texture.
-			GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
 
-			// Button to restart the level.
-			if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
+			if (!(HighScoreManager._instance.isHighScore(player.coins))){
 
-				Application.LoadLevel ("EndlessModePlay");
-				
-				player.playerDead = false;
-				pauseMenu.isPaused = false;
-				soundPlayer.PlaySoundEffect ("menu");
-				Time.timeScale = 1.0f;
-			}
+				// Displaying the "game over" texture.
+				GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
+			
+				// Button to restart the level.
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Restart", textStyleButton)) {
 
-			// Button to quit back to menu.
-			if (GUI.Button (new Rect (Screen.width / 2 + Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
-				soundPlayer.PlayMenuMusic ();
-				Application.LoadLevel ("Start");
-				player.playerDead = false;
-				pauseMenu.isPaused = false;
-				soundPlayer.PlaySoundEffect ("menu");
-				Time.timeScale = 1.0f;
+					Application.LoadLevel ("EndlessModePlay");
+					
+					player.playerDead = false;
+					pauseMenu.isPaused = false;
+					soundPlayer.PlaySoundEffect ("menu");
+					Time.timeScale = 1.0f;
+				}
+
+				// Button to quit back to menu.
+				if (GUI.Button (new Rect (Screen.width / 2 + Screen.width/50, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Quit", textStyleButton)) {
+					soundPlayer.PlayMenuMusic ();
+					Application.LoadLevel ("Start");
+					player.playerDead = false;
+					pauseMenu.isPaused = false;
+					soundPlayer.PlaySoundEffect ("menu");
+					Time.timeScale = 1.0f;
+				}
+			}else{
+
+				//TODO  Display the "New Highscore" texturesDisplaying the "game over" texture.
+				GUI.Label (new Rect (Screen.width / 2 - graphicWidth / 2, Screen.height / 2 - graphicHeight / 2, graphicWidth, graphicHeight), deathTexture);
+
+				// Button to go to scene to get the user to enter a name.
+				if (GUI.Button (new Rect (Screen.width / 2 - Screen.width/10, Screen.height / 2 + graphicHeight/2 + Screen.height/30, Screen.width/4, Screen.height/20*3), "Continue", textStyleButton)) {
+					soundPlayer.PlayMenuMusic ();
+					Application.LoadLevel ("Start");
+					player.playerDead = false;
+					pauseMenu.isPaused = false;
+					soundPlayer.PlaySoundEffect ("menu");
+					Time.timeScale = 1.0f;
+				}
+
 			}
 
 		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
