@@ -117,42 +117,6 @@ public class GUIEndless : MonoBehaviour {
 				}
 
 			}
-
-		} else if (player.levelFinished == true) { // If the player has reached the end of the level.
-			Time.timeScale = 0.0f; // Stop time
-			
-			var boxWidth = Screen.width/8*5;
-			var boxHeight = Screen.height/2;
-			
-			// TODO: Do some highscores stuff
-			
-			// Button to restart the level.
-			if (GUI.Button (new Rect (boxWidth/8, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Restart", textStyleButton)) {
-				soundPlayer.PlaySoundEffect ("menu");
-				pauseMenu.isPaused = false;
-				player.levelFinished = false;
-				Application.LoadLevel ("EndlessModePlay");
-				Time.timeScale = 1.0f;
-			}
-			
-			// Button to quit back to menu.
-			if (GUI.Button (new Rect (boxWidth/8*3, boxHeight - boxHeight/5, boxWidth/4, boxHeight/4), "Quit", textStyleButton)) {
-				soundPlayer.PlayMenuMusic ();
-				pauseMenu.isPaused = false;
-				player.levelFinished = false;
-				Application.LoadLevel ("Start");
-				soundPlayer.PlaySoundEffect ("menu");
-				Time.timeScale = 1.0f;
-			}
-			
-			// Button to go to next level if two or three stars achieved
-			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), "Highscores", textStyleButton)) {
-				Application.LoadLevel ("Highscores");
-				Time.timeScale = 1.0f;
-			}
-			
-			// End the group we started above. This is very important to remember!
-			GUI.EndGroup ();
-		}
+		} 
 	}
 }
