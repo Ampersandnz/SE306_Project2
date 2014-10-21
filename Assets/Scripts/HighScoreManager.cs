@@ -40,10 +40,10 @@ public class HighScoreManager : MonoBehaviour{
 		List<Scores> HighScores = new List<Scores> ();
 		
 		int i = 1;
-		while (i<=LeaderboardLength && PlayerPrefs.HasKey("HighScore"+i+"score")) {
+		while (i<=LeaderboardLength && PlayerPrefs.HasKey("SwiperHighscore"+i+"score")) {
 			Scores temp = new Scores ();
-			temp.score = PlayerPrefs.GetInt ("HighScore" + i + "score");
-			temp.name = PlayerPrefs.GetString ("HighScore" + i + "name");
+			temp.score = PlayerPrefs.GetInt ("SwiperHighscore" + i + "score");
+			temp.name = PlayerPrefs.GetString ("SwiperHighscore" + i + "name");
 			HighScores.Add (temp);
 			i++;
 		}
@@ -73,8 +73,8 @@ public class HighScoreManager : MonoBehaviour{
 		
 		i = 1;
 		while (i<=LeaderboardLength && i<=HighScores.Count) {
-			PlayerPrefs.SetString ("HighScore" + i + "name", HighScores [i - 1].name);
-			PlayerPrefs.SetInt ("HighScore" + i + "score", HighScores [i - 1].score);
+			PlayerPrefs.SetString ("SwiperHighscore" + i + "name", HighScores [i - 1].name);
+			PlayerPrefs.SetInt ("SwiperHighscore" + i + "score", HighScores [i - 1].score);
 			i++;
 		}
 		
@@ -86,10 +86,10 @@ public class HighScoreManager : MonoBehaviour{
 
 		//Load playerprefs
 		int i = 1;
-		while (i<=LeaderboardLength && PlayerPrefs.HasKey("HighScore"+i+"score")) {
+		while (i<=LeaderboardLength && PlayerPrefs.HasKey("SwiperHighscore"+i+"score")) {
 			Scores temp = new Scores ();
-			temp.score = PlayerPrefs.GetInt ("HighScore" + i + "score");
-			temp.name = PlayerPrefs.GetString ("HighScore" + i + "name");
+			temp.score = PlayerPrefs.GetInt ("SwiperHighscore" + i + "score");
+			temp.name = PlayerPrefs.GetString ("SwiperHighscore" + i + "name");
 			HighScores.Add (temp);
 			i++;
 		}
@@ -114,10 +114,10 @@ public class HighScoreManager : MonoBehaviour{
 		List<Scores> HighScores = new List<Scores> ();
 		
 		int i = 1;
-		while (i<=LeaderboardLength && PlayerPrefs.HasKey("HighScore"+i+"score")) {
+		while (i<=LeaderboardLength && PlayerPrefs.HasKey("SwiperHighscore"+i+"score")) {
 			Scores temp = new Scores ();
-			temp.score = PlayerPrefs.GetInt ("HighScore" + i + "score");
-			temp.name = PlayerPrefs.GetString ("HighScore" + i + "name");
+			temp.score = PlayerPrefs.GetInt ("SwiperHighscore" + i + "score");
+			temp.name = PlayerPrefs.GetString ("SwiperHighscore" + i + "name");
 			HighScores.Add (temp);
 			i++;
 		}
@@ -132,8 +132,8 @@ public class HighScoreManager : MonoBehaviour{
 		
 		for(int i=1;i<=HighScores.Count;i++)
 		{
-			PlayerPrefs.DeleteKey("HighScore" + i + "name");
-			PlayerPrefs.DeleteKey("HighScore" + i + "score");
+			PlayerPrefs.DeleteKey("SwiperHighscore" + i + "name");
+			PlayerPrefs.DeleteKey("SwiperHighscore" + i + "score");
 		}
 	}
 	
