@@ -14,6 +14,12 @@ public class GroundCollisionEndless : MonoBehaviour {
 		}
 	}
 	
+	void OnTriggerStay2D (Collider2D other) {
+		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
+			player.isGrounded = true;
+		}
+	}
+	
 	void OnTriggerExit2D (Collider2D other) {
 		if(other.transform.gameObject.tag == "Floor" || other.transform.gameObject.tag == "Ground" || other.transform.gameObject.tag == "Platform") {
 			player.isGrounded = false;
