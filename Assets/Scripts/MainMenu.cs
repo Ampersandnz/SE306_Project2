@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour {
 	public GUISkin skin;
 	public string musicSymbol;
 	public string disclaimer;
+	public Texture2D lockTexture;
 
 	// Loading sound player
 	void Start(){
@@ -41,8 +42,16 @@ public class MainMenu : MonoBehaviour {
 
 		// Button to go to endless runner mode menu
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/12*5+Screen.height/20*3, Screen.width/3, Screen.height/20*3), "Endless mode", textStyleButton)) {
-			Application.LoadLevel("EndlessRunnerMode");
-			soundPlayer.PlaySoundEffect ("menu");
+			// Enable button only if two or three stars achieved in all levels
+			if ((PlayerPrefs.GetInt("SwiperStarsL1") > 1) && (PlayerPrefs.GetInt("SwiperStarsL2") > 1) && (PlayerPrefs.GetInt("SwiperStarsL3") > 1)) {
+				Application.LoadLevel("EndlessRunnerMode");
+				soundPlayer.PlaySoundEffect ("menu");
+			}
+		}
+
+		// Display lock if not enough stars achieved in story mode levels
+		if ((PlayerPrefs.GetInt ("SwiperStarsL1") + PlayerPrefs.GetInt ("SwiperStarsL2") + PlayerPrefs.GetInt ("SwiperStarsL3")) < 7) {
+			GUI.Label (new Rect (Screen.width/2+ Screen.width/11, Screen.height/12*5+Screen.height/20*3, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
 		}
 
 		// Button to see credits
