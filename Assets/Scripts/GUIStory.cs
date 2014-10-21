@@ -39,6 +39,7 @@ public class GUIStory : MonoBehaviour {
 	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
 	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
 	private Texture2D starTexture; // stores star texture to display
+
 	private bool enoughStars = false;
 
 	private PauseMenu pauseMenu; 	// Initialising reference to pause menu

@@ -18,6 +18,7 @@ public class StoryLevelSelect : MonoBehaviour {
 
 	public static int currentLevel;
 
+
 	// Load sound player
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
@@ -42,26 +43,33 @@ public class StoryLevelSelect : MonoBehaviour {
 		}
 
 		// Display stars for level 1
-		if (PlayerPrefs.GetInt ("SwiperStarsL1") == 1) {
-			starL1Texture = oneStarTexture;
-		} else if (PlayerPrefs.GetInt ("SwiperStarsL1") == 2) {
-			starL1Texture = twoStarsTexture;
-		} else if (PlayerPrefs.GetInt ("SwiperStarsL1") == 3) {
-			starL1Texture = threeStarsTexture;
+		if (PlayerPrefs.GetInt ("SwiperStarsL1") != 0) {
+			if (PlayerPrefs.GetInt ("SwiperStarsL1") == 1) {
+				starL1Texture = oneStarTexture;
+			} else if (PlayerPrefs.GetInt ("SwiperStarsL1") == 2) {
+				starL1Texture = twoStarsTexture;
+			} else if (PlayerPrefs.GetInt ("SwiperStarsL1") == 3) {
+				starL1Texture = threeStarsTexture;
+			}
+			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7, Screen.width / 3, Screen.height / 20 * 2), starL1Texture);
 		}
-		GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7, Screen.width / 3, Screen.height / 20 * 2), starL1Texture);
-				
+
 		// Button for level 2
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10, Screen.width/3, Screen.height/20*3), "Level 2", textStyleButton)) {
-			currentLevel = 2;
-			Application.LoadLevel("StoryLevel2");
-			soundPlayer.PlaySoundEffect ("menu");
+			if (PlayerPrefs.GetInt ("SwiperStarsL1") > 1) { // Enable button if enough stars
+				currentLevel = 2;
+				Application.LoadLevel("StoryLevel2");
+				soundPlayer.PlaySoundEffect ("menu");
+			}
 		}
-	
-		// Display lock or stars for level 2
-		if (PlayerPrefs.GetInt ("SwiperStarsL2") == 0) { // Display lock
-			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10, Screen.width / 3, Screen.height / 20 * 2), lockTexture);
-		} else { // Display stars
+
+		// Display lock on level 2 if not enough stars on level 1
+		if (PlayerPrefs.GetInt ("SwiperStarsL1") < 2) {
+			GUI.Label (new Rect (Screen.width / 2 - Screen.width / 6, Screen.height / 20 * 3 + Screen.height / 10, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
+		}
+		
+		 // Display stars for level 2
+		if (PlayerPrefs.GetInt ("SwiperStarsL2") != 0) {
 			if (PlayerPrefs.GetInt ("SwiperStarsL2") == 1) {
 				starL2Texture = oneStarTexture;
 			} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 2) {
@@ -69,25 +77,34 @@ public class StoryLevelSelect : MonoBehaviour {
 			} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 3) {
 				starL2Texture = threeStarsTexture;
 			}
+			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10, Screen.width / 3, Screen.height / 20 * 2), starL2Texture);
 		}
-		GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10, Screen.width / 3, Screen.height / 20 * 2), starL2Texture);
 
 		// Button for level 3
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10*2, Screen.width/3, Screen.height/20*3), "Level 3", textStyleButton)) {
-			currentLevel = 3;
-			Application.LoadLevel("StoryLevel3");
-			soundPlayer.PlaySoundEffect ("menu");
+			if (PlayerPrefs.GetInt ("SwiperStarsL2") > 1) { // Enable button if enough stars
+				currentLevel = 3;
+				Application.LoadLevel("StoryLevel3");
+				soundPlayer.PlaySoundEffect ("menu");
+			}
 		}
 
-		// Display stars for level 3
-		if (PlayerPrefs.GetInt ("SwiperStarsL3") == 1) {
-			starL3Texture = oneStarTexture;
-		} else if (PlayerPrefs.GetInt ("SwiperStarsL3") == 2) {
-			starL3Texture = twoStarsTexture;
-		} else if (PlayerPrefs.GetInt ("SwiperStarsL3") == 3) {
-			starL3Texture = threeStarsTexture;
+		// Display lock on level 3 if not enough stars on level 2
+		if (PlayerPrefs.GetInt ("SwiperStarsL2") < 2) {
+			GUI.Label (new Rect (Screen.width / 2 - Screen.width / 6, Screen.height / 20 * 3 + Screen.height / 10 * 2, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
 		}
-		GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10*2, Screen.width / 3, Screen.height / 20 * 2), starL3Texture);
+		
+		// Display stars for level 3
+		if (PlayerPrefs.GetInt ("SwiperStarsL3") != 0) {
+			if (PlayerPrefs.GetInt ("SwiperStarsL3") == 1) {
+				starL3Texture = oneStarTexture;
+			} else if (PlayerPrefs.GetInt ("SwiperStarsL3") == 2) {
+				starL3Texture = twoStarsTexture;
+			} else if (PlayerPrefs.GetInt ("SwiperStarsL3") == 3) {
+				starL3Texture = threeStarsTexture;
+			}
+			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10*2, Screen.width / 3, Screen.height / 20 * 2), starL3Texture);
+		}
 
 		// Button to go back to main menu
 		if((GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10*3, Screen.width/3, Screen.height/20*3), "Back", textStyleButton)) || (Input.GetKeyDown(KeyCode.Escape))) {
