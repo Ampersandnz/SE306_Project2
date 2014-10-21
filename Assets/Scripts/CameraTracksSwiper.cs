@@ -8,6 +8,7 @@ public class CameraTracksSwiper : MonoBehaviour {
 	float offset1;
 	float offset2;
 	string levelName;
+	float extraXOffset;
 	PlayerStory player_GO;
 	
 	// Use this for initialization
@@ -22,17 +23,22 @@ public class CameraTracksSwiper : MonoBehaviour {
 		player = player_GO.transform;
 		offset1 = transform.position.x - player.position.x;
 		offset1 = transform.position.y - player.position.y;
-
+		extraXOffset = 0;
 		levelName = Application.loadedLevelName;
 		if (levelName == "StoryLevel1") {
 			threshold = 2.9f;
 			offset2 = 0;
+			extraXOffset = -5;
 		} else if (levelName == "StoryLevel2") {
 			threshold = -1.6f;
 			offset2 = 3;
+			extraXOffset = -7;
+
 		} else if (levelName == "StoryLevel3") {
 			threshold = -8.5f;
 			offset2 = 3;
+			extraXOffset = -5;
+
 		}
 	}
 	
@@ -40,7 +46,7 @@ public class CameraTracksSwiper : MonoBehaviour {
 	void Update () {
 		if (player != null && !player_GO.playerDead) {
 			Vector3 pos = transform.position;
-			pos.x = player.position.x + offset1 + 9;
+			pos.x = player.position.x + offset1 + 9 + extraXOffset;
 			if(player.position.y > threshold) {
 				pos.y = player.position.y + offset1 - offset2;
 			}
