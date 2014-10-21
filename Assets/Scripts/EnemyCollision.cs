@@ -19,9 +19,7 @@ public class EnemyCollision : MonoBehaviour {
 			// the highest position of Ant's collider
 			var colliderAnt = ant.GetComponent<BoxCollider2D>();
 			var colliderA = colliderAnt.collider2D;
-			
-			print("S"+colliderS.bounds.min.y);
-			print ("A"+colliderA.bounds.max.y);
+
 			if (colliderS.bounds.min.y + 0.2f >= colliderA.bounds.max.y) {
 				ant.Die ();
 				playerStory.rigidbody2D.AddForce(playerStory.jumpForce);

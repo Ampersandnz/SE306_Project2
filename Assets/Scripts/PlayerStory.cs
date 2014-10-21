@@ -172,10 +172,10 @@ public class PlayerStory : MonoBehaviour {
 				TakeDamage();
 			}
 
-			Banana banana = other.gameObject.GetComponent<Banana>();
+			/*Banana banana = other.gameObject.GetComponent<Banana>();
 			if (banana != null) {
 				TakeDamage();
-			}
+			}*/
 
 		}
 	}
