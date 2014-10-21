@@ -7,6 +7,7 @@ public class NewHighscore : MonoBehaviour {
 	private SoundPlayer soundPlayer;
 	public GUIStyle textStyleTitle;
 	public GUIStyle textStyleButton;
+	public GUIStyle textStyleInput;
 	public GUISkin skin;
 	public string musicSymbol;
 	
@@ -21,6 +22,7 @@ public class NewHighscore : MonoBehaviour {
 		DontDestroyOnLoad (soundPlayer);
 		
 		textStyleTitle.fontSize = Screen.height / 50 * 4;
+		textStyleInput.fontSize = Screen.height / 50 * 4;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
 		
 		//Store the best highscore as the expected new highscore name
@@ -69,11 +71,11 @@ public class NewHighscore : MonoBehaviour {
 		
 		
 		//Get the User to enter their name
-		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), "Name:", textStyleButton);
-		name = GUI.TextField(new Rect (Screen.width / 2 + Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), name, 25, textStyleButton);
+		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), "Name:", textStyleTitle);
+		name = GUI.TextField(new Rect (Screen.width / 2 + Screen.width/50, Screen.height/3, Screen.width/3, Screen.height/20*3), name, 25, textStyleInput);
 		
-		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Score:", textStyleButton);
-		GUI.Label (new Rect (Screen.width / 2 + Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), score , textStyleButton);
+		GUI.Label (new Rect (Screen.width / 2 - Screen.width/4 - Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), "Score:", textStyleTitle);
+		GUI.Label (new Rect (Screen.width / 2 + Screen.width/50, Screen.height/20*6 + Screen.height/5 , Screen.width/3, Screen.height/20*3), score , textStyleTitle);
 		
 	}
 	
