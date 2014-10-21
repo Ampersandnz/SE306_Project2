@@ -43,7 +43,7 @@ public class MainMenu : MonoBehaviour {
 		// Button to go to endless runner mode menu
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/12*5+Screen.height/20*3, Screen.width/3, Screen.height/20*3), "Endless mode", textStyleButton)) {
 			// Enable button only if two or three stars achieved in all levels
-			if ((PlayerPrefs.GetInt("SwiperStarsL1") > 1) && (PlayerPrefs.GetInt("SwiperStarsL2") > 1) && (PlayerPrefs.GetInt("SwiperStarsL3") > 1)) {
+			if ((PlayerPrefs.GetInt ("SwiperStarsL1") + PlayerPrefs.GetInt ("SwiperStarsL2") + PlayerPrefs.GetInt ("SwiperStarsL3")) > 6) {
 				Application.LoadLevel("EndlessRunnerMode");
 				soundPlayer.PlaySoundEffect ("menu");
 			}
