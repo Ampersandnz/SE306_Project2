@@ -39,19 +39,11 @@ public class GUIStory : MonoBehaviour {
 	private List<int> level2Stars = new List<int>(new int[] {20, 30}); 	// Coin values for two and three stars in Level 2
 	private List<int> level3Stars = new List<int>(new int[] {25, 44}); 	// Coin values for two and three stars in Level 3
 	private Texture2D starTexture; // stores star texture to display
-<<<<<<< HEAD
 	
 	private bool enoughStars = false;
 
 	private PauseMenu pauseMenu; // Initialising reference to pause menu
 	private PlayerStory player; // Initialising reference to player
-=======
-
-	private bool enoughStars = false;
-
-	private PauseMenu pauseMenu; 	// Initialising reference to pause menu
-	private PlayerStory player; 	// Initialising reference to player
->>>>>>> feature/stars
 	private string levelName; 		// Name of current level
 	private string nextButton; 		// Text for next button
 
@@ -65,10 +57,7 @@ public class GUIStory : MonoBehaviour {
 		DontDestroyOnLoad (soundPlayer);
 
 		textStyleButton.fontSize = Screen.height / 50 * 3;
-<<<<<<< HEAD
 
-=======
->>>>>>> feature/stars
 		levelName = Application.loadedLevelName;
 	}
 
@@ -145,7 +134,7 @@ public class GUIStory : MonoBehaviour {
 			GUI.BeginGroup (new Rect (Screen.width/2-boxWidth/2, Screen.height / 2 - boxHeight/2, boxWidth, boxHeight),boxStyle);
 			
 			GUI.Label (new Rect (0,-32,boxWidth, boxHeight), endOfLevelTexture);
-
+			
 			// Check what level we are in and display stars based on how many coins collected
 			if (levelName == "StoryLevel1") {
 				if (player.coins >= level1Stars[1]) { // three stars
@@ -184,13 +173,6 @@ public class GUIStory : MonoBehaviour {
 			
 			GUI.Label (new Rect(boxWidth/3, boxHeight/3, boxWidth/10*4, boxHeight/10*4), starTexture); // display stars
 
-<<<<<<< HEAD
-=======
-			// Display message if only one star achieved and maximum stars stored is also one 
-			if (!enoughStars && PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) < 2) {
-				GUI.Label(new Rect(boxWidth/3, boxHeight/10*7, boxWidth, boxHeight/10*4), "Need more coins!", messageStyle);
-			}
->>>>>>> feature/stars
 			
 			// Display message if only one star achieved and maximum stars stored is also one 
 			if (!enoughStars && PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) < 2) {
@@ -228,11 +210,7 @@ public class GUIStory : MonoBehaviour {
 			} else { // Button text for next level
 				nextButton = "Next Level";
 			}
-<<<<<<< HEAD
 			
-=======
-
->>>>>>> feature/stars
 			// Button to go to next level if two or three stars achieved
 			if (GUI.Button (new Rect (boxWidth/8*5, boxHeight - boxHeight/5, boxWidth/3, boxHeight/4), nextButton, textStyleButton)) {
 				if (enoughStars || PlayerPrefs.GetInt("SwiperStarsL" + StoryLevelSelect.currentLevel) > 1) {	
@@ -252,11 +230,7 @@ public class GUIStory : MonoBehaviour {
 					Time.timeScale = 1.0f;
 				}
 			}
-<<<<<<< HEAD
 			
-=======
-
->>>>>>> feature/stars
 			// Display padlock if not enough stars and stored stars for the level is 1
 			for(i = 1; i <= 3; i++){
 				if (levelName == "StoryLevel" + i) {
@@ -265,11 +239,7 @@ public class GUIStory : MonoBehaviour {
 					}
 				}
 			}
-<<<<<<< HEAD
 			
-=======
-		
->>>>>>> feature/stars
 			// Store stars for the level if greater than max stars ever achieved
 			for(i = 1; i <= 3; i++){
 				if (levelName == "StoryLevel" + i) {
@@ -282,11 +252,7 @@ public class GUIStory : MonoBehaviour {
 					}
 				}
 			}
-<<<<<<< HEAD
 			
-=======
-
->>>>>>> feature/stars
 			// End the group we started above. This is very important to remember!
 			GUI.EndGroup ();
 		}

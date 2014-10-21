@@ -48,11 +48,7 @@ public class MainMenu : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 			}
 		}
-<<<<<<< HEAD
 		
-=======
-
->>>>>>> feature/stars
 		// Display lock if not enough stars achieved in story mode levels
 		if ((PlayerPrefs.GetInt ("SwiperStarsL1") + PlayerPrefs.GetInt ("SwiperStarsL2") + PlayerPrefs.GetInt ("SwiperStarsL3")) < 7) {
 			GUI.Label (new Rect (Screen.width/2+ Screen.width/11, Screen.height/12*5+Screen.height/20*3, Screen.width / 3, Screen.height / 20 * 3), lockTexture);

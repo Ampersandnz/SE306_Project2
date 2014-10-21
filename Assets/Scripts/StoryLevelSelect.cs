@@ -18,7 +18,6 @@ public class StoryLevelSelect : MonoBehaviour {
 
 	public static int currentLevel;
 
-
 	// Load sound player
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
@@ -41,11 +40,7 @@ public class StoryLevelSelect : MonoBehaviour {
 			Application.LoadLevel("StoryLevel1");
 			soundPlayer.PlaySoundEffect ("menu");
 		}
-<<<<<<< HEAD
 		
-=======
-
->>>>>>> feature/stars
 		// Display stars for level 1
 		if (PlayerPrefs.GetInt ("SwiperStarsL1") != 0) {
 			if (PlayerPrefs.GetInt ("SwiperStarsL1") == 1) {
@@ -57,11 +52,7 @@ public class StoryLevelSelect : MonoBehaviour {
 			}
 			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7, Screen.width / 3, Screen.height / 20 * 2), starL1Texture);
 		}
-<<<<<<< HEAD
 		
-=======
-
->>>>>>> feature/stars
 		// Button for level 2
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/20*3 + Screen.height/10, Screen.width/3, Screen.height/20*3), "Level 2", textStyleButton)) {
 			if (PlayerPrefs.GetInt ("SwiperStarsL1") > 1) { // Enable button if enough stars
@@ -69,26 +60,6 @@ public class StoryLevelSelect : MonoBehaviour {
 				Application.LoadLevel("StoryLevel2");
 				soundPlayer.PlaySoundEffect ("menu");
 			}
-<<<<<<< HEAD
-=======
-		}
-
-		// Display lock on level 2 if not enough stars on level 1
-		if (PlayerPrefs.GetInt ("SwiperStarsL1") < 2) {
-			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 12, Screen.height / 20 * 3 + Screen.height / 10, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
-		}
-		
-		 // Display stars for level 2
-		if (PlayerPrefs.GetInt ("SwiperStarsL2") != 0) {
-			if (PlayerPrefs.GetInt ("SwiperStarsL2") == 1) {
-				starL2Texture = oneStarTexture;
-			} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 2) {
-				starL2Texture = twoStarsTexture;
-			} else if (PlayerPrefs.GetInt ("SwiperStarsL2") == 3) {
-				starL2Texture = threeStarsTexture;
-			}
-			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 20, Screen.height / 40 * 7 + Screen.height/10, Screen.width / 3, Screen.height / 20 * 2), starL2Texture);
->>>>>>> feature/stars
 		}
 		
 		// Display lock on level 2 if not enough stars on level 1
@@ -116,11 +87,7 @@ public class StoryLevelSelect : MonoBehaviour {
 				soundPlayer.PlaySoundEffect ("menu");
 			}
 		}
-<<<<<<< HEAD
 		
-=======
-
->>>>>>> feature/stars
 		// Display lock on level 3 if not enough stars on level 2
 		if (PlayerPrefs.GetInt ("SwiperStarsL2") < 2) {
 			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 12, Screen.height / 20 * 3 + Screen.height / 10 * 2, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
