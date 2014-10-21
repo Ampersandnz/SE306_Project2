@@ -30,7 +30,7 @@ public class EndlessCameraTracksSwiper : MonoBehaviour {
 	void Update () {
 		if (player != null && !player_GO.playerDead) {
 			Vector3 pos = transform.position;
-			pos.x = player.position.x + offset1 + 9;
+			pos.x = player.position.x + offset1 + 6;
 			if(player.position.y > threshold) {
 				pos.y = player.position.y + offset1 - offset2;
 			}
