@@ -41,11 +41,26 @@ public class SoundPlayer : MonoBehaviour {
 
 	// Loading everything.
 	void Awake () {
+
+
 		music = true;
 		sound = true;
 
 		LoadMusic ();
 		LoadSoundEffects ();
+
+		//Check if the music was toggled off last time the game was played
+		if (PlayerPrefs.HasKey ("SwiperMusic")) {
+			if(PlayerPrefs.GetInt("SwiperMusic")==0){
+				ToggleMusic("menu");
+			}
+		}
+		if (PlayerPrefs.HasKey ("SwiperSound")) {
+			if(PlayerPrefs.GetInt("SwiperSound")==0){
+				ToggleSound();
+			}
+		}
+
 	}
 
 
@@ -56,9 +71,10 @@ public class SoundPlayer : MonoBehaviour {
 			music = false;
 			storyMusicSound.Stop ();
 			menuMusicSound.Stop ();
+			PlayerPrefs.SetInt("SwiperMusic",0);
 		} else {
 			music = true;
-
+			PlayerPrefs.SetInt("SwiperMusic",1);
 			if(sceneType=="menu"){
 				PlayMenuMusic ();
 			}else if(sceneType=="story"){
@@ -71,8 +87,10 @@ public class SoundPlayer : MonoBehaviour {
 	public void ToggleSound (){
 		if (sound == true) {
 			sound = false;
+			PlayerPrefs.SetInt("SwiperSound",0);
 		} else {
 			sound = true;
+			PlayerPrefs.SetInt("SwiperSound",0);
 		}
 	}
 
