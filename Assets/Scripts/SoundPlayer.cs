@@ -90,7 +90,7 @@ public class SoundPlayer : MonoBehaviour {
 			PlayerPrefs.SetInt("SwiperSound",0);
 		} else {
 			sound = true;
-			PlayerPrefs.SetInt("SwiperSound",0);
+			PlayerPrefs.SetInt("SwiperSound",1);
 		}
 	}
 
