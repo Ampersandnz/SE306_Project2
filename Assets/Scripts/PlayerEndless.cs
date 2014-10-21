@@ -48,16 +48,17 @@ public class PlayerEndless : MonoBehaviour {
 		if (pauseMenu.isPaused == false) {
 
 			// Add the run force
-			rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
-			rigidbody2D.AddForce (runForce);
-			
+			if (isGrounded) {
+				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
+				rigidbody2D.AddForce (runForce);
+			}
+
 			// When up arrow key is pressed AND the character is grounded, apply force going up.
 			if ((Input.GetMouseButtonDown(0) || Input.GetKey ("up")) && isGrounded == true) {
 				soundPlayer.PlaySoundEffect ("bounce");
 				rigidbody2D.AddForce (jumpForce);
 			}
 
-			previousVelocity = rigidbody2D.velocity;
 		}
 	}
 	
