@@ -65,7 +65,7 @@ public class StoryLevelSelect : MonoBehaviour {
 
 		// Display lock on level 2 if not enough stars on level 1
 		if (PlayerPrefs.GetInt ("SwiperStarsL1") < 2) {
-			GUI.Label (new Rect (Screen.width / 2 - Screen.width / 6, Screen.height / 20 * 3 + Screen.height / 10, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
+			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 12, Screen.height / 20 * 3 + Screen.height / 10, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
 		}
 		
 		 // Display stars for level 2
@@ -91,7 +91,7 @@ public class StoryLevelSelect : MonoBehaviour {
 
 		// Display lock on level 3 if not enough stars on level 2
 		if (PlayerPrefs.GetInt ("SwiperStarsL2") < 2) {
-			GUI.Label (new Rect (Screen.width / 2 - Screen.width / 6, Screen.height / 20 * 3 + Screen.height / 10 * 2, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
+			GUI.Label (new Rect (Screen.width / 2 + Screen.width / 12, Screen.height / 20 * 3 + Screen.height / 10 * 2, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
 		}
 		
 		// Display stars for level 3
