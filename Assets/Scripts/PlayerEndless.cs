@@ -22,6 +22,9 @@ public class PlayerEndless : MonoBehaviour {
 	public bool levelFinished;
 	private PauseMenuEndless pauseMenu;
 
+	private bool hitPlatform;
+	private bool run;
+
 	public bool isGrounded = true; // Boolean to store whether player is grounded (i.e. on the ground or platform, as opposed to in mid air).
 		
 	// Animator when for Hero running animation.
@@ -34,11 +37,14 @@ public class PlayerEndless : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		
 		pauseMenu = FindObjectOfType(typeof(PauseMenuEndless)) as PauseMenuEndless;
-		
+		hitPlatform = false;
 		playerDead = false;
+		run = false;
 		levelFinished = false;
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
+		anim.SetFloat ("Speed", Mathf.Abs (5));
+		rigidbody2D.AddForce (jumpForce);
 	}
 	
 	// Update is called once per frame
@@ -49,6 +55,9 @@ public class PlayerEndless : MonoBehaviour {
 
 			// Add the run force
 			if (isGrounded) {
+				run = true;
+			}
+			if (run){
 				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
 				rigidbody2D.AddForce (runForce);
 			}
@@ -109,8 +118,17 @@ public class PlayerEndless : MonoBehaviour {
 				Die();
 			}
 		}
+
+		if ((other.transform.gameObject.tag == "Platform")||(other.transform.gameObject.tag =="Ground")) {
+			sideHit();
+		}
 	}
 	
+	public void sideHit(){
+		hitPlatform = true;
+		run = false;
+	}
+
 	// Function to kill swiper. Plays death sounds and animation.
 	public void Die() {
 		if (playerDead == false) {
