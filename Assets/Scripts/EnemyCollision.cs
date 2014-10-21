@@ -13,7 +13,7 @@ public class EnemyCollision : MonoBehaviour {
 		if (ant != null && ant.alive) {
 			
 			//the lowest position of swiper's collider box
-			var colliderSwiper = GetComponent<EdgeCollider2D>();
+			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
 			
 			// the highest position of Ant's collider
@@ -32,7 +32,7 @@ public class EnemyCollision : MonoBehaviour {
 		if (redAnt != null && redAnt.hitCount < 2) {
 			
 			//the lowest position of swiper's collider box
-			var colliderSwiper = GetComponent<EdgeCollider2D>();
+			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderS = colliderSwiper.collider2D;
 			
 			// the highest position of Ant's collider
@@ -51,7 +51,7 @@ public class EnemyCollision : MonoBehaviour {
 		if (spider != null && spider.alive) {
 
 			//the lowest position of swiper's collider box
-			var colliderSwiper = GetComponent<EdgeCollider2D>();
+			var colliderSwiper = GetComponent<BoxCollider2D>();
 			var colliderSw = colliderSwiper.collider2D;
 			
 			// the highest position of Spider's collider
