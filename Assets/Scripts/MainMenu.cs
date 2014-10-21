@@ -8,10 +8,12 @@ public class MainMenu : MonoBehaviour {
 	public Texture2D logo;
 	public GUIStyle textStyleButton;
 	public GUIStyle textStyleLabel;
+	public GUIStyle messageStyle;
 	public GUISkin skin;
 	public string musicSymbol;
 	public string disclaimer;
 	public Texture2D lockTexture;
+	private bool showEndlessMsg;
 
 	private bool hasMusic = SoundPlayer.music;
 	private bool hasSound = SoundPlayer.sound;
@@ -25,6 +27,7 @@ public class MainMenu : MonoBehaviour {
 		textStyleLabel.fontSize = Screen.height / 50;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
 		disclaimer = "DISCLAIMER: The makers of this game do not own any intellectual property associated with the Dora the Explorer franchise, which belongs to Nickelodeon, and whom we have no affiliation with. This is purely a fan-made project for entertainment purposes only. This game does not seek financial gain, does not aim to be distributed, does not attempt to substitute for the original work, and contains only a limited portion of the Dora the Explorer TV show.";
+		showEndlessMsg = false;
 	}
 
 	// Displaying everything
@@ -42,6 +45,7 @@ public class MainMenu : MonoBehaviour {
 		if(GUI.Button(new Rect(Screen.width/2-Screen.width/6, Screen.height/12*5+Screen.height/20, Screen.width/3, Screen.height/20*3), "Story mode", textStyleButton)) {
 			Application.LoadLevel("StoryLevelSelect");
 			soundPlayer.PlaySoundEffect ("menu");
+			showEndlessMsg = false;
 		}
 
 		// Button to go to endless runner mode menu
@@ -50,9 +54,16 @@ public class MainMenu : MonoBehaviour {
 			if ((PlayerPrefs.GetInt ("SwiperStarsL1") + PlayerPrefs.GetInt ("SwiperStarsL2") + PlayerPrefs.GetInt ("SwiperStarsL3")) > 6) {
 				Application.LoadLevel("EndlessRunnerMode");
 				soundPlayer.PlaySoundEffect ("menu");
+			} else {
+				showEndlessMsg = true;
 			}
 		}
-		
+
+		// Show message to user if they click on endless mode when it is locked
+		if (showEndlessMsg) {
+			GUI.Label (new Rect (Screen.width/2+ Screen.width/6, Screen.height/12*5+Screen.height/20*3 + Screen.height/20, Screen.width / 3, Screen.height / 20 * 3), "You need 7 stars in Story Mode", messageStyle);
+		}
+
 		// Display lock if not enough stars achieved in story mode levels
 		if ((PlayerPrefs.GetInt ("SwiperStarsL1") + PlayerPrefs.GetInt ("SwiperStarsL2") + PlayerPrefs.GetInt ("SwiperStarsL3")) < 7) {
 			GUI.Label (new Rect (Screen.width/2+ Screen.width/11, Screen.height/12*5+Screen.height/20*3, Screen.width / 3, Screen.height / 20 * 3), lockTexture);
