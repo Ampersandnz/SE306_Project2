@@ -10,14 +10,23 @@ Pull this project into a new folder.
 Open the Unity scene called "Start". Unity should automatically deal with any user-specific binaries.
 Run the project.
 
-Only the first story level is available. To play, use the left and right arrow keys to move horizontally, and left click to jump.
+Select an unlocked level (one without the lock on main screen)
+To play, use the left and right arrow keys to move horizontally, and left click or up arrow key to jump. 
+If the coins collected are sufficient to pass the level, the next level will be unlocked. 2 stars are required to unlock a level.
+All three levels need to be unlocked in order to unlock endless runner level.
+FOR MARKING PURPOSES: In the main menu, select credits and then Cheat. Enter "jellybeans" in the text field and click on cheat to unlock all levels.
+
 
 HOW TO PLAY (ANDROID)
 =====================
 
 Pull the APK file from this repository. Transfer to phone and install.
 
-Only the first story level is available. To play, face the phone's screen towards you and tilt left and right (like a steering wheel) to move horizontally, and tap the screen to jump.
+Select an unlocked level (one without the lock on main screen)
+To play, face the phone's screen towards you and tilt left and right (like a steering wheel) to move horizontally, and tap the screen to jump.
+If the coins collected are sufficient to pass the level, the next level will be unlocked. 2 stars are required to unlock a level.
+All three levels need to be unlocked in order to unlock endless runner level.
+FOR MARKING PURPOSES: In the main menu, select credits and then Cheat. Enter "jellybeans" in the text field and click on cheat to unlock all levels.
 
 DOCUMENTATION
 =============
