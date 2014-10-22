@@ -32,3 +32,8 @@ DOCUMENTATION
 =============
 
 Everything is in the Google Drive. The mapping between group member names and Github usernames is located in the Google Doc /The Jellybeans/00a Admin/00 Members and Roles.
+
+MONETISATION REPORT
+===================
+
+Located in the Google Doc /The Jellybeans/04 Final/Monetisation Report.
