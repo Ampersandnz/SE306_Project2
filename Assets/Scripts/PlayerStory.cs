@@ -157,25 +157,22 @@ public class PlayerStory : MonoBehaviour {
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {		
 
-			Ant ant = other.gameObject.GetComponent<Ant>();
-			if (ant != null && ant.alive) {
-				TakeDamage();
+			if (collider2D.bounds.min.y <= other.collider.bounds.max.y) {
+				Ant ant = other.gameObject.GetComponent<Ant>();
+				if (ant != null && ant.alive) {
+					TakeDamage();
+				}
+				
+				RedAnt redAnt = other.gameObject.GetComponent<RedAnt>();
+				if (redAnt != null && redAnt.hitCount < 2) {
+					TakeDamage();
+				}
+				
+				Spider spider = other.gameObject.GetComponent<Spider>();
+				if (spider != null && spider.alive) {
+					TakeDamage();
+				}
 			}
-			
-			RedAnt redAnt = other.gameObject.GetComponent<RedAnt>();
-			if (redAnt != null && redAnt.hitCount < 2) {
-				TakeDamage();
-			}
-			
-			Spider spider = other.gameObject.GetComponent<Spider>();
-			if (spider != null && spider.alive) {
-				TakeDamage();
-			}
-
-			/*Banana banana = other.gameObject.GetComponent<Banana>();
-			if (banana != null) {
-				TakeDamage();
-			}*/
 
 		}
 	}
