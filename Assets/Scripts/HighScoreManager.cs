@@ -16,7 +16,7 @@ using System.Collections.Generic;
 public class HighScoreManager : MonoBehaviour{
 
 	private static HighScoreManager m_instance;
-	private const int LeaderboardLength = 10;
+	private const int LeaderboardLength = 5;
 	
 	public static HighScoreManager _instance {
 		get {
