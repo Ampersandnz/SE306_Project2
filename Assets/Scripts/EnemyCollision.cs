@@ -22,7 +22,7 @@ public class EnemyCollision : MonoBehaviour {
 
 			if (colliderS.bounds.min.y + 0.2f >= colliderA.bounds.max.y) {
 				ant.Die ();
-				playerStory.rigidbody2D.AddForce(playerStory.jumpForce);
+				playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
 				Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
 			}
 
@@ -42,7 +42,11 @@ public class EnemyCollision : MonoBehaviour {
 			if (colliderS.bounds.min.y + 0.2f >= colliderRA.bounds.max.y) {
 				redAnt.TakeDamage();
 				playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
-				Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
+
+				if (redAnt.hitCount > 1 ){
+					Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
+					Physics2D.IgnoreCollision(other, collider2D, true);
+				}
 			}
 
 		}

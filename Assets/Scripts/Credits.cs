@@ -20,7 +20,7 @@ public class Credits : MonoBehaviour {
 	void Start(){
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
-		credits = "Programmed by:\n\n- Tasneef Hussain\n- Nikita Kabra\n- Richa Patel\n- Brian Cham\n- Shivarni Bhavan\n Rione Naidoo\n- Luman Wang\n- Michael Lo\n- Sufiyaan Mitha";
+		credits = "Programmed by:\n\nTasneef Hussain\nNikita Kabra\nRicha Patel\nBrian Cham\nShivarni Bhavan\n Rione Naidoo\nLuman Wang\nMichael Lo\nSufiyaan Mitha";
 		credits += "\n\nMusic used:\n\n- Menu song - Swiper no Swiping by Krazy Obilla\n- Background song - Dora the Explorer theme";
 		credits += "\n\nSound effects:\n\n- Applause by Joe Deshon\n- Bounce by Denis Chapon\n- Cash register by Kidd Park\n- Crunch by Ram Stush\n- Health by Iwan Gabovitch\n- Hit by _jack\n- Menu select by Nemad Simic\n- 'Oh man' from Dora the Explorer";
 		credits += "\n\nWe are not affiliated with Nickelodeon. This is purely a fanmade project. We do not claim ownership of any intellectual property associated with Dora the Explorer.";
