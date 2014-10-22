@@ -71,12 +71,12 @@ public class Cheat : MonoBehaviour {
 		
 		// Button to toggle music
 		if (hasMusic == true) {
-			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), music, GUIStyle.none)) {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), music, textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				hasMusic = soundPlayer.ToggleMusic ("menu");
 			}
 		} else {
-			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), noMusic, GUIStyle.none)) {
+			if (GUI.Button (new Rect (Screen.width - Screen.width / 27 * 5, Screen.height / 20 , Screen.width / 25, Screen.height / 20 * 3), noMusic, textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				hasMusic = soundPlayer.ToggleMusic ("menu");
 			}
@@ -84,12 +84,12 @@ public class Cheat : MonoBehaviour {
 		
 		
 		if (hasSound == true) {
-			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), sound, GUIStyle.none)){
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), sound, textStyleButton)){
 				soundPlayer.PlaySoundEffect ("menu");
 				hasSound = soundPlayer.ToggleSound();
 			}
 		} else {
-			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), noSound, GUIStyle.none)) {
+			if(GUI.Button(new Rect(Screen.width-Screen.width/60*7, Screen.height/20, Screen.width / 25, Screen.height / 20 * 3), noSound, textStyleButton)) {
 				soundPlayer.PlaySoundEffect ("menu");
 				hasSound = soundPlayer.ToggleSound();
 			}
