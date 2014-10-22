@@ -36,6 +36,15 @@ public class Boots : MonoBehaviour{
 
 	void StartThrowingBananas(){
 		InvokeRepeating ("ThrowBanana", 1f, 2f); // Every 2 seconds, create and throw a banana.
+		InvokeRepeating ("ThrowBanana", 1.05f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.1f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.15f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.2f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.25f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.3f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.35f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.4f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.45f, 2f);
 		startedThrowing = true;
 	}
 
