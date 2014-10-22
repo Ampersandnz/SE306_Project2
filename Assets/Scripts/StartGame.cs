@@ -17,6 +17,18 @@ public class StartGame : MonoBehaviour {
 
 		// Go to main menu.
 		Application.LoadLevel("MainMenu");
+		
+		// Unlock all the levels if the user paid
+		if (PlayerPrefs.HasKey ("SwiperPaidUnlockAllLevels")) {
+		//14090607 is the code associated to unlock all levels
+			if(PlayerPrefs.GetInt("SwiperPaidUnlockAllLevels")==14090607){
+				PlayerPrefs.SetInt("SwiperStarsL1",3);
+				PlayerPrefs.SetInt("SwiperStarsL2",3);
+				PlayerPrefs.SetInt("SwiperStarsL3",3);
+				//Endless Runner will unlock since there are more than 7 stars
+			}
+		}
+
 	}
 
 	// Display loading message.
