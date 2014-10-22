@@ -40,11 +40,12 @@ public class Boots : MonoBehaviour{
 		InvokeRepeating ("ThrowBanana", 1.1f, 2f);
 		InvokeRepeating ("ThrowBanana", 1.15f, 2f);
 		InvokeRepeating ("ThrowBanana", 1.2f, 2f);
+		/*
 		InvokeRepeating ("ThrowBanana", 1.25f, 2f);
 		InvokeRepeating ("ThrowBanana", 1.3f, 2f);
 		InvokeRepeating ("ThrowBanana", 1.35f, 2f);
 		InvokeRepeating ("ThrowBanana", 1.4f, 2f);
-		InvokeRepeating ("ThrowBanana", 1.45f, 2f);
+		InvokeRepeating ("ThrowBanana", 1.45f, 2f);*/
 		startedThrowing = true;
 	}
 
