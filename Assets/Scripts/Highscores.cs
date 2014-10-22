@@ -82,7 +82,7 @@ public class Highscores : MonoBehaviour {
 		//Get the highscores
 		highscore = HighScoreManager._instance.GetHighScore();
 
-		GUILayout.Space(60);
+		GUILayout.Space(100);
 
 		//Set the title for the name and score
 		GUILayout.BeginHorizontal();
@@ -90,7 +90,7 @@ public class Highscores : MonoBehaviour {
 		GUILayout.Label("Scores",textStyleTitle,GUILayout.Width(Screen.width/2));
 		GUILayout.EndHorizontal();
 		
-		GUILayout.Space(25);
+		GUILayout.Space(50);
 		//Go through each high score and print it to the screen
 		textStyleTitle.fontSize = Screen.height / 50 * 3;
 		foreach(Scores _score in highscore)
@@ -99,6 +99,7 @@ public class Highscores : MonoBehaviour {
 			GUILayout.Label(_score.name,textStyleTitle,GUILayout.Width(Screen.width/2));
 			GUILayout.Label(""+_score.score,textStyleTitle,GUILayout.Width(Screen.width/2));
 			GUILayout.EndHorizontal();
+			GUILayout.Space(20);
 
 		}
 	}
