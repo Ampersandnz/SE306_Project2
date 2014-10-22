@@ -26,6 +26,7 @@ public class MainMenu : MonoBehaviour {
 
 		textStyleLabel.fontSize = Screen.height / 50;
 		textStyleButton.fontSize = Screen.height / 50 * 3;
+		messageStyle.fontSize = Screen.height / 20;
 		disclaimer = "DISCLAIMER: The makers of this game do not own any intellectual property associated with the Dora the Explorer franchise, which belongs to Nickelodeon, and whom we have no affiliation with. This is purely a fan-made project for entertainment purposes only. This game does not seek financial gain, does not aim to be distributed, does not attempt to substitute for the original work, and contains only a limited portion of the Dora the Explorer TV show.";
 		showEndlessMsg = false;
 	}
@@ -61,7 +62,7 @@ public class MainMenu : MonoBehaviour {
 
 		// Show message to user if they click on endless mode when it is locked
 		if (showEndlessMsg) {
-			GUI.Label (new Rect (Screen.width/2+ Screen.width/6, Screen.height/12*5+Screen.height/20*3 + Screen.height/20, Screen.width / 3, Screen.height / 20 * 3), "You need 7 stars in Story Mode", messageStyle);
+			GUI.Label (new Rect (Screen.width/2+ Screen.width/6, Screen.height/12*5+Screen.height/20*3 + Screen.height/20, Screen.width / 3, Screen.height / 20 * 3), "You need 7 stars in \nStory Mode", messageStyle);
 		}
 
 		// Display lock if not enough stars achieved in story mode levels
