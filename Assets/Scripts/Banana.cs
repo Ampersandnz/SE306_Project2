@@ -18,7 +18,7 @@ public class Banana : MonoBehaviour{
 			sideForce = new Vector2(-250 + Random.value*500, 0);
 			rigidbody2D.AddForce(sideForce);
 		} else if(behaviour == "homing") {
-			sideForce = new Vector2(-difference*42, 0);
+			sideForce = new Vector2(-difference*120, -500);
 			rigidbody2D.AddForce(sideForce);
 		}
 
