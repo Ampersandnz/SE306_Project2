@@ -13,8 +13,8 @@ public class EnemyCollision : MonoBehaviour {
 		if (ant != null && ant.alive) {
 
 			ant.Die ();
-			playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
-			Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
+			playerStory.GetComponent<Rigidbody2D>().AddForce(playerStory.enemyBounce);
+			Physics2D.IgnoreCollision(other, playerStory.GetComponent<Collider2D>(), true);
 
 		}
 		
@@ -22,11 +22,11 @@ public class EnemyCollision : MonoBehaviour {
 		if (redAnt != null && redAnt.hitCount < 2) {
 
 			redAnt.TakeDamage();
-			playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
+			playerStory.GetComponent<Rigidbody2D>().AddForce(playerStory.enemyBounce);
 
 			if (redAnt.hitCount > 1 ){
-				Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
-				Physics2D.IgnoreCollision(other, collider2D, true);
+				Physics2D.IgnoreCollision(other, playerStory.GetComponent<Collider2D>(), true);
+				Physics2D.IgnoreCollision(other, GetComponent<Collider2D>(), true);
 			}
 
 		}
@@ -35,8 +35,8 @@ public class EnemyCollision : MonoBehaviour {
 		if (spider != null && spider.alive) {
 
 			spider.Die();
-			playerStory.rigidbody2D.AddForce(playerStory.enemyBounce);
-			Physics2D.IgnoreCollision(other, playerStory.collider2D, true);
+			playerStory.GetComponent<Rigidbody2D>().AddForce(playerStory.enemyBounce);
+			Physics2D.IgnoreCollision(other, playerStory.GetComponent<Collider2D>(), true);
 
 		}
 	}

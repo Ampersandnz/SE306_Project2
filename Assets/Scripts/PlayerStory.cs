@@ -49,48 +49,48 @@ public class PlayerStory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		previousVelocity = rigidbody2D.velocity;
+		previousVelocity = GetComponent<Rigidbody2D>().velocity;
 
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
 
 			// When left arrow key is held down, apply force going left.
 			if (Input.GetKey ("left")) {
-				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0f, previousVelocity.y);
 				Vector2 force;
 				if (isGrounded) {
 					force = (leftForce);
 				} else {
 					force = leftForce * 0.8f;
 				}
-				rigidbody2D.AddForce (force);
+				GetComponent<Rigidbody2D>().AddForce (force);
 				transform.localScale = new Vector2(-xDimension, yDimension); // Flip sprite horizontally
 			}
 
 			// When left or right arrow key is released and Swiper is grounded, stop horizontal movement.
 			if (Input.GetKeyUp ("left") || Input.GetKeyUp ("right")) {
 				if (isGrounded) {
-					rigidbody2D.velocity = Vector2.zero;
+					GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				}
 			}
 
 			// When right arrow key is held down, apply force going right.
 			if (Input.GetKey ("right")) {
-				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0f, previousVelocity.y);
 				Vector2 force;
 				if (isGrounded) {
 					force = (rightForce);
 				} else {
 					force = rightForce * 0.8f;
 				}
-				rigidbody2D.AddForce (force);
+				GetComponent<Rigidbody2D>().AddForce (force);
 				transform.localScale = new Vector2(xDimension, yDimension); // Flip sprite horizontally
 			}
 
 			// When up arrow key is pressed AND the character is grounded, apply force going up.
 			if ((Input.GetMouseButtonDown(0) || Input.GetKey ("up")) && isGrounded == true) {
 				soundPlayer.PlaySoundEffect ("bounce");
-				rigidbody2D.AddForce (jumpForce);
+				GetComponent<Rigidbody2D>().AddForce (jumpForce);
 			}
 		
 			var x_accel = (float)Input.acceleration.x;
@@ -121,7 +121,7 @@ public class PlayerStory : MonoBehaviour {
 				transform.localScale = new Vector2(xDimension , yDimension); // Make sprite face right
 			}
 
-			previousVelocity = rigidbody2D.velocity;
+			previousVelocity = GetComponent<Rigidbody2D>().velocity;
 		}
 	}
 
@@ -133,7 +133,7 @@ public class PlayerStory : MonoBehaviour {
 			coins++;
 			Destroy (other.gameObject);
 			soundPlayer.PlaySoundEffect("cash register");
-			rigidbody2D.velocity = previousVelocity;
+			GetComponent<Rigidbody2D>().velocity = previousVelocity;
 		}
 
 		// If collision is with a life object, increase the relevant count.
@@ -151,13 +151,13 @@ public class PlayerStory : MonoBehaviour {
 					}
 				}
 			}
-			rigidbody2D.velocity = previousVelocity;
+			GetComponent<Rigidbody2D>().velocity = previousVelocity;
 		}
 
 		// If collision is with an enemy object...
 		if (other.transform.gameObject.tag == "Enemy") {		
 
-			if (collider2D.bounds.min.y <= other.collider.bounds.max.y) {
+			if (GetComponent<Collider2D>().bounds.min.y <= other.collider.bounds.max.y) {
 				Ant ant = other.gameObject.GetComponent<Ant>();
 				if (ant != null && ant.alive) {
 					TakeDamage();
@@ -205,8 +205,8 @@ public class PlayerStory : MonoBehaviour {
 		if (playerDead == false) {
 
 			Handheld.Vibrate();
-			collider2D.enabled = false;
-			rigidbody2D.AddForce (deathForce);
+			GetComponent<Collider2D>().enabled = false;
+			GetComponent<Rigidbody2D>().AddForce (deathForce);
 			soundPlayer.Death();
 			playerDead = true;
 		}
@@ -214,23 +214,23 @@ public class PlayerStory : MonoBehaviour {
 
 	private IEnumerator becomeInvulnerable() {
 		invulnerable = true;
-		Color normal = renderer.material.color;
-		Color flash = renderer.material.color;
+		Color normal = GetComponent<Renderer>().material.color;
+		Color flash = GetComponent<Renderer>().material.color;
 		flash.a = 0;
 		
 		// Flash for 3 seconds
 		for (int i = 0; i < 11; i++) {
 			if (i % 2 == 0) {
 				// Make the sprite invisible
-				renderer.material.color = flash;
+				GetComponent<Renderer>().material.color = flash;
 			} else {
 				// Make it normal again
-				renderer.material.color = normal;
+				GetComponent<Renderer>().material.color = normal;
 			}
 			yield return new WaitForSeconds (0.3f);
 		}
 		
-		renderer.material.color = normal;
+		GetComponent<Renderer>().material.color = normal;
 		invulnerable = false;
 	}
 }

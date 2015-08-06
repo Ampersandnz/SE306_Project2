@@ -44,12 +44,12 @@ public class PlayerEndless : MonoBehaviour {
 		soundPlayer = FindObjectOfType(typeof(SoundPlayer)) as SoundPlayer;
 		DontDestroyOnLoad (soundPlayer);
 		anim.SetFloat ("Speed", Mathf.Abs (5));
-		rigidbody2D.AddForce (jumpForce);
+		GetComponent<Rigidbody2D>().AddForce (jumpForce);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		previousVelocity = rigidbody2D.velocity;
+		previousVelocity = GetComponent<Rigidbody2D>().velocity;
 		// If the game is not paused, then:
 		if (pauseMenu.isPaused == false) {
 
@@ -58,14 +58,14 @@ public class PlayerEndless : MonoBehaviour {
 				run = true;
 			}
 			if (run){
-				rigidbody2D.velocity = new Vector2(0f, previousVelocity.y);
-				rigidbody2D.AddForce (runForce);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0f, previousVelocity.y);
+				GetComponent<Rigidbody2D>().AddForce (runForce);
 			}
 
 			// When up arrow key is pressed AND the character is grounded, apply force going up.
 			if ((Input.GetMouseButtonDown(0) || Input.GetKey ("up")) && isGrounded == true) {
 				soundPlayer.PlaySoundEffect ("bounce");
-				rigidbody2D.AddForce (jumpForce);
+				GetComponent<Rigidbody2D>().AddForce (jumpForce);
 			}
 
 		}
@@ -79,7 +79,7 @@ public class PlayerEndless : MonoBehaviour {
 			coins++;
 			Destroy (other.gameObject);
 			soundPlayer.PlaySoundEffect("cash register");
-			rigidbody2D.velocity = previousVelocity;
+			GetComponent<Rigidbody2D>().velocity = previousVelocity;
 		}
 		
 		// If collision is with a life object, increase the relevant count.
@@ -97,7 +97,7 @@ public class PlayerEndless : MonoBehaviour {
 					}
 				}
 			}
-			rigidbody2D.velocity = previousVelocity;
+			GetComponent<Rigidbody2D>().velocity = previousVelocity;
 		}
 		
 		// If collision is with an enemy object...
@@ -132,8 +132,8 @@ public class PlayerEndless : MonoBehaviour {
 	// Function to kill swiper. Plays death sounds and animation.
 	public void Die() {
 		if (playerDead == false) {
-			collider2D.enabled = false;
-			rigidbody2D.AddForce (deathForce);
+			GetComponent<Collider2D>().enabled = false;
+			GetComponent<Rigidbody2D>().AddForce (deathForce);
 			soundPlayer.Death();
 			playerDead = true;
 		}

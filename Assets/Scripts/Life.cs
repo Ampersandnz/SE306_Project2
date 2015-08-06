@@ -14,12 +14,12 @@ public class Life : MonoBehaviour {
 	// Turns heart translucent and non-interactible.
 	public void MakeTransparent() {
 		anim.SetBool ("isOpaque", false);
-		collider2D.enabled = false;
+		GetComponent<Collider2D>().enabled = false;
 	}
 
 	// Turns heart opaque and interactible.
 	public void MakeOpaque() {
 		anim.SetBool ("isOpaque", true);
-		collider2D.enabled = true;
+		GetComponent<Collider2D>().enabled = true;
 	}
 }

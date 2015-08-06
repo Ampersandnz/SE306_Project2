@@ -16,16 +16,16 @@ public class Banana : MonoBehaviour{
 		// Customise behaviour based on the string.
 		if(behaviour == "random") {
 			sideForce = new Vector2(-250 + Random.value*500, 0);
-			rigidbody2D.AddForce(sideForce);
+			GetComponent<Rigidbody2D>().AddForce(sideForce);
 		} else if(behaviour == "homing") {
 			sideForce = new Vector2(-difference*120, -500);
-			rigidbody2D.AddForce(sideForce);
+			GetComponent<Rigidbody2D>().AddForce(sideForce);
 		}
 
 		// If no behaviour is chosen, the banana just drops straight down.
 
 		// Make the banana rotate
-		rigidbody2D.AddTorque (4f);
+		GetComponent<Rigidbody2D>().AddTorque (4f);
 	}
 
 	// If the banana hits something, destroy the banana.
